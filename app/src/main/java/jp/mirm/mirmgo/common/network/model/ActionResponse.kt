@@ -9,7 +9,7 @@ data class ActionResponse(
     companion object {
         const val ACTION_START = "start"
         const val ACTION_STOP = "stop"
-        const val ACTION_REATART = "restart"
+        const val ACTION_RESTART = "restart"
         const val ACTION_FORCE_STOP = "forcestop"
         const val ACTION_DELETE = "delete"
     }

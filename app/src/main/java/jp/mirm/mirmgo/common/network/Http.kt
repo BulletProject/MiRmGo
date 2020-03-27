@@ -9,7 +9,7 @@ import java.net.CookieManager
 import java.net.CookiePolicy
 import java.net.HttpCookie
 
-class Http {
+object Http {
 
     private val client: OkHttpClient
     private val headers: Headers
