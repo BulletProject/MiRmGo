@@ -10,9 +10,10 @@ import org.junit.Assert.*
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class ExampleUnitTest {
+class HttpTest {
     @Test
-        fun loginTest() {
-        assertEquals(true, MiRmAPI.login("mirmtest", "tsubaki394"))
+    fun loginTest() {
+        assertTrue("Logged In", MiRmAPI.login("mirmtest", "tsubaki394"))
+        assertEquals(MiRmAPI.getServerData().id, "mirmtest")
     }
 }

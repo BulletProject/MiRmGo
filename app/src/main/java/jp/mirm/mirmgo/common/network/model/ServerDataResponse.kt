@@ -13,4 +13,9 @@ data class ServerDataResponse(
         const val TYPE_BDS = "beof"
         const val TYPE_CUBERITE = "cuberite"
     }
+
+    override fun toString(): String {
+        return "ServerDataResponse(id='$id', ip='$ip', port=$port, time=$time, type='$type', serverStatus=$serverStatus)"
+    }
+
 }
