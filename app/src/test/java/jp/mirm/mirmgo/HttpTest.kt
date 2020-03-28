@@ -35,6 +35,7 @@ class HttpTest {
     }
 
     @Test
+
     fun logoutTest() {
         assertTrue("OK: Login", MiRmAPI.login("mirmtest", "tsubaki394"))
         assertTrue("OK: Logout", MiRmAPI.logout())

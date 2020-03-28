@@ -16,7 +16,7 @@ object MiRmAPI {
     var loggedIn = false
 
     fun login(serverId: String, password: String): Boolean {
-        val response =  Http.post_X_WWW_FORM_URL_ENCODED(URLHolder.URL_AUTHENTICATE, mapOf(
+        val response =  Http.postXWwwFormUrlEncoded(URLHolder.URL_AUTHENTICATE, mapOf(
             "serverId" to URLEncoder.encode(serverId),
             "password" to URLEncoder.encode(password),
             "_csrf" to getCsrf()
@@ -33,13 +33,13 @@ object MiRmAPI {
     }
 
     fun sendCommand(command: String): Boolean {
-        val json = Http.post_X_WWW_FORM_URL_ENCODED(URLHolder.URL_SEND_COMMAND, mapOf("command" to command)) ?: throw MissingRequestException()
+        val json = Http.postXWwwFormUrlEncoded(URLHolder.URL_SEND_COMMAND, mapOf("command" to command)) ?: throw MissingRequestException()
         val response = gson.fromJson(json, CommandResponse::class.java)
         return response.statusCode == 0
     }
 
     fun action(action: String): Boolean {
-        val json = Http.post_X_WWW_FORM_URL_ENCODED(URLHolder.URL_ACTION, mapOf("action" to action)) ?: throw MissingRequestException()
+        val json = Http.postXWwwFormUrlEncoded(URLHolder.URL_ACTION, mapOf("action" to action)) ?: throw MissingRequestException()
         val response = gson.fromJson(json, ActionResponse::class.java)
 
         if (response.statusCode == 1) throw MissingRequestException()

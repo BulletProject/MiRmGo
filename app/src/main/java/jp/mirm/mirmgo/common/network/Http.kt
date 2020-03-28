@@ -9,6 +9,7 @@ import java.net.CookiePolicy
 
 object Http {
 
+    private const val USER_AGENT = "MiRmGo/0.0.1"
     private val client: OkHttpClient
     private val headers: Headers
 
@@ -21,9 +22,8 @@ object Http {
 
         headers = Headers.Builder()
             .set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")
-            .set("User-agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.183 Safari/537.36 Vivaldi/1.96.1147.64")
+            .set("User-agent", USER_AGENT)
             .set("Accept-Language", "ja,en-US;q=0.9,en;q=0.8")
-            .set("Content-Type", "application/x-www-form-urlencoded")
             .set("Connection", "keep-alive")
             .set("Referer", URLHolder.URL_LOGIN)
             .set("Host", URLHolder.HOST)
@@ -31,7 +31,7 @@ object Http {
             .build()
     }
 
-    fun post_X_WWW_FORM_URL_ENCODED(url: String, data: Map<String, String>): String? {
+    fun postXWwwFormUrlEncoded(url: String, data: Map<String, String>): String? {
         val postData = data.let {
             var str = ""
             it.forEach {
@@ -45,6 +45,7 @@ object Http {
             .url(url)
             .headers(headers)
             .header("Content-Length", postData.length.toString())
+            .header("Content-Type", "application/x-www-form-urlencoded")
             .post(requestBody)
             .build()
         val response = client.newCall(request).execute()
@@ -62,6 +63,7 @@ object Http {
             .url(url)
             .post(requestBody)
             .headers(headers)
+            .header("Content-Type", "application/json")
             .build()
         val response = client.newCall(request).execute()
 
