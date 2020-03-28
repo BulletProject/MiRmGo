@@ -26,4 +26,17 @@ class HttpTest {
         assertTrue("OK: Stop Server", MiRmAPI.action(ActionResponse.ACTION_STOP))
         assertTrue("OK: Force Stop Server", MiRmAPI.action(ActionResponse.ACTION_FORCE_STOP))
     }
+
+    @Test
+    fun extendTest() {
+        assertTrue("OK: Login", MiRmAPI.login("mirmtest", "tsubaki394"))
+        assertTrue("OK: Extend", MiRmAPI.extendNormally())
+        assertTrue("OK: Logout", MiRmAPI.logout())
+    }
+
+    @Test
+    fun logoutTest() {
+        assertTrue("OK: Login", MiRmAPI.login("mirmtest", "tsubaki394"))
+        assertTrue("OK: Logout", MiRmAPI.logout())
+    }
 }

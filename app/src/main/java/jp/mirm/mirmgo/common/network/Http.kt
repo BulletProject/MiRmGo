@@ -4,10 +4,8 @@ import com.google.gson.Gson
 import jp.mirm.mirmgo.common.exception.MissingRequestException
 import okhttp3.*
 import okhttp3.internal.JavaNetCookieJar
-import java.net.CookieHandler
 import java.net.CookieManager
 import java.net.CookiePolicy
-import java.net.HttpCookie
 
 object Http {
 
@@ -55,7 +53,7 @@ object Http {
         return response.body()?.string()
     }
 
-    fun post(url: String, data: Map<String, String>, type: String = "application/json; charset=UTF-8"): String? {
+    fun post(url: String, data: Map<String, String> = mapOf(), type: String = "application/json; charset=UTF-8"): String? {
         val requestBody = RequestBody.create(
             MediaType.parse(type),
             Gson().toJson(data)

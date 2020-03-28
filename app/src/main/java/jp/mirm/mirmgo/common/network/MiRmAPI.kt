@@ -1,9 +1,11 @@
 package jp.mirm.mirmgo.common.network
 
 import com.google.gson.Gson
+import jp.mirm.mirmgo.common.exception.CouldNotExtendException
 import jp.mirm.mirmgo.common.exception.MissingRequestException
 import jp.mirm.mirmgo.common.network.model.ActionResponse
 import jp.mirm.mirmgo.common.network.model.CommandResponse
+import jp.mirm.mirmgo.common.network.model.ExtendResponse
 import jp.mirm.mirmgo.common.network.model.ServerDataResponse
 import org.jsoup.Jsoup
 import java.net.URLEncoder
@@ -11,7 +13,6 @@ import java.net.URLEncoder
 object MiRmAPI {
 
     private val gson = Gson()
-    private var serverId: String? = null
     var loggedIn = false
 
     fun login(serverId: String, password: String): Boolean {
@@ -19,16 +20,10 @@ object MiRmAPI {
             "serverId" to URLEncoder.encode(serverId),
             "password" to URLEncoder.encode(password),
             "_csrf" to getCsrf()
-         ))
+         )) ?: throw MissingRequestException()
 
-        val document = Jsoup.parse(response)
-        val title = document.title()
-
-        return (title == "MiRm | コントロールパネル").also {
-            if (it) {
-                this.serverId = serverId
-                this.loggedIn = true
-            }
+        return response.contains("MiRm | コントロールパネル").also {
+            if (it) this.loggedIn = true
         }
     }
 
@@ -50,6 +45,25 @@ object MiRmAPI {
         if (response.statusCode == 1) throw MissingRequestException()
 
         return response.couldExecute
+    }
+
+    fun extendNormally(): Boolean {
+        val json = Http.post(URLHolder.URL_EXTEND) ?: throw MissingRequestException()
+        val response = gson.fromJson(json, ExtendResponse::class.java)
+
+        return when (response.statusCode) {
+            0 -> true
+            1 -> false
+            else -> throw CouldNotExtendException()
+        }
+    }
+
+    fun logout(): Boolean {
+        val response = Http.get(URLHolder.URL_LOGOUT) ?: throw MissingRequestException()
+
+        return response.contains("MiRm | ログイン").also {
+            if (!it) this.loggedIn = false
+        }
     }
 
     private fun getCsrf(): String {
