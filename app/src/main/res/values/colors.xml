@@ -3,4 +3,24 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="contentBackground">#EEEEEE</color>
+
+    <color name="deepCove">#130f40</color>
+    <color name="deepKoamaru">#30336b</color>
+    <color name="blurple">#4834d4</color>
+    <color name="exodusFruit">#686de0</color>
+    <color name="wizardGrey">#535C68</color>
+    <color name="soaringEagle">#95afc0</color>
+    <color name="hintOfIcePack">#c7ecee</color>
+    <color name="coastalBreeze">#dff9fb</color>
+    <color name="pureApple">#6ab04c</color>
+    <color name="juneBud">#badc58</color>
+    <color name="carminePink">#eb4d4b</color>
+    <color name="pinkGlamour">#ff7979</color>
+    <color name="quinceJelly">#f0932b</color>
+    <color name="spicedNectarine">#ffbe76</color>
+    <color name="steelPink">#be2edd</color>
+    <color name="heliotrope">#e056fd</color>
+
 </resources>

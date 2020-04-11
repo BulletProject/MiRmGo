@@ -8,7 +8,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "jp.mirm.mirmgo"
+        applicationId "jp.pic_mirm.mirmgo"
         minSdkVersion 22
         targetSdkVersion 29
         versionCode 1
