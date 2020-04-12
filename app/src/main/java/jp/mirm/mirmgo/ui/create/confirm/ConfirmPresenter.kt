@@ -1,17 +1,18 @@
 package jp.mirm.mirmgo.ui.create.confirm
 
-import jp.mirm.mirmgo.model.NewServer
+import android.content.Intent
+import android.net.Uri
 import jp.mirm.mirmgo.ui.AbstractPresenter
 import jp.mirm.mirmgo.ui.create.CreateServerPresenter
 
 class ConfirmPresenter(private val fragment: ConfirmFragment) : AbstractPresenter() {
 
-    private var gameMode = NewServer.GAMEMODE_UNKNOWN
-    private var agreed = false
+    fun init() {
 
-    fun init(gameMode: Int, agreed: Boolean) {
-        this.gameMode = gameMode
-        this.agreed = agreed
+    }
+
+    fun update() {
+        fragment.setCreateButtonEnabled(CreateServerPresenter.isAccepted())
     }
 
     fun onPreviousClick() {
@@ -19,8 +20,13 @@ class ConfirmPresenter(private val fragment: ConfirmFragment) : AbstractPresente
     }
 
     fun onCreateButtonClick() {
-        if (agreed) {
-            // TODO
+        if (CreateServerPresenter.isAccepted()) {
+            // TODO create server
         }
+    }
+
+    fun onServerTypeClick() {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.minecraft.net/ja-jp/download/server/bedrock/"))
+        fragment.activity?.startActivity(intent)
     }
 }

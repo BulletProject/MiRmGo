@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import jp.mirm.mirmgo.R
-import kotlinx.android.synthetic.main.fragment_main_menu.view.*
+import kotlinx.android.synthetic.main.fragment_main_menu.*
 
 class MainMenuFragment : Fragment() {
 
@@ -31,8 +31,12 @@ class MainMenuFragment : Fragment() {
 
         presenter = MainMenuPresenter(this)
 
-        view.createServerButton.setOnClickListener {
+        createServerButton.setOnClickListener {
             presenter.onCreateServerClick()
+        }
+
+        loginButton.setOnClickListener {
+            presenter.onLoginClick()
         }
     }
 

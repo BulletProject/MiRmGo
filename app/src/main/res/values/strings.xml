@@ -17,6 +17,7 @@
     <string name="create_2_title">2.利用規約</string>
     <string name="create_2_description">利用規約に同意する場合には以下の「同意」にチェックをして進んでください。（同意しない場合、サーバーは作成できません。）</string>
     <string name="create_2_accept">同意する</string>
+    <string name="create_2_not_accept">同意しない</string>
 
     <string name="create_3_title">3.確認</string>
     <string name="create_3_description">入力内容を確認し、問題がない場合には「作成」を押してください。</string>
@@ -24,4 +25,12 @@
     <string name="create_3_type">サーバータイプ</string>
     <string name="create_3_terms">利用規約</string>
     <string name="create_3_button_create">サーバーをつくる！</string>
+
+    <string name="login_title">ログイン</string>
+    <string name="login_server_id">サーバーID</string>
+    <string name="login_password">パスワード</string>
+
+
+    <string name="back">戻る</string>
+    <string name="bds">Bedrock Dedicated Server</string>
 </resources>

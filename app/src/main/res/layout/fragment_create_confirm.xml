@@ -87,7 +87,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="16dp"
-                    android:text="TextView"
                     android:textAlignment="textEnd"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/wizardGrey" />
@@ -104,11 +103,11 @@
                     android:id="@+id/confirmServerTypeTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_open_in_new_black_12dp"
                     android:paddingBottom="16dp"
-                    android:text="TextView"
                     android:textAlignment="textEnd"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/wizardGrey" />
+                    android:textColor="@color/blurple" />
 
                 <TextView
                     android:id="@+id/textView12"
@@ -123,7 +122,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="16dp"
-                    android:text="TextView"
                     android:textAlignment="textEnd"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/wizardGrey" />

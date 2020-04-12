@@ -17,7 +17,7 @@
             android:background="@drawable/ic_mirm_mark_dark" />
     </LinearLayout>
 
-    <androidx.viewpager.widget.ViewPager
+    <jp.mirm.mirmgo.ui.create.CustomViewPager
         android:id="@+id/createServerViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

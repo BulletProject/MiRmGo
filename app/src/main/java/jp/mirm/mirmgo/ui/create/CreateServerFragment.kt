@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import jp.mirm.mirmgo.R
-import kotlinx.android.synthetic.main.fragment_create_server.view.*
+import kotlinx.android.synthetic.main.fragment_create_server.*
 
 class CreateServerFragment : Fragment() {
 
     private lateinit var presenter: CreateServerPresenter
-    private lateinit var adapter: CreateServerViewPagerAdapter
+    lateinit var adapter: CreateServerViewPagerAdapter
 
     companion object {
         fun newInstance(): CreateServerFragment {
@@ -31,10 +31,16 @@ class CreateServerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         presenter = CreateServerPresenter(this)
-        view.createServerViewPager.adapter = CreateServerViewPagerAdapter(activity!!.supportFragmentManager).also {
+        createServerViewPager.adapter = CreateServerViewPagerAdapter(activity!!.supportFragmentManager).also {
             this.adapter = it
         }
+        createServerViewPager.setSwipeEnabled(true)
 
+        CreateServerPresenter.setPage(0)
+    }
+
+    override fun onResume() {
+        super.onResume()
         CreateServerPresenter.setPage(0)
     }
 
