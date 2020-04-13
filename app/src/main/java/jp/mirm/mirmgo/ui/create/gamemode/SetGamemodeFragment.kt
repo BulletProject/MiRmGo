@@ -47,7 +47,7 @@ class SetGamemodeFragment : Fragment() {
         }
 
         create1PreviousButton.setOnClickListener {
-            presenter.changeFragment(fragment.activity?.supportFragmentManager!!, MainMenuFragment.newInstance())
+            presenter.changeFragment(activity?.supportFragmentManager!!, MainMenuFragment.newInstance())
         }
 
     }

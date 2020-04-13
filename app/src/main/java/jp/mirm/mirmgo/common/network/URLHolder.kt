@@ -5,6 +5,8 @@ object URLHolder {
     const val PROTOCOL = "https://"
     const val HOST = "x.mirm.jp"
 
+    const val URL_TERMS = "https://raw.githubusercontent.com/BulletProject/MiRm-Terms/master/README.md"
+
     const val URL_LOGIN = "${PROTOCOL}${HOST}/login"
     const val URL_LOGOUT = "${PROTOCOL}${HOST}/logout"
     const val URL_AUTHENTICATE = "${PROTOCOL}${HOST}/authenticate"

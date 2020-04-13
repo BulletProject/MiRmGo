@@ -23,7 +23,7 @@ class TermsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return  inflater.inflate(R.layout.fragment_create_terms, container, false)
+        return inflater.inflate(R.layout.fragment_create_terms, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,6 +47,21 @@ class TermsFragment : Fragment() {
 
     fun setAgreedChecked(isChecked: Boolean) {
         termsCheckBox.isChecked = isChecked
+    }
+
+    fun setTerms(terms: String) {
+        termsTextView.text = terms
+    }
+
+    fun setAgreedCheckBoxEnabled(isEnabled: Boolean) {
+        termsCheckBox.isEnabled = isEnabled
+    }
+
+    fun setProgressBarVisibility(isVisible: Boolean) {
+        termsProgressBar.visibility = when (isVisible) {
+            true -> View.VISIBLE
+            false -> View.GONE
+        }
     }
 
 }

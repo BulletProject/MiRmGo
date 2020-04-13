@@ -66,6 +66,10 @@ object MiRmAPI {
         }
     }
 
+    fun getTerms(): String? {
+        return Http.get(URLHolder.URL_TERMS)
+    }
+
     private fun getCsrf(): String {
         val document = Jsoup.parse(Http.get(URLHolder.URL_LOGIN))
         return document.select("input[name=_csrf]").attr("value")

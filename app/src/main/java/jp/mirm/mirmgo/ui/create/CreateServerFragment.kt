@@ -31,7 +31,7 @@ class CreateServerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         presenter = CreateServerPresenter(this)
-        createServerViewPager.adapter = CreateServerViewPagerAdapter(activity!!.supportFragmentManager).also {
+        createServerViewPager.adapter = CreateServerViewPagerAdapter(childFragmentManager).also {
             this.adapter = it
         }
         createServerViewPager.setSwipeEnabled(true)

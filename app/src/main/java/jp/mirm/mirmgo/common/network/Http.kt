@@ -26,7 +26,7 @@ object Http {
             .set("Accept-Language", "ja,en-US;q=0.9,en;q=0.8")
             .set("Connection", "keep-alive")
             .set("Referer", URLHolder.URL_LOGIN)
-            .set("Host", URLHolder.HOST)
+            //.set("Host", URLHolder.HOST)
             .set("Origin", "${URLHolder.PROTOCOL}${URLHolder.HOST}")
             .build()
     }
