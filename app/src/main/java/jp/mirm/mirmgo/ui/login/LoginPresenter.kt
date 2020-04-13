@@ -5,6 +5,7 @@ import jp.mirm.mirmgo.common.network.MiRmAPI
 import jp.mirm.mirmgo.common.network.model.ServerDataResponse
 import jp.mirm.mirmgo.ui.AbstractPresenter
 import jp.mirm.mirmgo.ui.mainmenu.MainMenuFragment
+import jp.mirm.mirmgo.ui.panel.PanelFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -57,8 +58,7 @@ class LoginPresenter(private val fragment: LoginFragment) : AbstractPresenter() 
                 return@let
             }
 
-            changeFragment(fragment.activity!!.supportFragmentManager, MainMenuFragment.newInstance())
-            // TODO Change to panel
+            changeFragment(fragment.activity!!.supportFragmentManager, PanelFragment.newInstance())
         }
     }
 

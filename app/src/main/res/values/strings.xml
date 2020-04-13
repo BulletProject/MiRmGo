@@ -31,7 +31,29 @@
     <string name="login_e_error">エラーが発生しました。</string>
     <string name="login_e_not_supported">このタイプのサーバーは対応しておりません。</string>
 
+    <string name="panel_serverId">IPアドレス</string>
+    <string name="panel_port">ポート</string>
+    <string name="panel_join">サーバーに入る</string>
+    <string name="panel_time">残り使用時間</string>
+    <string name="panel_button_extend">延長する</string>
+    <string name="panel_server_title">サーバーの状態</string>
+    <string name="panel_button_status_page">稼働状況ページを開く</string>
+    <string name="panel_button_force_stop">強制停止</string>
+    <string name="panel_manage">サーバーの管理</string>
+
+    <string name="manage_op_title">OP設定</string>
+    <string name="manage_op_input">プレイヤー名</string>
+    <string name="manage_op_submit">設定</string>
 
     <string name="back">戻る</string>
     <string name="bds">Bedrock Dedicated Server</string>
+    <string name="status_running">起動中</string>
+    <string name="status_stopped">停止中</string>
+    <string name="status_running_processing">起動処理中&#8230;</string>
+    <string name="status_stopped_processing">停止処理中&#8230;</string>
+
+    <string-array name="op_list">
+        <item>OPに設定</item>
+        <item>OPを解除</item>
+    </string-array>
 </resources>

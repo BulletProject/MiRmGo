@@ -15,6 +15,7 @@ object MiRmAPI {
 
     private val gson = Gson()
     var loggedIn = false
+    var serverId = ""
 
     const val LOGIN_STATUS_SUCCEEDED = 0
     const val LOGIN_STATUS_FAILED = 1
@@ -33,6 +34,7 @@ object MiRmAPI {
             return response.contains("MiRm | コントロールパネル").let {
                 if (it) {
                     this.loggedIn = true
+                    this.serverId = serverId
                     LOGIN_STATUS_SUCCEEDED
                 } else {
                     LOGIN_STATUS_FAILED
@@ -79,7 +81,10 @@ object MiRmAPI {
         val response = Http.get(URLHolder.URL_LOGOUT) ?: throw MissingRequestException()
 
         return response.contains("MiRm | ログイン").also {
-            if (!it) this.loggedIn = false
+            if (it) {
+                this.loggedIn = false
+                this.serverId = ""
+            }
         }
     }
 
