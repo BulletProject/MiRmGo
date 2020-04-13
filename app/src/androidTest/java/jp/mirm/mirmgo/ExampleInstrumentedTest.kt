@@ -2,6 +2,7 @@ package jp.mirm.mirmgo
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import jp.mirm.mirmgo.common.network.MiRmAPI
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,5 +21,10 @@ class ExampleInstrumentedTest {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("jp.pic_mirm.mirmgo", appContext.packageName)
+    }
+
+    @Test
+    fun loginTest() {
+        assertEquals("OK: Login", MiRmAPI.login("mirmtest", "tsubaki394"), 0)
     }
 }

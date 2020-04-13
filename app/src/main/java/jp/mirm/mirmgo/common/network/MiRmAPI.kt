@@ -8,6 +8,7 @@ import jp.mirm.mirmgo.common.network.model.CommandResponse
 import jp.mirm.mirmgo.common.network.model.ExtendResponse
 import jp.mirm.mirmgo.common.network.model.ServerDataResponse
 import org.jsoup.Jsoup
+import java.lang.Exception
 import java.net.URLEncoder
 
 object MiRmAPI {
@@ -15,15 +16,31 @@ object MiRmAPI {
     private val gson = Gson()
     var loggedIn = false
 
-    fun login(serverId: String, password: String): Boolean {
-        val response =  Http.postXWwwFormUrlEncoded(URLHolder.URL_AUTHENTICATE, mapOf(
-            "serverId" to URLEncoder.encode(serverId),
-            "password" to URLEncoder.encode(password),
-            "_csrf" to getCsrf()
-         )) ?: throw MissingRequestException()
+    const val LOGIN_STATUS_SUCCEEDED = 0
+    const val LOGIN_STATUS_FAILED = 1
+    const val LOGIN_STATUS_ERROR = 2
 
-        return response.contains("MiRm | コントロールパネル").also {
-            if (it) this.loggedIn = true
+    fun login(serverId: String, password: String): Int {
+        try {
+            val response = Http.postXWwwFormUrlEncoded(
+                URLHolder.URL_AUTHENTICATE, mapOf(
+                    "serverId" to URLEncoder.encode(serverId),
+                    "password" to URLEncoder.encode(password),
+                    "_csrf" to getCsrf()
+                )
+            ) ?: return LOGIN_STATUS_ERROR
+
+            return response.contains("MiRm | コントロールパネル").let {
+                if (it) {
+                    this.loggedIn = true
+                    LOGIN_STATUS_SUCCEEDED
+                } else {
+                    LOGIN_STATUS_FAILED
+                }
+            }
+
+        } catch (e: Exception) {
+            return LOGIN_STATUS_ERROR
         }
     }
 

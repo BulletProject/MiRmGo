@@ -1,9 +1,17 @@
 package jp.mirm.mirmgo.common.network
 
+import android.app.Application
+import android.content.Context
+import com.facebook.stetho.Stetho
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
+import jp.mirm.mirmgo.MyApplication
 import jp.mirm.mirmgo.common.exception.MissingRequestException
+import jp.mirm.mirmgo.common.network.cookie.PersistentCookieStore
 import okhttp3.*
 import okhttp3.internal.JavaNetCookieJar
+import org.riversun.okhttp3.OkHttp3CookieHelper
+import java.net.CookieHandler
 import java.net.CookieManager
 import java.net.CookiePolicy
 
@@ -11,13 +19,15 @@ object Http {
 
     private const val USER_AGENT = "MiRmGo/0.0.1"
     private val client: OkHttpClient
+    private val cookieHelper = OkHttp3CookieHelper()
     private val headers: Headers
 
     init {
-        val cookieManager = CookieManager()
-        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL)
+        val cookieHandler = CookieManager(PersistentCookieStore(MyApplication.getApplication()), CookiePolicy.ACCEPT_ALL)
+
         client = OkHttpClient.Builder()
-            .cookieJar(JavaNetCookieJar(cookieManager))
+            .cookieJar(JavaNetCookieJar(cookieHandler))
+            .addNetworkInterceptor(StethoInterceptor())
             .build()
 
         headers = Headers.Builder()
@@ -90,10 +100,6 @@ object Http {
 
         if (!response.isSuccessful) throw MissingRequestException()
         return response.body()?.string()
-    }
-
-    fun reset() {
-
     }
 
 }
