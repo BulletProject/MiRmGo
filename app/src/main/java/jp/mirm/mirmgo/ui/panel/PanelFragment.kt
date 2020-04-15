@@ -5,17 +5,36 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
 import jp.mirm.mirmgo.MyApplication
 import jp.mirm.mirmgo.R
+import jp.mirm.mirmgo.ui.panel.main.PanelMainFragment
 import kotlinx.android.synthetic.main.fragment_panel.*
+import kotlinx.android.synthetic.main.fragment_panel_main.*
 
 class PanelFragment : Fragment() {
 
     private lateinit var presenter: PanelPresenter
 
     companion object {
-        fun newInstance(): PanelFragment {
-            return PanelFragment()
+        private var panelMainFragment: PanelMainFragment? = null
+        private var instance: PanelFragment? = null
+        private var adapter: PanelViewPagerAdapter? = null
+
+        fun getInstance(): PanelFragment {
+            return instance ?: PanelFragment().also {
+                instance = it
+            }
+        }
+
+        fun getMainFragment(): PanelMainFragment {
+            return panelMainFragment ?: PanelMainFragment().also {
+                panelMainFragment = it
+            }
+        }
+
+        fun getCurrentPage(): Int {
+            return (getInstance().view ?: return -1).findViewById<ViewPager>(R.id.panelViewPager).currentItem
         }
     }
 
@@ -31,44 +50,22 @@ class PanelFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         presenter = PanelPresenter(this)
-
-        panelStatusSwitch.setOnCheckedChangeListener { _, isChecked ->
-            presenter.onStatusSwitchChange(isChecked)
-        }
-
-        panelStatusSwitch.setOnTouchListener { _, _ ->
-            panelStatusSwitch.tag = null
-            false
-        }
-
-        panelJoinButton.setOnClickListener {
-            presenter.onJoinButtonClick()
-        }
+        adapter = PanelViewPagerAdapter(childFragmentManager)
 
         panelExtendButton.setOnClickListener {
-            presenter.onExtendButtonClick()
+            getMainFragment().onExtendButtonClick()
         }
 
         panelRefreshButton.setOnClickListener {
-            presenter.onUpdate()
+            getMainFragment().onUpdate()
         }
 
-        panelOpenStatusPageButton.setOnClickListener {
-            presenter.onOpenStatusPageButtonClick()
+        panelGotoListButton.setOnClickListener {
+            presenter.onGotoListButtonClick()
         }
 
-        panelViewPager.adapter = PanelViewPagerAdapter(childFragmentManager)
+        panelViewPager.adapter = adapter
         panelViewPager.currentItem = 0
-
-        presenter.onUpdate()
-    }
-
-    fun setIPAddress(address: String) {
-        panelIPAddressView.text = address
-    }
-
-    fun setPort(port: String) {
-        panelPortView.text = port
     }
 
     fun setProgressBarValue(value: Int, max: Int) {
@@ -88,26 +85,8 @@ class PanelFragment : Fragment() {
         panelRefreshButton.isEnabled = isEnabled
     }
 
-    fun setStatus(textId: Int, colorId: Int) {
-        panelStatusSwitch.text = MyApplication.getApplication().getText(textId)
-        panelStatusSwitch.setTextColor(MyApplication.getApplication().resources.getColor(colorId))
-    }
-
-    fun setStatusChecked(isChecked: Boolean) {
-        panelStatusSwitch.tag = "TAG"
-        panelStatusSwitch.isChecked = isChecked
-    }
-
-    fun setStatusEnabled(isEnabled: Boolean) {
-        panelStatusSwitch.isEnabled = isEnabled
-    }
-
-    fun setStatusSwitchTag(tag: String?) {
-        panelStatusSwitch.tag = tag
-    }
-
-    fun getStatusSwitchTag(): Any? {
-        return panelStatusSwitch.tag
+    fun onTimeUpdate(time: Int) {
+        presenter.setTime(time)
     }
 
 }

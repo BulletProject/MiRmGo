@@ -16,5 +16,6 @@ object URLHolder {
     const val URL_ACTION = "${PROTOCOL}${HOST}/api/action"
     const val URL_EXTEND = "${PROTOCOL}${HOST}/api/extend"
     const val URL_STATUS_PAGE = "${PROTOCOL}${HOST}/status_page.html?serverId="
+    const val URL_SERVER_LIST = "${PROTOCOL}${HOST}/list"
 
 }

@@ -58,7 +58,7 @@ class LoginPresenter(private val fragment: LoginFragment) : AbstractPresenter() 
                 return@let
             }
 
-            changeFragment(fragment.activity!!.supportFragmentManager, PanelFragment.newInstance())
+            changeFragment(fragment.activity!!.supportFragmentManager, PanelFragment.getInstance())
         }
     }
 

@@ -1,4 +1,4 @@
-package jp.mirm.mirmgo.ui.panel.manage
+package jp.mirm.mirmgo.ui.panel.ways
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import jp.mirm.mirmgo.R
 
-class OPManagerFragment : Fragment() {
+class PanelWaysFragment : Fragment() {
 
     companion object {
-        fun newInstance(): OPManagerFragment {
-            return OPManagerFragment()
+        fun newInstance(): PanelWaysFragment {
+            return PanelWaysFragment()
         }
     }
 
@@ -20,11 +20,10 @@ class OPManagerFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_manage_op, container, false)
+        return inflater.inflate(R.layout.fragment_panel_ways, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
-
 }

@@ -41,9 +41,23 @@
     <string name="panel_button_force_stop">強制停止</string>
     <string name="panel_manage">サーバーの管理</string>
 
-    <string name="manage_op_title">OP設定</string>
-    <string name="manage_op_input">プレイヤー名</string>
-    <string name="manage_op_submit">設定</string>
+    <string name="panel_main_title">トップ</string>
+    <string name="panel_list_text">MiRmにはほかにも面白いサーバーがいっぱい！いますぐチェックしてみよう。</string>
+    <string name="panel_list_button">サーバーリストをチェックする</string>
+
+    <string name="panel_button">設定</string>
+    <string name="panel_setting_title">サーバー設定</string>
+    <string name="panel_op_title">OP設定</string>
+    <string name="panel_name_hint">プレイヤー名</string>
+    <string name="panel_time_title">時間設定</string>
+    <string name="panel_gamemode_title">ゲームモード設定</string>
+    <string name="panel_wl_title">ホワイトリスト有効化設定</string>
+    <string name="panel_wl_checkbox">ホワイトリストを有効化/無効化</string>
+    <string name="panel_setting_start">設定（実行中）: </string>
+    <string name="panel_setting_success">設定（完了）: </string>
+    <string name="panel_setting_error">設定（エラー）: </string>
+
+    <string name="panel_info_ways">アプリの使い方</string>
 
     <string name="back">戻る</string>
     <string name="bds">Bedrock Dedicated Server</string>
@@ -55,5 +69,17 @@
     <string-array name="op_list">
         <item>OPに設定</item>
         <item>OPを解除</item>
+    </string-array>
+
+    <string-array name="time_list">
+        <item>朝</item>
+        <item>昼</item>
+        <item>夕方</item>
+        <item>夜</item>
+    </string-array>
+
+    <string-array name="gamemode_list">
+        <item>サバイバル</item>
+        <item>クリエイティブ</item>
     </string-array>
 </resources>

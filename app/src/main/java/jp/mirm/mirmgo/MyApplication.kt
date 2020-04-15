@@ -9,6 +9,10 @@ class MyApplication : Application() {
         fun getApplication(): MyApplication {
             return application
         }
+
+        fun getString(id: Int): String {
+            return getApplication().getString(id)
+        }
     }
 
     override fun onCreate() {
