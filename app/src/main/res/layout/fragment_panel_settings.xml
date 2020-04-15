@@ -142,7 +142,8 @@
             android:layout_height="match_parent"
             android:background="@color/deepCove"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/textView20"

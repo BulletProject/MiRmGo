@@ -7,10 +7,14 @@ import jp.mirm.mirmgo.R
 import jp.mirm.mirmgo.common.network.MiRmAPI
 import jp.mirm.mirmgo.common.network.URLHolder
 import jp.mirm.mirmgo.common.network.model.ActionResponse
+import jp.mirm.mirmgo.ui.AbstractPresenter
+import jp.mirm.mirmgo.ui.login.LoginFragment
 import jp.mirm.mirmgo.ui.panel.PanelFragment
 import kotlinx.coroutines.*
 
-class PanelMainPresenter(private val fragment: PanelMainFragment) {
+class PanelMainPresenter(private val fragment: PanelMainFragment) : AbstractPresenter() {
+
+    private lateinit var rssFeeds: MutableMap<String, String>
 
     fun onUpdate() = GlobalScope.launch (Dispatchers.Main) {
         PanelFragment.getInstance().setRefreshButtonEnabled(false)
@@ -21,9 +25,15 @@ class PanelMainPresenter(private val fragment: PanelMainFragment) {
         fragment.setStatusEnabled(false)
 
         GlobalScope.async(Dispatchers.Default) {
+            rssFeeds = MiRmAPI.getLatestRSSFeeds()
             MiRmAPI.getServerData()
 
         }.await().let {
+            if (it == null) {
+                changeFragment(fragment.childFragmentManager, LoginFragment.newInstance())
+                return@launch
+            }
+
             PanelFragment.getInstance().onTimeUpdate(it.time)
             PanelFragment.getInstance().setRefreshButtonEnabled(true)
             PanelFragment.getInstance().setProgressBarIndetermined(false)
@@ -32,6 +42,7 @@ class PanelMainPresenter(private val fragment: PanelMainFragment) {
             fragment.setIPAddress(it.ip)
             fragment.setPort(it.port.toString())
             fragment.setStatusEnabled(true)
+            fragment.setRSSListContents(rssFeeds.keys.toList())
 
             when (it.serverStatus) {
                 true -> {
@@ -87,6 +98,11 @@ class PanelMainPresenter(private val fragment: PanelMainFragment) {
             MiRmAPI.getServerData()
 
         }.await().let {
+            if (it == null) {
+                changeFragment(fragment.childFragmentManager, LoginFragment.newInstance())
+                return@launch
+            }
+
             when (it.serverStatus) {
                 true -> {
                     fragment.setStatusChecked(true)
@@ -122,6 +138,11 @@ class PanelMainPresenter(private val fragment: PanelMainFragment) {
 
     fun onGotoListButtonClick() {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URLHolder.URL_SERVER_LIST))
+        MyApplication.getApplication().startActivity(intent)
+    }
+
+    fun onRSSContentClick(text: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(rssFeeds[text]))
         MyApplication.getApplication().startActivity(intent)
     }
 

@@ -6,6 +6,7 @@ import jp.mirm.mirmgo.common.network.model.ServerDataResponse
 import jp.mirm.mirmgo.ui.AbstractPresenter
 import jp.mirm.mirmgo.ui.mainmenu.MainMenuFragment
 import jp.mirm.mirmgo.ui.panel.PanelFragment
+import jp.mirm.mirmgo.util.Preferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -14,7 +15,7 @@ import kotlinx.coroutines.launch
 class LoginPresenter(private val fragment: LoginFragment) : AbstractPresenter() {
 
     fun onTryLoginButtonClick() = GlobalScope.launch(Dispatchers.Main) {
-        fragment.setTryLoginButtonVisiblitity(false)
+        fragment.setTryLoginButtonVisibility(false)
         fragment.setProgressBarVisibility(true)
         fragment.setErrorTextViewVisibility(false)
 
@@ -40,7 +41,7 @@ class LoginPresenter(private val fragment: LoginFragment) : AbstractPresenter() 
             }
             fragment.setErrorTextViewVisibility(true)
             fragment.setProgressBarVisibility(false)
-            fragment.setTryLoginButtonVisiblitity(true)
+            fragment.setTryLoginButtonVisibility(true)
         }
     }
 
@@ -53,11 +54,12 @@ class LoginPresenter(private val fragment: LoginFragment) : AbstractPresenter() 
             MiRmAPI.getServerData()
 
         }.await().let {
-            if (it.type != ServerDataResponse.TYPE_BDS) {
+            if (it!!.type != ServerDataResponse.TYPE_BDS) {
                 onNotBDSServer()
                 return@let
             }
 
+            if (fragment.isSaveDataChecked()) saveLoginData(fragment.getServerId(), fragment.getPassword())
             changeFragment(fragment.activity!!.supportFragmentManager, PanelFragment.getInstance())
         }
     }
@@ -70,7 +72,12 @@ class LoginPresenter(private val fragment: LoginFragment) : AbstractPresenter() 
             fragment.setErrorTextViewText(R.string.login_e_not_supported)
             fragment.setErrorTextViewVisibility(true)
             fragment.setProgressBarVisibility(false)
-            fragment.setTryLoginButtonVisiblitity(true)
+            fragment.setTryLoginButtonVisibility(true)
         }
+    }
+
+    private fun saveLoginData(serverId: String, password: String) {
+        Preferences.setServerId(serverId)
+        Preferences.setPassword(password)
     }
 }

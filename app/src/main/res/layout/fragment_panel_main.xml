@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:checked="false"
                 android:paddingTop="8dp"
-                android:text="@string/status_running" />
+                android:text="-" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -153,5 +153,31 @@
             android:background="@drawable/dr_button_outline"
             android:text="@string/panel_list_button"
             android:textColor="@color/wizardGrey" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/deepKoamaruBlighter"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_info_black_18dp"
+                android:text="@string/panel_rss_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/white" />
+
+            <LinearLayout
+                android:id="@+id/panelRSSLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"></LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

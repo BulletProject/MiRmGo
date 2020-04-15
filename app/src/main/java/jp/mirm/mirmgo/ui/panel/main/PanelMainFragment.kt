@@ -4,10 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Space
+import android.widget.TextView
+import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import jp.mirm.mirmgo.MyApplication
 import jp.mirm.mirmgo.R
 import jp.mirm.mirmgo.ui.panel.PanelFragment
+import jp.mirm.mirmgo.util.DisplaySizeCaculator
 import kotlinx.android.synthetic.main.fragment_panel_main.*
 
 class PanelMainFragment : Fragment() {
@@ -83,8 +88,25 @@ class PanelMainFragment : Fragment() {
         if (PanelFragment.getCurrentPage() == 0) panelStatusSwitch.tag = tag
     }
 
+    fun setRSSListContents(list: List<String>) {
+        panelRSSLinearLayout.removeAllViews()
+        list.forEach {
+            val space = Space(this.activity!!)
+            space.minimumHeight = DisplaySizeCaculator.dpToPx(16)
+            panelRSSLinearLayout.addView(space)
+
+            val textView = TextView(this.activity!!)
+            textView.text = it
+            textView.setTextColor(MyApplication.getApplication().resources.getColor(android.R.color.white))
+            textView.setOnClickListener {
+                presenter.onRSSContentClick(textView.text.toString())
+            }
+            panelRSSLinearLayout.addView(textView)
+        }
+    }
+
     fun getStatusSwitchTag(): Any? {
-        return if (PanelFragment.getCurrentPage() == 0) panelStatusSwitch.tag else null
+        return if (PanelFragment.getCurrentPage() == 0) panelStatusSwitch.tag else "TAG"
     }
 
     fun onExtendButtonClick() {

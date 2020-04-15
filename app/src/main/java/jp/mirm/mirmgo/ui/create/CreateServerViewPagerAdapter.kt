@@ -11,12 +11,14 @@ import jp.mirm.mirmgo.ui.create.terms.TermsFragment
 class CreateServerViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     companion object {
-        const val PAGE_COUNT = 1
+        const val PAGE_COUNT = 3
     }
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> SetGamemodeFragment()
+            0 -> SetGamemodeFragment.newInstance()
+            1 -> TermsFragment.newInstance()
+            2 -> ConfirmFragment.newInstance()
             else -> SetGamemodeFragment()
         }
     }

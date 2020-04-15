@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import jp.mirm.mirmgo.R
 import kotlinx.android.synthetic.main.fragment_main_menu.*
 
@@ -30,6 +31,7 @@ class MainMenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         presenter = MainMenuPresenter(this)
+        presenter.init()
 
         createServerButton.setOnClickListener {
             presenter.onCreateServerClick()
@@ -38,6 +40,12 @@ class MainMenuFragment : Fragment() {
         loginButton.setOnClickListener {
             presenter.onLoginClick()
         }
+    }
+
+    fun showLoginSnackbar(id: Int, length: Int): Snackbar {
+        val snackbar = Snackbar.make(loginButton, id, length)
+        snackbar.show()
+        return snackbar
     }
 
 }

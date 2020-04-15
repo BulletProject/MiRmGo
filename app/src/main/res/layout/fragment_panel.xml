@@ -35,7 +35,7 @@
                 app:srcCompat="@drawable/pic_mirm_54" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/panelPopupMenuButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"

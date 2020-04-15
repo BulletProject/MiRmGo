@@ -40,7 +40,7 @@ class LoginFragment : Fragment() {
 
     }
 
-    fun setTryLoginButtonVisiblitity(isVisible: Boolean) {
+    fun setTryLoginButtonVisibility(isVisible: Boolean) {
         loginTryLoginButton.visibility = when (isVisible) {
             true -> View.VISIBLE
             false -> View.GONE
@@ -71,6 +71,10 @@ class LoginFragment : Fragment() {
 
     fun getPassword(): String {
         return loginPassword.text.toString()
+    }
+
+    fun isSaveDataChecked(): Boolean {
+        return loginSavingCheckBox.isChecked
     }
 
 }

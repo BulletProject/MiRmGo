@@ -66,6 +66,13 @@
         android:singleLine="true"
         android:textColor="@android:color/white" />
 
+    <CheckBox
+        android:id="@+id/loginSavingCheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/login_save" />
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="16dp" />

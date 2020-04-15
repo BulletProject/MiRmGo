@@ -62,6 +62,13 @@ class PanelSettingFragment : Fragment() {
 
     fun isWhiteListChecked() = whiteListCheckBox.isChecked
 
+    fun setButtonEnabled(isEnabled: Boolean) {
+        opButton.isEnabled = isEnabled
+        gameModeButton.isEnabled = isEnabled
+        timeButton.isEnabled = isEnabled
+        whiteListButton.isEnabled = isEnabled
+    }
+
     fun showSnackBar(text: String) {
         Snackbar.make(whiteListButton, text, Snackbar.LENGTH_SHORT).show()
     }

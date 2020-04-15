@@ -1,6 +1,8 @@
 package jp.mirm.mirmgo.common.network
 
 import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
+import com.rometools.rome.io.SyndFeedInput
 import jp.mirm.mirmgo.common.exception.CouldNotExtendException
 import jp.mirm.mirmgo.common.exception.MissingRequestException
 import jp.mirm.mirmgo.common.network.model.ActionResponse
@@ -8,6 +10,8 @@ import jp.mirm.mirmgo.common.network.model.CommandResponse
 import jp.mirm.mirmgo.common.network.model.ExtendResponse
 import jp.mirm.mirmgo.common.network.model.ServerDataResponse
 import org.jsoup.Jsoup
+import org.xml.sax.InputSource
+import java.io.StringReader
 import java.lang.Exception
 import java.net.URLEncoder
 
@@ -42,13 +46,19 @@ object MiRmAPI {
             }
 
         } catch (e: Exception) {
-            return LOGIN_STATUS_ERROR
         }
+
+        return LOGIN_STATUS_ERROR
     }
 
-    fun getServerData(): ServerDataResponse {
-        val json = Http.get(URLHolder.URL_SERVER_DATA) ?: throw MissingRequestException()
-        return gson.fromJson(json, ServerDataResponse::class.java)
+    fun getServerData(): ServerDataResponse? {
+        try {
+            val json = Http.get(URLHolder.URL_SERVER_DATA) ?: throw MissingRequestException()
+            return gson.fromJson(json, ServerDataResponse::class.java)
+
+        } catch (e: Exception) {
+            return null
+        }
     }
 
     fun sendCommand(command: String): Boolean {
@@ -101,6 +111,24 @@ object MiRmAPI {
 
     fun getTerms(): String? {
         return Http.get(URLHolder.URL_TERMS)
+    }
+
+    fun getLatestRSSFeeds(): MutableMap<String, String> {
+        try {
+            val data = Http.get(URLHolder.URL_RSS_FEEDS) ?: return mutableMapOf()
+            val feeds = SyndFeedInput().build(InputSource(StringReader(data))).entries
+            val result = mutableMapOf<String, String>()
+            feeds.forEachIndexed { index, syndEntry ->
+                if (index > 4) return@forEachIndexed
+                result[syndEntry.title] = syndEntry.link
+            }
+
+            return result
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return mutableMapOf()
+        }
     }
 
     private fun getCsrf(): String {
