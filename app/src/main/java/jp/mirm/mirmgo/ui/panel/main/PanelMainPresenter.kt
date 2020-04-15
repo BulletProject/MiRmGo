@@ -10,6 +10,7 @@ import jp.mirm.mirmgo.common.network.model.ActionResponse
 import jp.mirm.mirmgo.ui.AbstractPresenter
 import jp.mirm.mirmgo.ui.login.LoginFragment
 import jp.mirm.mirmgo.ui.panel.PanelFragment
+import jp.mirm.mirmgo.ui.panel.dialog.ExtendDialog
 import kotlinx.coroutines.*
 
 class PanelMainPresenter(private val fragment: PanelMainFragment) : AbstractPresenter() {
@@ -133,7 +134,8 @@ class PanelMainPresenter(private val fragment: PanelMainFragment) : AbstractPres
     }
 
     fun onExtendButtonClick() {
-
+        val dialog = ExtendDialog.newInstance()
+        dialog.show(fragment.activity!!.supportFragmentManager, "extend")
     }
 
     fun onGotoListButtonClick() {

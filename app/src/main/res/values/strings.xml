@@ -37,7 +37,7 @@
     <string name="panel_serverId">IPアドレス</string>
     <string name="panel_port">ポート</string>
     <string name="panel_join">サーバーに入る</string>
-    <string name="panel_time">残り使用時間</string>
+    <string name="panel_time">残り使用可能時間</string>
     <string name="panel_button_extend">延長する</string>
     <string name="panel_server_title">サーバーの状態</string>
     <string name="panel_button_status_page">稼働状況ページを開く</string>
@@ -76,6 +76,11 @@
     <string name="popup_official_site">公式サイト</string>
     <string name="popup_logout">ログアウト</string>
 
+    <string name="dialog_extend_title">使用可能時間延長</string>
+    <string name="dialog_extend_text">動画広告を最後まで視聴することで、サーバーの使用可能時間を延長することができます。</string>
+    <string name="dialog_extend_button_do">動画を見て延長する</string>
+    <string name="dialog_extend_loading">ロード中&#8230;</string>
+
     <string-array name="op_list">
         <item>OPに設定</item>
         <item>OPを解除</item>
@@ -92,4 +97,6 @@
         <item>サバイバル</item>
         <item>クリエイティブ</item>
     </string-array>
+
+    <string name="movie_id_extend">"ca-app-pub-3940256099942544/5224354917"</string>
 </resources>

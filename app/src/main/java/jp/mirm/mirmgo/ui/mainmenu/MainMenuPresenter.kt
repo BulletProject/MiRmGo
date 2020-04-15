@@ -7,7 +7,7 @@ import jp.mirm.mirmgo.common.network.MiRmAPI
 import jp.mirm.mirmgo.ui.AbstractPresenter
 import jp.mirm.mirmgo.ui.create.CreateServerFragment
 import jp.mirm.mirmgo.ui.login.LoginFragment
-import jp.mirm.mirmgo.ui.dialog.CustomizedDialog
+import jp.mirm.mirmgo.ui.dialog.LoadingDialog
 import jp.mirm.mirmgo.ui.panel.PanelFragment
 import jp.mirm.mirmgo.util.Preferences
 import kotlinx.coroutines.Dispatchers
@@ -37,7 +37,7 @@ class MainMenuPresenter(private val fragment: MainMenuFragment) : AbstractPresen
     }
 
     private fun tryLogin(serverId: String, password: String) = GlobalScope.launch(Dispatchers.Main) {
-        val dialog = CustomizedDialog.newInstance()
+        val dialog = LoadingDialog.newInstance()
         dialog.show(fragmentManager, "logging_in")
 
         GlobalScope.async(Dispatchers.Default) {
