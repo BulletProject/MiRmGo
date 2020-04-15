@@ -151,8 +151,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/dr_button_outline"
-            android:text="Button"
-            android:textColor="@color/wizardGrey"
-            tools:text="@string/panel_list_button" />
+            android:text="@string/panel_list_button"
+            android:textColor="@color/wizardGrey" />
     </LinearLayout>
 </ScrollView>

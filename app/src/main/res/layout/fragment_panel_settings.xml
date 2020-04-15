@@ -53,9 +53,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/dr_button_create"
-                android:text="Button"
-                android:textColor="@android:color/white"
-                tools:text="@string/panel_button" />
+                android:text="@string/panel_button"
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
         <LinearLayout

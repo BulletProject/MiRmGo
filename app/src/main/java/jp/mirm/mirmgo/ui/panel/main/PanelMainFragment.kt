@@ -50,6 +50,10 @@ class PanelMainFragment : Fragment() {
             presenter.onOpenStatusPageButtonClick()
         }
 
+        panelGotoListButton.setOnClickListener {
+            presenter.onGotoListButtonClick()
+        }
+
         presenter.onUpdate()
     }
 

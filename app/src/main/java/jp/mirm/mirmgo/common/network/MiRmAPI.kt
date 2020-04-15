@@ -52,18 +52,29 @@ object MiRmAPI {
     }
 
     fun sendCommand(command: String): Boolean {
-        val json = Http.postXWwwFormUrlEncoded(URLHolder.URL_SEND_COMMAND, mapOf("command" to command)) ?: throw MissingRequestException()
-        val response = gson.fromJson(json, CommandResponse::class.java)
-        return response.statusCode == 0
+        try {
+            val json =
+                Http.postXWwwFormUrlEncoded(URLHolder.URL_SEND_COMMAND, mapOf("command" to command))
+                    ?: throw MissingRequestException()
+            val response = gson.fromJson(json, CommandResponse::class.java)
+            return response.statusCode == 0
+        } catch (e: Exception) {
+            return false
+        }
     }
 
     fun action(action: String): Boolean {
-        val json = Http.postXWwwFormUrlEncoded(URLHolder.URL_ACTION, mapOf("action" to action)) ?: throw MissingRequestException()
-        val response = gson.fromJson(json, ActionResponse::class.java)
+        try {
+            val json = Http.postXWwwFormUrlEncoded(URLHolder.URL_ACTION, mapOf("action" to action))
+                ?: throw MissingRequestException()
+            val response = gson.fromJson(json, ActionResponse::class.java)
 
-        if (response.statusCode == 1) throw MissingRequestException()
+            if (response.statusCode == 1) throw MissingRequestException()
 
-        return response.couldExecute
+            return response.couldExecute
+        } catch (e: Exception) {
+            return false
+        }
     }
 
     fun extendNormally(): Boolean {

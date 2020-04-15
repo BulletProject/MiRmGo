@@ -34,7 +34,7 @@ class PanelSettingPresenter(private val fragment: PanelSettingFragment) {
 
         GlobalScope.async(Dispatchers.Default) {
             val array = MyApplication.getApplication().resources.getStringArray(R.array.time_list)
-            val time = when (fragment.getOPSpinnerContent()) {
+            val time = when (fragment.getTimeSpinnerContent()) {
                 array[0] -> "day"
                 array[1] -> "noon"
                 array[2] -> "night"
@@ -54,7 +54,7 @@ class PanelSettingPresenter(private val fragment: PanelSettingFragment) {
 
         GlobalScope.async(Dispatchers.Default) {
             val array = MyApplication.getApplication().resources.getStringArray(R.array.gamemode_list)
-            val gameMode = when (fragment.getOPSpinnerContent()) {
+            val gameMode = when (fragment.getGameModeSpinnerContent()) {
                 array[0] -> 0
                 array[1] -> 1
                 else -> throw IllegalArgumentException()

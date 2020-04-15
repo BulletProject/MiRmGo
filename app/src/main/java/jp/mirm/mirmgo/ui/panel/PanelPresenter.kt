@@ -26,9 +26,4 @@ class PanelPresenter(private val fragment: PanelFragment) : AbstractPresenter() 
         this.time = time
     }
 
-    fun onGotoListButtonClick() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URLHolder.URL_SERVER_LIST))
-        MyApplication.getApplication().startActivity(intent)
-    }
-
 }

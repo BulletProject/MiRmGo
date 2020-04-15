@@ -60,10 +60,6 @@ class PanelFragment : Fragment() {
             getMainFragment().onUpdate()
         }
 
-        panelGotoListButton.setOnClickListener {
-            presenter.onGotoListButtonClick()
-        }
-
         panelViewPager.adapter = adapter
         panelViewPager.currentItem = 0
     }

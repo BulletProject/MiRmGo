@@ -120,4 +120,9 @@ class PanelMainPresenter(private val fragment: PanelMainFragment) {
 
     }
 
+    fun onGotoListButtonClick() {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URLHolder.URL_SERVER_LIST))
+        MyApplication.getApplication().startActivity(intent)
+    }
+
 }
