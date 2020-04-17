@@ -58,7 +58,7 @@ class PanelFragment : Fragment() {
         adapter = PanelViewPagerAdapter(childFragmentManager)
 
         panelExtendButton.setOnClickListener {
-            getMainFragment().onExtendButtonClick()
+            presenter.onExtendButtonClick()
         }
 
         panelRefreshButton.setOnClickListener {
@@ -90,7 +90,7 @@ class PanelFragment : Fragment() {
     }
 
     fun showSnackbar(id: Int): Snackbar {
-        val snackbar = Snackbar.make(loginButton, id, Snackbar.LENGTH_SHORT)
+        val snackbar = Snackbar.make(panelExtendButton, id, Snackbar.LENGTH_SHORT)
         snackbar.show()
         return snackbar
     }

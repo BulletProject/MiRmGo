@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.snackbar.Snackbar
 import jp.mirm.mirmgo.R
+import kotlinx.android.synthetic.main.dialog_extend.*
 import kotlinx.android.synthetic.main.dialog_extend.view.*
 
 class ExtendDialog : DialogFragment() {

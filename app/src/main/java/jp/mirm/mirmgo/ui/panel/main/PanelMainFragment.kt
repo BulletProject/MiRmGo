@@ -109,10 +109,6 @@ class PanelMainFragment : Fragment() {
         return if (PanelFragment.getCurrentPage() == 0) panelStatusSwitch.tag else "TAG"
     }
 
-    fun onExtendButtonClick() {
-        presenter.onExtendButtonClick()
-    }
-
     fun onUpdate() {
         presenter.onUpdate()
     }

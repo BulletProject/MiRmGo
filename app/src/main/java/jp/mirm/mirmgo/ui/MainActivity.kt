@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-        MobileAds.initialize(this, getString(R.string.movie_id_extend))
+        MobileAds.initialize(this, getString(R.string.admob_movie_extend))
     }
 
 }

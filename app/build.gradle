@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: "com.cookpad.android.plugin.license-tools"
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"

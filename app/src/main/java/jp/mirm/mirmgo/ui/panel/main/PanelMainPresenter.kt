@@ -133,11 +133,6 @@ class PanelMainPresenter(private val fragment: PanelMainFragment) : AbstractPres
         }
     }
 
-    fun onExtendButtonClick() {
-        val dialog = ExtendDialog.newInstance()
-        dialog.show(fragment.activity!!.supportFragmentManager, "extend")
-    }
-
     fun onGotoListButtonClick() {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URLHolder.URL_SERVER_LIST))
         MyApplication.getApplication().startActivity(intent)

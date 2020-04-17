@@ -17,7 +17,9 @@ object URLHolder {
     const val URL_EXTEND = "${PROTOCOL}${HOST}/api/extend"
     const val URL_STATUS_PAGE = "${PROTOCOL}${HOST}/status_page.html?serverId="
     const val URL_SERVER_LIST = "${PROTOCOL}${HOST}/list"
+
     const val URL_SITE = "${PROTOCOL}mirm.jp"
-    const val URL_RSS_FEEDS = "${PROTOCOL}mirm.jp/?feed=rss2"
+    const val URL_RSS_FEEDS = "${URL_SITE}/?feed=rss2"
+    const val URL_ABOUT = "${URL_SITE}/?page_id=1282"
 
 }

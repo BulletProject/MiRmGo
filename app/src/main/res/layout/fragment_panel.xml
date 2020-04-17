@@ -30,9 +30,9 @@
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/pic_mirm_54" />
+                app:srcCompat="@drawable/ic_mirm" />
 
             <ImageButton
                 android:id="@+id/panelPopupMenuButton"

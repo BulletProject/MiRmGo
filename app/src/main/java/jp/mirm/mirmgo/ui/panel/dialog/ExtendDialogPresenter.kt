@@ -1,10 +1,10 @@
 package jp.mirm.mirmgo.ui.panel.dialog
 
+import android.util.Log
 import androidx.core.os.bundleOf
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.reward.RewardItem
-import com.google.android.gms.ads.reward.RewardedVideoAd
 import jp.mirm.mirmgo.MyApplication
 import jp.mirm.mirmgo.R
 import jp.mirm.mirmgo.common.network.MiRmAPI
@@ -18,12 +18,15 @@ import kotlinx.coroutines.launch
 
 class ExtendDialogPresenter(private val dialog: ExtendDialog) {
 
-    fun onExtendClick() {
-        val loadingDialog = LoadingDialog.newInstance()
-        loadingDialog.arguments = bundleOf("text" to MyApplication.getString(R.string.dialog_extend_loading))
-        loadingDialog.show(dialog.activity!!.supportFragmentManager, "loading")
+    fun onExtendClick() = GlobalScope.launch(Dispatchers.Main) {
+        dialog.dismiss()
+        onTryExtend()
+    }
 
-        MobileAds.initialize(dialog.activity!!, MyApplication.getString(R.string.movie_id_extend))
+    private fun onTryExtend() {
+        val loadingDialog = LoadingDialog.newInstance()
+        loadingDialog.arguments = bundleOf("text" to MyApplication.getString(R.string.loading))
+        loadingDialog.show(dialog.activity!!.supportFragmentManager, "loading")
 
         val rewardedVideoAd = MobileAds.getRewardedVideoAdInstance(dialog.activity!!)
         rewardedVideoAd.rewardedVideoAdListener = object: CustomizedRewardedViewAdListener() {
@@ -37,10 +40,12 @@ class ExtendDialogPresenter(private val dialog: ExtendDialog) {
             }
 
             override fun onRewardedVideoAdFailedToLoad(errorCode: Int) {
-                println("======================================E$errorCode")
+                loadingDialog.dismiss()
+                PanelFragment.getInstance().showSnackbar(R.string.dialog_extend_failed)
+                Log.e("LoadAd", "Error code: $errorCode")
             }
         }
-        rewardedVideoAd.loadAd(MyApplication.getString(R.string.movie_id_extend), AdRequest.Builder().build())
+        rewardedVideoAd.loadAd(MyApplication.getString(R.string.admob_movie_extend), AdRequest.Builder().build())
     }
 
     private fun extend() = GlobalScope.launch(Dispatchers.Main) {
@@ -48,7 +53,12 @@ class ExtendDialogPresenter(private val dialog: ExtendDialog) {
             MiRmAPI.extendNormally()
 
         }.await().let {
-            PanelFragment.getMainFragment().onUpdate()
+            if (it) {
+                PanelFragment.getMainFragment().onUpdate()
+                PanelFragment.getInstance().showSnackbar(R.string.dialog_extend_success)
+            } else {
+                PanelFragment.getInstance().showSnackbar(R.string.dialog_extend_error)
+            }
         }
     }
 

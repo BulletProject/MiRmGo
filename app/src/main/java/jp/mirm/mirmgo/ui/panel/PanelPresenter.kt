@@ -10,6 +10,7 @@ import jp.mirm.mirmgo.common.network.URLHolder
 import jp.mirm.mirmgo.ui.AbstractPresenter
 import jp.mirm.mirmgo.ui.dialog.LoadingDialog
 import jp.mirm.mirmgo.ui.login.LoginFragment
+import jp.mirm.mirmgo.ui.panel.dialog.ExtendDialog
 import jp.mirm.mirmgo.util.Preferences
 import kotlinx.coroutines.*
 
@@ -76,6 +77,28 @@ class PanelPresenter(private val fragment: PanelFragment) : AbstractPresenter() 
                 )
             } else {
                 fragment.showSnackbar(R.string.panel_logout_error)
+            }
+        }
+    }
+
+    fun onExtendButtonClick()  = GlobalScope.launch(Dispatchers.Main) {
+        fragment.showSnackbar(R.string.loading)
+        GlobalScope.async(Dispatchers.Default) {
+            MiRmAPI.getServerData()
+
+        }.await().let {
+            if (it == null) {
+                fragment.showSnackbar(R.string.dialog_extend_error)
+                return@let
+            }
+
+            if (it.time > 360) {
+                fragment.showSnackbar(R.string.dialog_extend_error_time)
+                return@let
+
+            } else {
+                val dialog = ExtendDialog.newInstance()
+                dialog.show(fragment.activity!!.supportFragmentManager, "extend")
             }
         }
     }

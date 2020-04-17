@@ -66,8 +66,10 @@
 
     <string name="panel_info_ways">アプリについて</string>
 
+    <string name="loading">読み込み中&#8230;</string>
     <string name="back">戻る</string>
     <string name="bds">Bedrock Dedicated Server</string>
+
     <string name="status_running">起動中</string>
     <string name="status_stopped">停止中</string>
     <string name="status_running_processing">起動処理中&#8230;</string>
@@ -79,7 +81,10 @@
     <string name="dialog_extend_title">使用可能時間延長</string>
     <string name="dialog_extend_text">動画広告を最後まで視聴することで、サーバーの使用可能時間を延長することができます。</string>
     <string name="dialog_extend_button_do">動画を見て延長する</string>
-    <string name="dialog_extend_loading">ロード中&#8230;</string>
+    <string name="dialog_extend_success">使用可能時間を延長しました。</string>
+    <string name="dialog_extend_failed">広告をロードできませんでした。</string>
+    <string name="dialog_extend_error">エラーが発生しました。。</string>
+    <string name="dialog_extend_error_time">残り使用可能時間が6時間を切ると延長が可能になります。</string>
 
     <string-array name="op_list">
         <item>OPに設定</item>
@@ -98,5 +103,10 @@
         <item>クリエイティブ</item>
     </string-array>
 
-    <string name="movie_id_extend">"ca-app-pub-3940256099942544/5224354917"</string>
+    <!-- Extend Movie Id: ca-app-pub-1788933592781069/1015298382 -->
+    <!-- Banner 1 Id: ca-app-pub-1788933592781069/5501338307 -->
+    <string name="admob_appid">ca-app-pub-1788933592781069~5529258460</string>
+    <string name="admob_movie_test">ca-app-pub-3940256099942544/5224354917</string>
+    <string name="admob_movie_extend">ca-app-pub-3940256099942544/5224354917</string>
+    <string name="admob_banner_1">ca-app-pub-1788933592781069/5501338307</string>
 </resources>

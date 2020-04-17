@@ -46,6 +46,7 @@ object MiRmAPI {
             }
 
         } catch (e: Exception) {
+            e.printStackTrace()
         }
 
         return LOGIN_STATUS_ERROR
