@@ -5,15 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import jp.mirm.mirmgo.MyApplication
 import jp.mirm.mirmgo.R
 import jp.mirm.mirmgo.model.NewServer
-import jp.mirm.mirmgo.ui.create.CreateServerPresenter
 import kotlinx.android.synthetic.main.fragment_create_confirm.*
 
 class ConfirmFragment : Fragment() {
     private lateinit var presenter: ConfirmPresenter
 
     companion object {
+        const val PAGE_NO = 3
+
         fun newInstance(): ConfirmFragment {
             return ConfirmFragment()
         }
@@ -29,13 +31,12 @@ class ConfirmFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        presenter = ConfirmPresenter(this)
-        presenter.init()
     }
 
     override fun onResume() {
         super.onResume()
+
+        presenter = ConfirmPresenter(this)
 
         confirmCreateServerButton.setOnClickListener {
             presenter.onCreateButtonClick()
@@ -45,15 +46,23 @@ class ConfirmFragment : Fragment() {
             presenter.onPreviousClick()
         }
 
-        confirmGamemodeTextView.text = when (CreateServerPresenter.getGamemode()) {
-            NewServer.GAMEMODE_SURVIVAL -> this.activity?.getString(R.string.create_survival)
-            NewServer.GAMEMODE_CREATIVE -> this.activity?.getString(R.string.create_creative)
+        confirmGamemodeTextView.text = when (NewServer.gameMode) {
+            NewServer.GAMEMODE_SURVIVAL -> MyApplication.getString(R.string.create_survival)
+            NewServer.GAMEMODE_CREATIVE -> MyApplication.getString(R.string.create_creative)
             else -> ""
         }
 
-        confirmTermsTextView.text = when (CreateServerPresenter.isAccepted()) {
-            true -> this.activity?.getString(R.string.create_2_accept)
-            else -> this.activity?.getText(R.string.create_2_not_accept)
+        confirmDifficultyTextView.text = when (NewServer.difficulty) {
+            NewServer.DIFFICULTY_PEACEFUL -> MyApplication.getString(R.string.create_difficulty_peaceful)
+            NewServer.DIFFICULTY_EASY -> MyApplication.getString(R.string.create_difficulty_easy)
+            NewServer.DIFFICULTY_NORMAL -> MyApplication.getString(R.string.create_difficulty_normal)
+            NewServer.DIFFICULTY_HARD -> MyApplication.getString(R.string.create_difficulty_hard)
+            else -> ""
+        }
+
+        confirmTermsTextView.text = when (NewServer.accepted) {
+            true -> this.activity?.getString(R.string.create_terms_accept)
+            else -> this.activity?.getText(R.string.create_terms_not_accept)
         }
 
         confirmServerTypeTextView.text = this.activity?.getText(R.string.bds)

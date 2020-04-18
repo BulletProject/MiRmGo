@@ -8,27 +8,15 @@ class CreateServerPresenter(private val fragment: CreateServerFragment) : Abstra
 
     companion object {
         private var pager: CustomViewPager? = null
-        private val serverData = mutableMapOf<String, Any>()
 
         fun setPage(page: Int) {
             pager?.currentItem = page
         }
-
-        fun setGameMode(i: Int) {
-            serverData["gameMode"] = i
-        }
-
-        fun setAccepted(bool: Boolean) {
-            serverData["accepted"] = bool
-        }
-
-        fun getGamemode(): Int = (serverData["gameMode"] ?: NewServer.GAMEMODE_UNKNOWN) as Int
-
-        fun isAccepted(): Boolean = (serverData["accepted"] ?: false) as Boolean
     }
 
     init {
         pager = fragment.createServerViewPager
+        NewServer.reset()
     }
 
 }

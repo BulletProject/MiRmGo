@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.fragment_create_server.*
 class CreateServerFragment : Fragment() {
 
     private lateinit var presenter: CreateServerPresenter
-    lateinit var adapter: CreateServerViewPagerAdapter
 
     companion object {
         fun newInstance(): CreateServerFragment {
@@ -31,9 +30,7 @@ class CreateServerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         presenter = CreateServerPresenter(this)
-        createServerViewPager.adapter = CreateServerViewPagerAdapter(childFragmentManager).also {
-            this.adapter = it
-        }
+        createServerViewPager.adapter = CreateServerViewPagerAdapter(childFragmentManager)
         createServerViewPager.setSwipeEnabled(true)
 
         CreateServerPresenter.setPage(0)

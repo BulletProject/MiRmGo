@@ -13,6 +13,8 @@ class TermsFragment : Fragment() {
     private lateinit var presenter: TermsPresenter
 
     companion object {
+        const val PAGE_NO = 2
+
         fun newInstance(): TermsFragment {
             return TermsFragment()
         }
@@ -30,7 +32,6 @@ class TermsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         presenter = TermsPresenter(this)
-        presenter.init()
 
         termsCheckBox.setOnCheckedChangeListener { _, isChecked ->
             presenter.onAgreeCheckBoxChange(isChecked)

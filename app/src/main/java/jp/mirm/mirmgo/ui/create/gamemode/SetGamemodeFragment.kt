@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import jp.mirm.mirmgo.R
 import jp.mirm.mirmgo.ui.mainmenu.MainMenuFragment
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_create_gamemode.*
 
 class SetGamemodeFragment : Fragment() {
@@ -15,6 +14,8 @@ class SetGamemodeFragment : Fragment() {
     private lateinit var presenter: SetGamemodePresenter
 
     companion object {
+        const val PAGE_NO = 0
+
         fun newInstance(): SetGamemodeFragment {
             return SetGamemodeFragment()
         }
@@ -32,14 +33,13 @@ class SetGamemodeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         presenter = SetGamemodePresenter(this)
-        presenter.init()
 
-        setSurvivalButton.setOnClickListener {
-            presenter.onSurvivalButtonClick()
+        createSurvivalCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) presenter.onSurvivalCheck()
         }
 
-        setCreativeButton.setOnClickListener {
-            presenter.onCreativeButtonClick()
+        createCreativeCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) presenter.onCreativeCheck()
         }
 
         create1NextButton.setOnClickListener {
@@ -50,5 +50,13 @@ class SetGamemodeFragment : Fragment() {
             presenter.changeFragment(activity?.supportFragmentManager!!, MainMenuFragment.newInstance())
         }
 
+    }
+
+    fun setSurvivalChecked(isChecked: Boolean) {
+        createSurvivalCheckbox.isChecked = isChecked
+    }
+
+    fun setCreativeChecked(isChecked: Boolean) {
+        createCreativeCheckBox.isChecked = isChecked
     }
 }

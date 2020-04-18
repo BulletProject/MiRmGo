@@ -25,7 +25,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/create_2_title"
+                android:text="@string/create_terms_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/white" />
 
@@ -92,7 +92,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/dr_bottom_bordered"
                         android:padding="16dp"
-                        android:text="@string/create_2_text"
+                        android:text="@string/create_terms_text"
                         android:textColor="@android:color/white" />
 
                     <TextView
@@ -110,7 +110,7 @@
                         android:layout_margin="16dp"
                         android:layout_marginTop="16dp"
                         android:enabled="false"
-                        android:text="@string/create_2_accept"
+                        android:text="@string/create_terms_accept"
                         android:textColor="@android:color/white" />
                 </LinearLayout>
             </ScrollView>

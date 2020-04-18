@@ -2,25 +2,23 @@ package jp.mirm.mirmgo.ui.create.confirm
 
 import android.content.Intent
 import android.net.Uri
+import jp.mirm.mirmgo.model.NewServer
 import jp.mirm.mirmgo.ui.AbstractPresenter
 import jp.mirm.mirmgo.ui.create.CreateServerPresenter
+import jp.mirm.mirmgo.ui.create.terms.TermsFragment
 
 class ConfirmPresenter(private val fragment: ConfirmFragment) : AbstractPresenter() {
 
-    fun init() {
-
-    }
-
     fun update() {
-        fragment.setCreateButtonEnabled(CreateServerPresenter.isAccepted())
+        fragment.setCreateButtonEnabled(NewServer.canCreateServer())
     }
 
     fun onPreviousClick() {
-        CreateServerPresenter.setPage(1)
+        CreateServerPresenter.setPage(TermsFragment.PAGE_NO)
     }
 
     fun onCreateButtonClick() {
-        if (CreateServerPresenter.isAccepted()) {
+        if (NewServer.canCreateServer()) {
             // TODO create server
         }
     }

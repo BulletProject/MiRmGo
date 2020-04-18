@@ -9,22 +9,33 @@
 
     <string name="create_1_title">1.ゲームモード</string>
     <string name="create_survival">サバイバルモード</string>
-    <string name="create_survival_text">・ブロックを1から集めて発展させよう！\n・農業をしたり、世界を探検したりして生き抜こう！\n・仲間やゾンビたちと戦おう！</string>
+    <string name="create_survival_text">・ブロックを1から集める\n・死ぬことがある\n・ゾンビなどの敵と戦う</string>
     <string name="create_creative">クリエイティブモード</string>
-    <string name="create_creative_text">・いろいろな種類のブロックですきな建物を建てよう！\n・思い思いの町をみんなでつくってみよう！</string>
+    <string name="create_creative_text">・初めから全てのブロックを使える\n・死ぬことがない\n・空を自由に飛部ことができる</string>
     <string name="create_button">これで遊ぶ！</string>
     <string name="create_button_selected">選択済み</string>
 
-    <string name="create_2_title">2.利用規約</string>
-    <string name="create_2_text">必ず最後までお読みになり、同意する場合には最下部のチェックボックスにチェックを入れてください。</string>
-    <string name="create_2_accept">同意する</string>
-    <string name="create_2_not_accept">同意しない</string>
+    <string name="create_difficulty_title">2.ワールドの難易度</string>
+    <string name="create_difficulty_peaceful">ピースフル</string>
+    <string name="create_difficulty_peaceful_text">・敵Mob（ゾンビ、クリーパー等）は自然に現れることがない\n・体力は自然に回復</string>
+    <string name="create_difficulty_easy">イージー</string>
+    <string name="create_difficulty_easy_text">・敵Mobが現れるが、受けるダメージは少ない\n・空腹ゲージが減ることがある</string>
+    <string name="create_difficulty_normal">ノーマル</string>
+    <string name="create_difficulty_normal_text">・敵Mobが現れ、攻撃をしてくる\n・空腹ゲージが減る</string>
+    <string name="create_difficulty_hard">ハード</string>
+    <string name="create_difficulty_hard_text">・敵Mobが現れ、さらに強い攻撃をしてくる\n・空腹で死ぬことがある</string>
 
-    <string name="create_3_title">3.確認</string>
-    <string name="create_3_gamemode">ゲームモード</string>
-    <string name="create_3_type">サーバータイプ</string>
-    <string name="create_3_terms">利用規約</string>
-    <string name="create_3_button_create">サーバーをつくる！</string>
+    <string name="create_terms_title">3.利用規約</string>
+    <string name="create_terms_text">必ず最後までお読みになり、同意する場合には最下部のチェックボックスにチェックを入れてください。</string>
+    <string name="create_terms_accept">同意する</string>
+    <string name="create_terms_not_accept">同意しない</string>
+
+    <string name="create_confirm_title">4.確認</string>
+    <string name="create_confirm_gamemode">ゲームモード</string>
+    <string name="create_confirm_difficulty">ワールド難易度</string>
+    <string name="create_confirm_type">サーバータイプ</string>
+    <string name="create_confirm_terms">利用規約</string>
+    <string name="create_confirm_button_create">サーバーをつくる！</string>
 
     <string name="login_title">MiRmにログイン</string>
     <string name="login_server_id">サーバーID</string>

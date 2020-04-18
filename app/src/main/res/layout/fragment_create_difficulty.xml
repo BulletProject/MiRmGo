@@ -28,7 +28,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/create_1_title"
+                android:text="@string/create_difficulty_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/white" />
 
@@ -45,7 +45,7 @@
             android:paddingBottom="16dp">
 
             <ImageButton
-                android:id="@+id/create1PreviousButton"
+                android:id="@+id/create4PreviousButton"
                 android:layout_width="48dp"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
@@ -76,7 +76,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"
-                            android:text="@string/create_survival"
+                            android:text="@string/create_difficulty_peaceful"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="@android:color/white" />
 
@@ -85,11 +85,77 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"
-                            android:text="@string/create_survival_text"
+                            android:text="@string/create_difficulty_peaceful_text"
                             android:textColor="@android:color/white" />
 
                         <CheckBox
-                            android:id="@+id/createSurvivalCheckbox"
+                            android:id="@+id/createPeacefulCheckBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/create_button" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:background="@color/deepKoamaru"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/textView9"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:text="@string/create_difficulty_easy"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@android:color/white" />
+
+                        <TextView
+                            android:id="@+id/textView10"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:text="@string/create_difficulty_easy_text"
+                            android:textColor="@android:color/white" />
+
+                        <CheckBox
+                            android:id="@+id/createEasyCheckBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/create_button" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:background="@color/deepKoamaru"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/textView11"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:text="@string/create_difficulty_normal"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@android:color/white" />
+
+                        <TextView
+                            android:id="@+id/textView12"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:text="@string/create_difficulty_normal_text"
+                            android:textColor="@android:color/white" />
+
+                        <CheckBox
+                            android:id="@+id/createNormalCheckBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/create_button" />
@@ -104,24 +170,24 @@
                         android:padding="16dp">
 
                         <TextView
-                            android:id="@+id/textView9"
+                            android:id="@+id/textView13"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"
-                            android:text="@string/create_creative"
+                            android:text="@string/create_difficulty_hard"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="@android:color/white" />
 
                         <TextView
-                            android:id="@+id/textView10"
+                            android:id="@+id/textView14"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"
-                            android:text="@string/create_creative_text"
+                            android:text="@string/create_difficulty_hard_text"
                             android:textColor="@android:color/white" />
 
                         <CheckBox
-                            android:id="@+id/createCreativeCheckBox"
+                            android:id="@+id/createHardCheckBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/create_button" />
@@ -132,7 +198,7 @@
             </ScrollView>
 
             <ImageButton
-                android:id="@+id/create1NextButton"
+                android:id="@+id/create4NextButton"
                 android:layout_width="48dp"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
