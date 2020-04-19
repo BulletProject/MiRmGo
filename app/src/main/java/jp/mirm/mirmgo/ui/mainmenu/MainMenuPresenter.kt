@@ -1,9 +1,13 @@
 package jp.mirm.mirmgo.ui.mainmenu
 
+import android.content.Intent
+import android.net.Uri
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.snackbar.Snackbar
+import jp.mirm.mirmgo.MyApplication
 import jp.mirm.mirmgo.R
 import jp.mirm.mirmgo.common.network.MiRmAPI
+import jp.mirm.mirmgo.common.network.URLHolder
 import jp.mirm.mirmgo.ui.AbstractPresenter
 import jp.mirm.mirmgo.ui.create.CreateServerFragment
 import jp.mirm.mirmgo.ui.login.LoginFragment
@@ -34,6 +38,11 @@ class MainMenuPresenter(private val fragment: MainMenuFragment) : AbstractPresen
 
     fun onLoginClick() {
         changeFragment(fragmentManager, LoginFragment.newInstance())
+    }
+
+    fun onAboutButtonClick() {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URLHolder.URL_ABOUT))
+        MyApplication.getApplication().startActivity(intent)
     }
 
     private fun tryLogin(serverId: String, password: String) = GlobalScope.launch(Dispatchers.Main) {

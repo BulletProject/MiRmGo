@@ -76,6 +76,11 @@
     <string name="panel_setting_error_server">サーバーを起動してください。</string>
 
     <string name="panel_info_ways">アプリについて</string>
+    <string name="panel_about_build_title">ビルドバージョン</string>
+    <string name="panel_about_developer">開発</string>
+    <string name="panel_about_button_terms">利用規約</string>
+    <string name="panel_about_button_oss">オープンソースライセンス</string>
+    <string name="panel_about_button_hp">公式サイト</string>
 
     <string name="loading">読み込み中&#8230;</string>
     <string name="back">戻る</string>
@@ -113,11 +118,18 @@
         <item>サバイバル</item>
         <item>クリエイティブ</item>
     </string-array>
+    <!-- Environmental Variables -->
 
+    <string name="version_code">Debug 0.0.1 / むらさきいろのくるま</string>
+    <string name="developer">Itsu (MiRm Development Team)</string>
+
+    <!-- App Id: ca-app-pub-1788933592781069~5529258460 -->
     <!-- Extend Movie Id: ca-app-pub-1788933592781069/1015298382 -->
     <!-- Banner 1 Id: ca-app-pub-1788933592781069/5501338307 -->
+    <string name="admob_appid_test">ca-app-pub-3940256099942544~3347511713</string>
     <string name="admob_appid">ca-app-pub-1788933592781069~5529258460</string>
     <string name="admob_movie_test">ca-app-pub-3940256099942544/5224354917</string>
     <string name="admob_movie_extend">ca-app-pub-3940256099942544/5224354917</string>
+    <string name="admob_banner_test">ca-app-pub-3940256099942544/6300978111</string>
     <string name="admob_banner_1">ca-app-pub-1788933592781069/5501338307</string>
 </resources>

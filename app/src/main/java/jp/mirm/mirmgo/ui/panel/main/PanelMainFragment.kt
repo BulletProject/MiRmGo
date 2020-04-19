@@ -89,19 +89,21 @@ class PanelMainFragment : Fragment() {
     }
 
     fun setRSSListContents(list: List<String>) {
-        panelRSSLinearLayout.removeAllViews()
-        list.forEach {
-            val space = Space(this.activity!!)
-            space.minimumHeight = DisplaySizeCaculator.dpToPx(16)
-            panelRSSLinearLayout.addView(space)
+        if (PanelFragment.getCurrentPage() == 0) {
+            panelRSSLinearLayout.removeAllViews()
+            list.forEach {
+                val space = Space(this.activity!!)
+                space.minimumHeight = DisplaySizeCaculator.dpToPx(16)
+                panelRSSLinearLayout.addView(space)
 
-            val textView = TextView(this.activity!!)
-            textView.text = it
-            textView.setTextColor(MyApplication.getApplication().resources.getColor(android.R.color.white))
-            textView.setOnClickListener {
-                presenter.onRSSContentClick(textView.text.toString())
+                val textView = TextView(this.activity!!)
+                textView.text = it
+                textView.setTextColor(MyApplication.getApplication().resources.getColor(android.R.color.white))
+                textView.setOnClickListener {
+                    presenter.onRSSContentClick(textView.text.toString())
+                }
+                panelRSSLinearLayout.addView(textView)
             }
-            panelRSSLinearLayout.addView(textView)
         }
     }
 

@@ -21,5 +21,6 @@ object URLHolder {
     const val URL_SITE = "${PROTOCOL}mirm.jp"
     const val URL_RSS_FEEDS = "${URL_SITE}/?feed=rss2"
     const val URL_ABOUT = "${URL_SITE}/?page_id=1282"
+    const val URL_OSS = "${URL_SITE}/mirm-go-for-android-オープンソースライセンス"
 
 }

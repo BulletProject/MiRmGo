@@ -10,15 +10,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        Stetho.initialize(Stetho.newInitializerBuilder(this)
-            .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
-            .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
-            .build())
-
         setContentView(R.layout.activity_main)
-
-        MobileAds.initialize(this, getString(R.string.admob_movie_extend))
+        MobileAds.initialize(this, getString(R.string.admob_appid_test))
     }
 
 }

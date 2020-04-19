@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
 import com.google.android.material.snackbar.Snackbar
 import jp.mirm.mirmgo.MyApplication
 import jp.mirm.mirmgo.R
@@ -77,6 +79,9 @@ class PanelFragment : Fragment() {
 
         panelViewPager.adapter = adapter
         panelViewPager.currentItem = 0
+
+        val adRequest = AdRequest.Builder().build()
+        adView1.loadAd(adRequest)
     }
 
     override fun onPause() {

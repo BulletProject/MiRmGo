@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -172,5 +171,9 @@
                 android:text="@string/panel_button"
                 android:textColor="@android:color/white" />
         </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="60dp" />
     </LinearLayout>
 </ScrollView>

@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import jp.mirm.mirmgo.MyApplication
 import jp.mirm.mirmgo.R
 import jp.mirm.mirmgo.ui.panel.setting.PanelSettingFragment
-import jp.mirm.mirmgo.ui.panel.ways.PanelWaysFragment
+import jp.mirm.mirmgo.ui.panel.about.PanelAboutFragment
 import java.lang.IllegalArgumentException
 import java.lang.IllegalStateException
 
@@ -20,7 +20,7 @@ class PanelViewPagerAdapter(fragmentManager: FragmentManager)  : FragmentPagerAd
         return when (position) {
             0 -> PanelFragment.getMainFragment()
             1 -> PanelSettingFragment.newInstance()
-            2 -> PanelWaysFragment.newInstance()
+            2 -> PanelAboutFragment.newInstance()
             else -> throw IllegalStateException()
         }
     }
