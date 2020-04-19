@@ -6,6 +6,7 @@ import jp.mirm.mirmgo.model.NewServer
 import jp.mirm.mirmgo.ui.AbstractPresenter
 import jp.mirm.mirmgo.ui.create.CreateServerPresenter
 import jp.mirm.mirmgo.ui.create.terms.TermsFragment
+import jp.mirm.mirmgo.util.FirebaseEventManager
 
 class ConfirmPresenter(private val fragment: ConfirmFragment) : AbstractPresenter() {
 
@@ -20,6 +21,7 @@ class ConfirmPresenter(private val fragment: ConfirmFragment) : AbstractPresente
     fun onCreateButtonClick() {
         if (NewServer.canCreateServer()) {
             // TODO create server
+            FirebaseEventManager.onCreateServer()
         }
     }
 

@@ -20,7 +20,7 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("jp.pic_mirm.mirmgo", appContext.packageName)
+        assertEquals("jp.mirm.mirmgo", appContext.packageName)
     }
 
     @Test

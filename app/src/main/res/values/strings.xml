@@ -121,6 +121,7 @@
     <!-- Environmental Variables -->
 
     <string name="version_code">Debug 0.0.1 / むらさきいろのくるま</string>
+    <string name="version">Debug 0.0.1</string>
     <string name="developer">Itsu (MiRm Development Team)</string>
 
     <!-- App Id: ca-app-pub-1788933592781069~5529258460 -->

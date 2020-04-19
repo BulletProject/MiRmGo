@@ -40,6 +40,10 @@ class MainMenuFragment : Fragment() {
         loginButton.setOnClickListener {
             presenter.onLoginClick()
         }
+
+        aboutMiRmButton.setOnClickListener {
+            presenter.onAboutButtonClick()
+        }
     }
 
     fun showLoginSnackbar(id: Int, length: Int): Snackbar {

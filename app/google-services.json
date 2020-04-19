@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "791247488869",
+    "firebase_url": "https://mirmgo-d8469.firebaseio.com",
+    "project_id": "mirmgo-d8469",
+    "storage_bucket": "mirmgo-d8469.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791247488869:android:2b4aba2828d53c73f2838c",
+        "android_client_info": {
+          "package_name": "jp.mirm.mirmgo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791247488869-7n5bnvj9ilhsnb576r2ban211viajr6e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4PBGqgcdUOK-nIDBy_gVSO6EpBCQR58E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "791247488869-7n5bnvj9ilhsnb576r2ban211viajr6e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

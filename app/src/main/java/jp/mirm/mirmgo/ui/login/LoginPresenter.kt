@@ -6,6 +6,7 @@ import jp.mirm.mirmgo.common.network.model.ServerDataResponse
 import jp.mirm.mirmgo.ui.AbstractPresenter
 import jp.mirm.mirmgo.ui.mainmenu.MainMenuFragment
 import jp.mirm.mirmgo.ui.panel.PanelFragment
+import jp.mirm.mirmgo.util.FirebaseEventManager
 import jp.mirm.mirmgo.util.Preferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -59,9 +60,14 @@ class LoginPresenter(private val fragment: LoginFragment) : AbstractPresenter() 
                 return@let
             }
 
-            if (fragment.isSaveDataChecked()) saveLoginData(fragment.getServerId(), fragment.getPassword())
-            changeFragment(fragment.activity!!.supportFragmentManager, PanelFragment.getInstance())
+            processLogin(fragment.getServerId(), fragment.getPassword())
         }
+    }
+
+    private fun processLogin(serverId: String, password: String) {
+        if (fragment.isSaveDataChecked()) saveLoginData(serverId, password)
+        changeFragment(fragment.activity!!.supportFragmentManager, PanelFragment.getInstance())
+        FirebaseEventManager.onLogin()
     }
 
     private fun onNotBDSServer() = GlobalScope.launch(Dispatchers.Main) {
