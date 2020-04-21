@@ -5,6 +5,7 @@ data class ServerDataResponse(
     val ip: String,
     val port: Int,
     val time: Int,
+    val maxTime: Int?,
     val type: String,
     val serverStatus: Boolean
 ) {
@@ -15,7 +16,8 @@ data class ServerDataResponse(
     }
 
     override fun toString(): String {
-        return "ServerDataResponse(id='$id', ip='$ip', port=$port, time=$time, type='$type', serverStatus=$serverStatus)"
+        return "ServerDataResponse(id='$id', ip='$ip', port=$port, time=$time, maxTime=$maxTime, type='$type', serverStatus=$serverStatus)"
     }
+
 
 }

@@ -1,13 +1,13 @@
 package jp.mirm.mirmgo
 
 import jp.mirm.mirmgo.common.network.MiRmAPI
-import jp.mirm.mirmgo.common.network.model.ActionResponse
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import jp.mirm.mirmgo.util.PasswordManager
 import org.junit.Test
 
 import org.junit.Assert.*
-import org.junit.runner.RunWith
+import java.util.*
+import javax.crypto.Cipher
+import javax.crypto.spec.SecretKeySpec
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -24,5 +24,16 @@ class HttpTest {
     @Test
     fun termsTest() {
         println(MiRmAPI.getTerms())
+    }
+
+    @Test
+    fun passwordTest() {
+        fun a(value: String): String {
+            val keySpec = SecretKeySpec("ana1sexmach1ne0".toByteArray(), "AES")
+            val cipher = Cipher.getInstance("AES")
+            cipher.init(Cipher.DECRYPT_MODE, keySpec)
+            return String(cipher.doFinal(Base64.getDecoder().decode(value)))
+        }
+        assertEquals(PasswordManager.decrypt(PasswordManager.encrypt("Analsex1919@sex")), a(PasswordManager.encrypt("Analsex1919@sex")))
     }
 }

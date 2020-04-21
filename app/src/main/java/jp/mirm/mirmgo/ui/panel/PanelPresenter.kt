@@ -26,8 +26,7 @@ class PanelPresenter(private val fragment: PanelFragment) : AbstractPresenter() 
                 started = true
 
                 while (flag) {
-                    fragment.setProgressBarValue(time, 600)
-                    fragment.setTime("$time/600分")
+                    fragment.setProgressBarValue(time)
                     delay(60000)
                     time--
                 }

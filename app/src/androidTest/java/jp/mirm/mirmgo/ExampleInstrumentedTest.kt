@@ -1,13 +1,17 @@
 package jp.mirm.mirmgo
 
+import android.util.Base64
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import jp.mirm.mirmgo.common.network.MiRmAPI
+import jp.mirm.mirmgo.util.PasswordManager
 
 import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Assert.*
+import javax.crypto.Cipher
+import javax.crypto.spec.SecretKeySpec
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -26,5 +30,16 @@ class ExampleInstrumentedTest {
     @Test
     fun loginTest() {
         assertEquals("OK: Login", MiRmAPI.login("mirmtest", "tsubaki394"), 0)
+    }
+
+    @Test
+    fun createBDSServerTest() {
+        assertEquals(0, MiRmAPI.createBDSServer(
+            "MiRmOfficial",
+            String(Base64.decode(PasswordManager.encrypt("analsexer").toByteArray(), Base64.DEFAULT)),
+            "survival",
+            "peaceful",
+            "member"
+        )?.toString())
     }
 }

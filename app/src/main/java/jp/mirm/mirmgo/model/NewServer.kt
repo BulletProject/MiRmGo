@@ -18,6 +18,20 @@ object NewServer {
     var difficulty = DIFFICULTY_UNKNOWN
     var accepted = false
 
+    fun getGameModeAsString() = when (gameMode) {
+        GAMEMODE_SURVIVAL -> "survival"
+        GAMEMODE_CREATIVE -> "creative"
+        else -> "unknown"
+    }
+
+    fun getDifficultyAsString() = when (difficulty) {
+        DIFFICULTY_PEACEFUL -> "peaceful"
+        DIFFICULTY_EASY -> "easy"
+        DIFFICULTY_NORMAL -> "normal"
+        DIFFICULTY_HARD -> "hard"
+        else -> "unknown"
+    }
+
     fun reset() {
         serverId = null
         password = null

@@ -5,10 +5,7 @@ import com.google.gson.JsonSyntaxException
 import com.rometools.rome.io.SyndFeedInput
 import jp.mirm.mirmgo.common.exception.CouldNotExtendException
 import jp.mirm.mirmgo.common.exception.MissingRequestException
-import jp.mirm.mirmgo.common.network.model.ActionResponse
-import jp.mirm.mirmgo.common.network.model.CommandResponse
-import jp.mirm.mirmgo.common.network.model.ExtendResponse
-import jp.mirm.mirmgo.common.network.model.ServerDataResponse
+import jp.mirm.mirmgo.common.network.model.*
 import org.jsoup.Jsoup
 import org.xml.sax.InputSource
 import java.io.StringReader
@@ -56,6 +53,22 @@ object MiRmAPI {
         try {
             val json = Http.get(URLHolder.URL_SERVER_DATA) ?: throw MissingRequestException()
             return gson.fromJson(json, ServerDataResponse::class.java)
+
+        } catch (e: Exception) {
+            return null
+        }
+    }
+
+    fun createBDSServer(serverId: String, passwordEncrypted: String, gameMode: String, difficulty: String, permission: String): CreateBDSServerResponse? {
+        try {
+            val json = Http.post(URLHolder.URL_CREATE_SERVER, mapOf(
+                "serverId" to serverId,
+                "passwordEncrypted" to passwordEncrypted,
+                "gameMode" to gameMode,
+                "difficulty" to difficulty,
+                "permission" to permission
+            ))
+            return gson.fromJson(json, CreateBDSServerResponse::class.java)
 
         } catch (e: Exception) {
             return null

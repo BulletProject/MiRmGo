@@ -42,7 +42,7 @@ class MainMenuPresenter(private val fragment: MainMenuFragment) : AbstractPresen
 
     fun onAboutButtonClick() {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URLHolder.URL_ABOUT))
-        MyApplication.getApplication().startActivity(intent)
+        fragment.activity!!.startActivity(intent)
     }
 
     private fun tryLogin(serverId: String, password: String) = GlobalScope.launch(Dispatchers.Main) {

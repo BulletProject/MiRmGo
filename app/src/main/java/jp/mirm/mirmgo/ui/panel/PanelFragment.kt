@@ -100,12 +100,13 @@ class PanelFragment : Fragment() {
         return snackbar
     }
 
-    fun setProgressBarValue(value: Int, max: Int) {
-        panelProgressBar?.max = max
+    fun setProgressBarValue(value: Int, max: Int? = null) {
+        if (max != null) panelProgressBar?.max = max
         panelProgressBar?.progress = value
+        setTime("${value}/${panelProgressBar.max}分")
     }
 
-    fun setTime(text: String) {
+    private fun setTime(text: String) {
         panelTimeView?.text = text
     }
 

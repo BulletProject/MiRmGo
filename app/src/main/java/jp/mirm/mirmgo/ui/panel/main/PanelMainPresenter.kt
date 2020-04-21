@@ -20,7 +20,7 @@ class PanelMainPresenter(private val fragment: PanelMainFragment) : AbstractPres
     fun onUpdate() = GlobalScope.launch (Dispatchers.Main) {
         PanelFragment.getInstance().setRefreshButtonEnabled(false)
         PanelFragment.getInstance().setProgressBarIndetermined(true)
-        PanelFragment.getInstance().setTime("-/-分")
+        PanelFragment.getInstance().setProgressBarValue(0, 0)
         fragment.setIPAddress("-")
         fragment.setPort("-")
         fragment.setStatusEnabled(false)
@@ -38,8 +38,7 @@ class PanelMainPresenter(private val fragment: PanelMainFragment) : AbstractPres
             PanelFragment.getInstance().onTimeUpdate(it.time)
             PanelFragment.getInstance().setRefreshButtonEnabled(true)
             PanelFragment.getInstance().setProgressBarIndetermined(false)
-            PanelFragment.getInstance().setProgressBarValue(it.time, 600)
-            PanelFragment.getInstance().setTime("${it.time}/600分")
+            PanelFragment.getInstance().setProgressBarValue(it.time, it.maxTime ?: 600)
             fragment.setIPAddress(it.ip)
             fragment.setPort(it.port.toString())
             fragment.setStatusEnabled(true)
@@ -95,7 +94,7 @@ class PanelMainPresenter(private val fragment: PanelMainFragment) : AbstractPres
         )
 
         GlobalScope.async(Dispatchers.Default) {
-            if (!isOn) delay(10000)
+            if (!isOn) delay(15000)
             MiRmAPI.getServerData()
 
         }.await().let {
