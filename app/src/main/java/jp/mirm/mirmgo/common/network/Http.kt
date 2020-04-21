@@ -60,7 +60,7 @@ object Http {
             .build()
         val response = client.newCall(request).execute()
 
-        if (!response.isSuccessful) throw MissingRequestException()
+        if (!response.isSuccessful) throw MissingRequestException(response.code())
         return response.body()?.string()
     }
 
@@ -77,7 +77,7 @@ object Http {
             .build()
         val response = client.newCall(request).execute()
 
-        if (!response.isSuccessful) throw MissingRequestException()
+        if (!response.isSuccessful) throw MissingRequestException(response.code())
         return response.body()?.string()
     }
 
@@ -98,7 +98,7 @@ object Http {
             .build()
         val response = client.newCall(request).execute()
 
-        if (!response.isSuccessful) throw MissingRequestException()
+        if (!response.isSuccessful) throw MissingRequestException(response.code())
         return response.body()?.string()
     }
 

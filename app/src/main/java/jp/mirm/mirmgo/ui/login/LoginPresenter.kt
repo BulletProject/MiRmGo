@@ -1,6 +1,9 @@
 package jp.mirm.mirmgo.ui.login
 
 import jp.mirm.mirmgo.R
+import jp.mirm.mirmgo.common.manager.GetServerDataManager
+import jp.mirm.mirmgo.common.manager.LoginManager
+import jp.mirm.mirmgo.common.manager.LogoutManager
 import jp.mirm.mirmgo.common.network.MiRmAPI
 import jp.mirm.mirmgo.common.network.model.ServerDataResponse
 import jp.mirm.mirmgo.ui.AbstractPresenter
@@ -15,71 +18,53 @@ import kotlinx.coroutines.launch
 
 class LoginPresenter(private val fragment: LoginFragment) : AbstractPresenter() {
 
-    fun onTryLoginButtonClick() = GlobalScope.launch(Dispatchers.Main) {
-        fragment.setTryLoginButtonVisibility(false)
-        fragment.setProgressBarVisibility(true)
-        fragment.setErrorTextViewVisibility(false)
-
-        GlobalScope.async(Dispatchers.Default) {
-            MiRmAPI.login(fragment.getServerId(), fragment.getPassword())
-
-        }.await().let {
-            when (it) {
-                MiRmAPI.LOGIN_STATUS_SUCCEEDED -> {
-                    onLoginSucceeded()
-                    return@let
-                }
-
-                MiRmAPI.LOGIN_STATUS_FAILED -> {
-                    fragment.setErrorTextViewText(R.string.login_e_failed)
-                }
-
-                MiRmAPI.LOGIN_STATUS_ERROR -> {
-                    fragment.setErrorTextViewText(R.string.login_e_error)
-                }
-
-                else -> { return@let }
+    fun onTryLoginButtonClick() {
+        LoginManager()
+            .onInitialize {
+                fragment.setTryLoginButtonVisibility(false)
+                fragment.setProgressBarVisibility(true)
+                fragment.setErrorTextViewVisibility(false)
             }
-            fragment.setErrorTextViewVisibility(true)
-            fragment.setProgressBarVisibility(false)
-            fragment.setTryLoginButtonVisibility(true)
-        }
+            .onFinish {
+                fragment.setErrorTextViewVisibility(true)
+                fragment.setProgressBarVisibility(false)
+                fragment.setTryLoginButtonVisibility(true)
+            }
+            .onLoginSuccess { onLoginSucceeded() }
+            .onUserDeleted { fragment.setErrorTextViewText(R.string.main_login_user_deleted) }
+            .onDeleted { fragment.setErrorTextViewText(R.string.main_login_deleted) }
+            .onNetworkError { fragment.setErrorTextViewText(R.string.network_error) }
+            .onError { fragment.setErrorTextViewText(R.string.error) }
+            .doLogin(fragment.getServerId(), fragment.getPassword())
     }
 
     fun onBackButtonClick() {
         changeFragment(fragment.activity!!.supportFragmentManager, MainMenuFragment.newInstance())
     }
 
-    private fun onLoginSucceeded() = GlobalScope.launch(Dispatchers.Main) {
-        GlobalScope.async(Dispatchers.Default) {
-            MiRmAPI.getServerData()
-
-        }.await().let {
-            if (it!!.type != ServerDataResponse.TYPE_BDS) {
-                onNotBDSServer()
-                return@let
+    private fun onLoginSucceeded() {
+        GetServerDataManager()
+            .onSuccess {
+                if (it.type != ServerDataResponse.TYPE_BDS) {
+                    onNotBDSServer()
+                } else {
+                    if (fragment.isSaveDataChecked()) saveLoginData(fragment.getServerId(), fragment.getPassword())
+                    changeFragment(fragment.activity!!.supportFragmentManager, PanelFragment.getInstance())
+                    FirebaseEventManager.onLogin()
+                }
             }
-
-            processLogin(fragment.getServerId(), fragment.getPassword())
-        }
+            .doGet()
     }
 
-    private fun processLogin(serverId: String, password: String) {
-        if (fragment.isSaveDataChecked()) saveLoginData(serverId, password)
-        changeFragment(fragment.activity!!.supportFragmentManager, PanelFragment.getInstance())
-        FirebaseEventManager.onLogin()
-    }
-
-    private fun onNotBDSServer() = GlobalScope.launch(Dispatchers.Main) {
-        GlobalScope.async(Dispatchers.Default) {
-            MiRmAPI.logout()
-
-        }.await().let {
-            fragment.setErrorTextViewText(R.string.login_e_not_supported)
-            fragment.setErrorTextViewVisibility(true)
-            fragment.setProgressBarVisibility(false)
-            fragment.setTryLoginButtonVisibility(true)
-        }
+    private fun onNotBDSServer() {
+        LogoutManager()
+            .onFinish {
+                fragment.setErrorTextViewText(R.string.login_e_not_supported)
+                fragment.setErrorTextViewVisibility(true)
+                fragment.setProgressBarVisibility(false)
+                fragment.setTryLoginButtonVisibility(true)
+            }
+            .doLogout()
     }
 
     private fun saveLoginData(serverId: String, password: String) {

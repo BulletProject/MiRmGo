@@ -4,8 +4,10 @@ data class ActionResponse(
     val action: String,
     val status: String,
     val couldExecute: Boolean,
-    val statusCode: Int
-) {
+    val statusCode: Int,
+    private val apiStatus: Int?
+
+) : AbstractResponse(apiStatus) {
     companion object {
         const val ACTION_START = "start"
         const val ACTION_STOP = "stop"

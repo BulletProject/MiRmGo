@@ -29,12 +29,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
-        android:text="TextView"
         android:textAlignment="center"
         android:textColor="@color/carminePink"
         android:textSize="18sp"
-        android:visibility="gone"
-        tools:text="@string/login_e_not_supported" />
+        android:visibility="gone" />
 
     <Space
         android:layout_width="match_parent"

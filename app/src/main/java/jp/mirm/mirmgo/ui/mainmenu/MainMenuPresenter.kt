@@ -3,10 +3,8 @@ package jp.mirm.mirmgo.ui.mainmenu
 import android.content.Intent
 import android.net.Uri
 import androidx.fragment.app.FragmentManager
-import com.google.android.material.snackbar.Snackbar
-import jp.mirm.mirmgo.MyApplication
 import jp.mirm.mirmgo.R
-import jp.mirm.mirmgo.common.network.MiRmAPI
+import jp.mirm.mirmgo.common.manager.LoginManager
 import jp.mirm.mirmgo.common.network.URLHolder
 import jp.mirm.mirmgo.ui.AbstractPresenter
 import jp.mirm.mirmgo.ui.create.CreateServerFragment
@@ -14,10 +12,6 @@ import jp.mirm.mirmgo.ui.login.LoginFragment
 import jp.mirm.mirmgo.ui.dialog.LoadingDialog
 import jp.mirm.mirmgo.ui.panel.PanelFragment
 import jp.mirm.mirmgo.util.Preferences
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 
 class MainMenuPresenter(private val fragment: MainMenuFragment) : AbstractPresenter() {
 
@@ -45,24 +39,19 @@ class MainMenuPresenter(private val fragment: MainMenuFragment) : AbstractPresen
         fragment.activity!!.startActivity(intent)
     }
 
-    private fun tryLogin(serverId: String, password: String) = GlobalScope.launch(Dispatchers.Main) {
+    private fun tryLogin(serverId: String, password: String) {
         val dialog = LoadingDialog.newInstance()
-        dialog.show(fragmentManager, "logging_in")
-
-        GlobalScope.async(Dispatchers.Default) {
-            MiRmAPI.login(serverId, password)
-
-        }.await().let {
-            dialog.dismiss()
-            when (it) {
-                MiRmAPI.LOGIN_STATUS_SUCCEEDED -> {
-                    changeFragment(fragmentManager, PanelFragment.getInstance())
-                }
-                else -> {
-                    fragment.showLoginSnackbar(R.string.main_login_failed, Snackbar.LENGTH_SHORT)
-                }
-            }
-        }
+        LoginManager()
+            .onLoginSuccess { changeFragment(fragmentManager, PanelFragment.getInstance()) }
+            .onDeleted { fragment.showSnackbar(R.string.main_login_deleted) }
+            .onUserDeleted { fragment.showSnackbar(R.string.main_login_user_deleted) }
+            .onLoginFailed { fragment.showSnackbar(R.string.main_login_failed) }
+            .onOutOfService { fragment.showSnackbar(R.string.out_of_service) }
+            .onNetworkError { fragment.showSnackbar(R.string.network_error) }
+            .onError { fragment.showSnackbar(R.string.error) }
+            .onInitialize { dialog.show(fragmentManager, "logging_in") }
+            .onFinish { dialog.dismiss() }
+            .doLogin(serverId, password)
     }
 
 }

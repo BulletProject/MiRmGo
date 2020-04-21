@@ -4,8 +4,10 @@ data class CreateBDSServerResponse(
     val serverId: String?,
     val created: Boolean,
     val status: String,
-    val statusCode: Int
-) {
+    val statusCode: Int,
+    private val apiStatus: Int?
+
+) : AbstractResponse(apiStatus) {
 
     companion object {
         const val STATUS_SUCCESS = "Success"

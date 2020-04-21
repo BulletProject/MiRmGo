@@ -7,8 +7,10 @@ data class ServerDataResponse(
     val time: Int,
     val maxTime: Int?,
     val type: String,
-    val serverStatus: Boolean
-) {
+    val serverStatus: Boolean,
+    private val apiStatus: Int?
+
+) : AbstractResponse(apiStatus) {
     companion object {
         const val TYPE_PMMP = "pmmp"
         const val TYPE_BDS = "beof"

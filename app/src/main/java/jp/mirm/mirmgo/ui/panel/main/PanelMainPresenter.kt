@@ -4,118 +4,118 @@ import android.content.Intent
 import android.net.Uri
 import jp.mirm.mirmgo.MyApplication
 import jp.mirm.mirmgo.R
+import jp.mirm.mirmgo.common.manager.ActionManager
+import jp.mirm.mirmgo.common.manager.GetRSSFeedsManager
+import jp.mirm.mirmgo.common.manager.GetServerDataManager
 import jp.mirm.mirmgo.common.network.MiRmAPI
 import jp.mirm.mirmgo.common.network.URLHolder
 import jp.mirm.mirmgo.common.network.model.ActionResponse
 import jp.mirm.mirmgo.ui.AbstractPresenter
-import jp.mirm.mirmgo.ui.login.LoginFragment
+import jp.mirm.mirmgo.ui.mainmenu.MainMenuFragment
 import jp.mirm.mirmgo.ui.panel.PanelFragment
-import jp.mirm.mirmgo.ui.panel.dialog.ExtendDialog
 import kotlinx.coroutines.*
 
 class PanelMainPresenter(private val fragment: PanelMainFragment) : AbstractPresenter() {
 
     private lateinit var rssFeeds: MutableMap<String, String>
 
-    fun onUpdate() = GlobalScope.launch (Dispatchers.Main) {
-        PanelFragment.getInstance().setRefreshButtonEnabled(false)
-        PanelFragment.getInstance().setProgressBarIndetermined(true)
-        PanelFragment.getInstance().setProgressBarValue(0, 0)
-        fragment.setIPAddress("-")
-        fragment.setPort("-")
-        fragment.setStatusEnabled(false)
+    fun onUpdate() {
+        GetServerDataManager()
+            .onSuccess {
+                PanelFragment.getInstance().onTimeUpdate(it.time)
+                PanelFragment.getInstance().setRefreshButtonEnabled(true)
+                PanelFragment.getInstance().setProgressBarIndetermined(false)
+                PanelFragment.getInstance().setProgressBarValue(it.time, it.maxTime ?: 600)
+                fragment.setIPAddress(it.ip)
+                fragment.setPort(it.port.toString())
+                fragment.setStatusEnabled(true)
 
-        GlobalScope.async(Dispatchers.Default) {
-            rssFeeds = MiRmAPI.getLatestRSSFeeds()
-            MiRmAPI.getServerData()
-
-        }.await().let {
-            if (it == null) {
-                changeFragment(fragment.childFragmentManager, LoginFragment.newInstance())
-                return@launch
-            }
-
-            PanelFragment.getInstance().onTimeUpdate(it.time)
-            PanelFragment.getInstance().setRefreshButtonEnabled(true)
-            PanelFragment.getInstance().setProgressBarIndetermined(false)
-            PanelFragment.getInstance().setProgressBarValue(it.time, it.maxTime ?: 600)
-            fragment.setIPAddress(it.ip)
-            fragment.setPort(it.port.toString())
-            fragment.setStatusEnabled(true)
-            fragment.setRSSListContents(rssFeeds.keys.toList())
-
-            when (it.serverStatus) {
-                true -> {
-                    fragment.setStatus(R.string.status_running, R.color.pureApple)
-                    fragment.setStatusChecked(true)
+                when (it.serverStatus) {
+                    true -> {
+                        fragment.setStatus(R.string.status_running, R.color.pureApple)
+                        fragment.setStatusChecked(true)
+                    }
+                    false -> {
+                        fragment.setStatus(R.string.status_stopped, R.color.carminePink)
+                        fragment.setStatusChecked(false)
+                    }
                 }
-                false -> {
-                    fragment.setStatus(R.string.status_stopped, R.color.carminePink)
-                    fragment.setStatusChecked(false)
-                }
+
+                onUpdateRSS()
             }
-        }
+            .onInitialize {
+                PanelFragment.getInstance().setRefreshButtonEnabled(false)
+                PanelFragment.getInstance().setProgressBarIndetermined(true)
+                PanelFragment.getInstance().setProgressBarValue(0, 0)
+                fragment.setIPAddress("-")
+                fragment.setPort("-")
+                fragment.setStatusEnabled(false)
+            }
+            .onOutOfService { fragment.showSnackbar(R.string.out_of_service) }
+            .onError { fragment.showSnackbar(R.string.error) }
+            .onNetworkError { fragment.showSnackbar(R.string.network_error) }
+            .doGet()
     }
 
-    fun onJoinButtonClick() {
-
+    private fun onUpdateRSS() {
+        GetRSSFeedsManager()
+            .onSuccess {
+                rssFeeds = it
+                fragment.setRSSListContents(rssFeeds.keys.toList())
+            }
+            .doGet()
     }
 
-    fun onOpenStatusPageButtonClick() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URLHolder.URL_STATUS_PAGE + MiRmAPI.serverId))
-        MyApplication.getApplication().startActivity(intent)
-    }
-
-    fun onStatusSwitchChange(isChecked: Boolean) = GlobalScope.launch (Dispatchers.Main) {
+    fun onStatusSwitchChange(isChecked: Boolean) {
         if (fragment.getStatusSwitchTag() != null) {
             fragment.setStatusSwitchTag(null)
-            return@launch
+            return
         }
 
-        fragment.setStatusEnabled(false)
-        GlobalScope.async(Dispatchers.Default) {
-            MiRmAPI.action(if (isChecked) ActionResponse.ACTION_START else ActionResponse.ACTION_STOP)
-
-        }.await().let {
-            if (!it) {
-                fragment.setStatusEnabled(true)
-                fragment.setStatusChecked(!isChecked)
-            } else {
-                onUpdateStatus(isChecked)
+        ActionManager()
+            .onSuccess {
+                if (!it.couldExecute) {
+                    fragment.setStatusEnabled(true)
+                    fragment.setStatusChecked(!isChecked)
+                } else {
+                    onUpdateStatus(isChecked)
+                }
             }
-        }
+            .onOutOfService { fragment.showSnackbar(R.string.out_of_service) }
+            .onError { fragment.showSnackbar(R.string.error) }
+            .onNetworkError { fragment.showSnackbar(R.string.network_error) }
+            .doAction(if (isChecked) ActionResponse.ACTION_START else ActionResponse.ACTION_STOP)
     }
 
-    private fun onUpdateStatus(isOn: Boolean) = GlobalScope.launch(Dispatchers.Main) {
-        fragment.setStatus(
-
-            if (isOn) R.string.status_running_processing else R.string.status_stopped_processing,
-            if (isOn) R.color.pureApple else R.color.carminePink
-        )
-
-        GlobalScope.async(Dispatchers.Default) {
-            if (!isOn) delay(15000)
-            MiRmAPI.getServerData()
-
-        }.await().let {
-            if (it == null) {
-                changeFragment(fragment.childFragmentManager, LoginFragment.newInstance())
-                return@launch
-            }
-
-            when (it.serverStatus) {
-                true -> {
-                    fragment.setStatusChecked(true)
-                    fragment.setStatus(R.string.status_running, R.color.pureApple)
-                    if (isOn) onRunServer()
-                }
-                false -> {
-                    fragment.setStatusEnabled(true)
-                    fragment.setStatusChecked(false)
-                    fragment.setStatus(R.string.status_stopped, R.color.carminePink)
+    private fun onUpdateStatus(isOn: Boolean) {
+        GetServerDataManager()
+            .onSuccess {
+                when (it.serverStatus) {
+                    true -> {
+                        fragment.setStatusChecked(true)
+                        fragment.setStatus(R.string.status_running, R.color.pureApple)
+                        if (isOn) onRunServer()
+                    }
+                    false -> {
+                        fragment.setStatusEnabled(true)
+                        fragment.setStatusChecked(false)
+                        fragment.setStatus(R.string.status_stopped, R.color.carminePink)
+                    }
                 }
             }
-        }
+            .onInitialize {
+                fragment.setStatus(
+                    if (isOn) R.string.status_running_processing else R.string.status_stopped_processing,
+                    if (isOn) R.color.pureApple else R.color.carminePink
+                )
+                runBlocking {
+                    if (!isOn) delay(15000)
+                }
+            }
+            .onOutOfService { fragment.showSnackbar(R.string.out_of_service) }
+            .onError { fragment.showSnackbar(R.string.error) }
+            .onNetworkError { fragment.showSnackbar(R.string.network_error) }
+            .doGet()
     }
 
     private fun onRunServer() {
@@ -142,4 +142,12 @@ class PanelMainPresenter(private val fragment: PanelMainFragment) : AbstractPres
         MyApplication.getApplication().startActivity(intent)
     }
 
+    fun onOpenStatusPageButtonClick() {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URLHolder.URL_STATUS_PAGE + MiRmAPI.serverId))
+        MyApplication.getApplication().startActivity(intent)
+    }
+
+    fun onJoinButtonClick() {
+        // TODO
+    }
 }

@@ -5,7 +5,8 @@ import android.net.Uri
 import androidx.core.os.bundleOf
 import jp.mirm.mirmgo.MyApplication
 import jp.mirm.mirmgo.R
-import jp.mirm.mirmgo.common.network.MiRmAPI
+import jp.mirm.mirmgo.common.manager.GetServerDataManager
+import jp.mirm.mirmgo.common.manager.LogoutManager
 import jp.mirm.mirmgo.common.network.URLHolder
 import jp.mirm.mirmgo.ui.AbstractPresenter
 import jp.mirm.mirmgo.ui.dialog.LoadingDialog
@@ -53,53 +54,53 @@ class PanelPresenter(private val fragment: PanelFragment) : AbstractPresenter() 
         }
     }
 
-    private fun logout() = GlobalScope.launch(Dispatchers.Main) {
+    private fun logout() {
         val dialog = LoadingDialog.newInstance()
-        dialog.arguments = bundleOf("text" to MyApplication.getString(R.string.panel_logout))
-        dialog.show(
-            fragment.activity?.supportFragmentManager ?: fragment.fragmentManager
-            ?: fragment.requireFragmentManager(), "logging_out"
-        )
 
-        GlobalScope.async(Dispatchers.Default) {
-            MiRmAPI.logout()
+        LogoutManager()
+            .onSuccess {
+                if (it.couldLogout) {
+                    Preferences.setPassword(null)
+                    Preferences.setServerId(null)
 
-        }.await().let {
-            dialog.dismiss()
-            if (it) {
-                Preferences.setPassword(null)
-                Preferences.setServerId(null)
-
-                changeFragment(
-                    fragment.activity?.supportFragmentManager ?: fragment.fragmentManager
-                    ?: fragment.requireFragmentManager(), LoginFragment.newInstance()
-                )
-            } else {
-                fragment.showSnackbar(R.string.panel_logout_error)
+                    changeFragment(
+                        fragment.activity?.supportFragmentManager ?: fragment.fragmentManager
+                        ?: fragment.requireFragmentManager(), LoginFragment.newInstance()
+                    )
+                } else {
+                    fragment.showSnackbar(R.string.panel_logout_error)
+                }
             }
-        }
+            .onInitialize {
+                dialog.arguments = bundleOf("text" to MyApplication.getString(R.string.panel_logout))
+                dialog.show(
+                    fragment.activity?.supportFragmentManager ?: fragment.fragmentManager
+                    ?: fragment.requireFragmentManager(), "logging_out"
+                )
+            }
+            .onFinish { dialog.dismiss() }
+            .onOutOfService { fragment.showSnackbar(R.string.out_of_service) }
+            .onError { fragment.showSnackbar(R.string.error) }
+            .onNetworkError { fragment.showSnackbar(R.string.network_error) }
+            .doLogout()
     }
 
-    fun onExtendButtonClick()  = GlobalScope.launch(Dispatchers.Main) {
-        fragment.showSnackbar(R.string.loading)
-        GlobalScope.async(Dispatchers.Default) {
-            MiRmAPI.getServerData()
+    fun onExtendButtonClick() {
+        GetServerDataManager()
+            .onSuccess {
+                if (it.time > 360) {
+                    fragment.showSnackbar(R.string.dialog_extend_error_time)
 
-        }.await().let {
-            if (it == null) {
-                fragment.showSnackbar(R.string.dialog_extend_error)
-                return@let
+                } else {
+                    val dialog = ExtendDialog.newInstance()
+                    dialog.show(fragment.activity!!.supportFragmentManager, "extend")
+                }
             }
-
-            if (it.time > 360) {
-                fragment.showSnackbar(R.string.dialog_extend_error_time)
-                return@let
-
-            } else {
-                val dialog = ExtendDialog.newInstance()
-                dialog.show(fragment.activity!!.supportFragmentManager, "extend")
-            }
-        }
+            .onInitialize { fragment.showSnackbar(R.string.loading) }
+            .onOutOfService { fragment.showSnackbar(R.string.out_of_service) }
+            .onError { fragment.showSnackbar(R.string.error) }
+            .onNetworkError { fragment.showSnackbar(R.string.network_error) }
+            .doGet()
     }
 
     fun onPause() {

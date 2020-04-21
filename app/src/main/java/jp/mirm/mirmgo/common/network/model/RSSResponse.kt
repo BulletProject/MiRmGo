@@ -1,9 +1,6 @@
 package jp.mirm.mirmgo.common.network.model
 
-data class CommandResponse(
-    val command: String,
-    val status: String,
-    val statusCode: Int,
+data class RSSResponse(
+    val rssFeeds: MutableMap<String, String>,
     private val apiStatus: Int?
-
 ) : AbstractResponse(apiStatus)

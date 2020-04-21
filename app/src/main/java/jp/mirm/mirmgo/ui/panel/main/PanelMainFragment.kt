@@ -9,11 +9,13 @@ import android.widget.Space
 import android.widget.TextView
 import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import jp.mirm.mirmgo.MyApplication
 import jp.mirm.mirmgo.R
 import jp.mirm.mirmgo.ui.panel.PanelFragment
 import jp.mirm.mirmgo.util.DisplaySizeCaculator
 import kotlinx.android.synthetic.main.fragment_panel_main.*
+import kotlinx.android.synthetic.main.fragment_panel_settings.*
 
 class PanelMainFragment : Fragment() {
 
@@ -71,13 +73,17 @@ class PanelMainFragment : Fragment() {
     }
 
     fun setStatus(textId: Int, colorId: Int) {
-        if (PanelFragment.getCurrentPage() == 0) panelStatusSwitch.text = MyApplication.getApplication().getText(textId)
-        if (PanelFragment.getCurrentPage() == 0) panelStatusSwitch.setTextColor(MyApplication.getApplication().resources.getColor(colorId))
+        if (PanelFragment.getCurrentPage() == 0) {
+            panelStatusSwitch.text = MyApplication.getApplication().getText(textId)
+            panelStatusSwitch.setTextColor(MyApplication.getApplication().resources.getColor(colorId))
+        }
     }
 
     fun setStatusChecked(isChecked: Boolean) {
-        if (PanelFragment.getCurrentPage() == 0) panelStatusSwitch.tag = "TAG"
-        if (PanelFragment.getCurrentPage() == 0) panelStatusSwitch.isChecked = isChecked
+        if (PanelFragment.getCurrentPage() == 0) {
+            panelStatusSwitch.tag = "TAG"
+            panelStatusSwitch.isChecked = isChecked
+        }
     }
 
     fun setStatusEnabled(isEnabled: Boolean) {
@@ -113,5 +119,9 @@ class PanelMainFragment : Fragment() {
 
     fun onUpdate() {
         presenter.onUpdate()
+    }
+
+    fun showSnackbar(id: Int) {
+        Snackbar.make(panelOpenStatusPageButton, id, Snackbar.LENGTH_SHORT).show()
     }
 }

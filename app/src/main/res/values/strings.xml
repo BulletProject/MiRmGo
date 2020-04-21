@@ -6,6 +6,8 @@
     <string name="main_text_description">MiRm GoはMinecraft公式製品ではありません。Mojangから承認されておらず、Mojangとは関係ありません。</string>
     <string name="main_logging_in">ログイン中&#8230;</string>
     <string name="main_login_failed">ログインに失敗しました。</string>
+    <string name="main_login_deleted">期限切れでサーバーが削除されました。</string>
+    <string name="main_login_user_deleted">ユーザーによってサーバーが削除されました。</string>
 
     <string name="create_1_title">1.ゲームモード</string>
     <string name="create_survival">サバイバルモード</string>
@@ -57,6 +59,7 @@
     <string name="panel_logout">ログアウト中&#8230;</string>
     <string name="panel_logout_error">ログアウトに失敗しました。</string>
     <string name="panel_rss_title">運営からのお知らせ</string>
+    <string name="panel_min_unit">分</string>
 
     <string name="panel_main_title">トップ</string>
     <string name="panel_list_text">MiRmにはほかにも面白いサーバーがいっぱい！いますぐチェックしてみよう。</string>
@@ -70,9 +73,9 @@
     <string name="panel_gamemode_title">ゲームモード設定</string>
     <string name="panel_wl_title">ホワイトリスト有効化設定</string>
     <string name="panel_wl_checkbox">ホワイトリストを有効化/無効化</string>
-    <string name="panel_setting_start">設定（実行中）: </string>
-    <string name="panel_setting_success">設定（完了）: </string>
-    <string name="panel_setting_error">設定（エラー）: </string>
+    <string name="panel_setting_start">実行中 </string>
+    <string name="panel_setting_success">完了</string>
+    <string name="panel_setting_error">エラー</string>
     <string name="panel_setting_error_server">サーバーを起動してください。</string>
 
     <string name="panel_info_ways">アプリについて</string>
@@ -85,6 +88,9 @@
     <string name="loading">読み込み中&#8230;</string>
     <string name="back">戻る</string>
     <string name="bds">Bedrock Dedicated Server</string>
+    <string name="out_of_service">システムメンテナンス中のため通信できません。</string>
+    <string name="network_error">ネットワークエラーが発生しました。</string>
+    <string name="error">エラーが発生しました。</string>
 
     <string name="status_running">起動中</string>
     <string name="status_stopped">停止中</string>
@@ -99,7 +105,7 @@
     <string name="dialog_extend_button_do">動画を見て延長する</string>
     <string name="dialog_extend_success">使用可能時間を延長しました。</string>
     <string name="dialog_extend_failed">広告をロードできませんでした。</string>
-    <string name="dialog_extend_error">エラーが発生しました。。</string>
+    <string name="dialog_extend_error">エラーが発生しました。</string>
     <string name="dialog_extend_error_time">残り使用可能時間が6時間を切ると延長が可能になります。</string>
 
     <string-array name="op_list">

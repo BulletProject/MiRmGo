@@ -103,7 +103,7 @@ class PanelFragment : Fragment() {
     fun setProgressBarValue(value: Int, max: Int? = null) {
         if (max != null) panelProgressBar?.max = max
         panelProgressBar?.progress = value
-        setTime("${value}/${panelProgressBar.max}分")
+        setTime("${value}/${panelProgressBar?.max}${MyApplication.getString(R.string.panel_min_unit)}")
     }
 
     private fun setTime(text: String) {

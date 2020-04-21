@@ -46,8 +46,8 @@ class MainMenuFragment : Fragment() {
         }
     }
 
-    fun showLoginSnackbar(id: Int, length: Int): Snackbar {
-        val snackbar = Snackbar.make(loginButton, id, length)
+    fun showSnackbar(id: Int): Snackbar {
+        val snackbar = Snackbar.make(loginButton, id, Snackbar.LENGTH_SHORT)
         snackbar.show()
         return snackbar
     }
