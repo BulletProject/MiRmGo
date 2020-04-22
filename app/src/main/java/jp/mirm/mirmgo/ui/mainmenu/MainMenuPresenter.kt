@@ -11,6 +11,7 @@ import jp.mirm.mirmgo.ui.create.CreateServerFragment
 import jp.mirm.mirmgo.ui.login.LoginFragment
 import jp.mirm.mirmgo.ui.dialog.LoadingDialog
 import jp.mirm.mirmgo.ui.panel.PanelFragment
+import jp.mirm.mirmgo.util.FirebaseEventManager
 import jp.mirm.mirmgo.util.Preferences
 
 class MainMenuPresenter(private val fragment: MainMenuFragment) : AbstractPresenter() {
@@ -42,7 +43,10 @@ class MainMenuPresenter(private val fragment: MainMenuFragment) : AbstractPresen
     private fun tryLogin(serverId: String, password: String) {
         val dialog = LoadingDialog.newInstance()
         LoginManager()
-            .onLoginSuccess { changeFragment(fragmentManager, PanelFragment.getInstance()) }
+            .onLoginSuccess {
+                FirebaseEventManager.onLogin("auto")
+                changeFragment(fragmentManager, PanelFragment.getInstance())
+            }
             .onDeleted { fragment.showSnackbar(R.string.main_login_deleted) }
             .onUserDeleted { fragment.showSnackbar(R.string.main_login_user_deleted) }
             .onLoginFailed { fragment.showSnackbar(R.string.main_login_failed) }

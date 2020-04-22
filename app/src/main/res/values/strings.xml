@@ -45,7 +45,7 @@
     <string name="login_save">ログイン情報を保存する</string>
     <string name="login_e_failed">ログインに失敗しました。</string>
     <string name="login_e_error">エラーが発生しました。</string>
-    <string name="login_e_not_supported">このタイプのサーバーは対応しておりません。</string>
+    <string name="login_e_not_supported">PMMP / CuberiteサーバーはWeb版からのみ操作可能です。</string>
 
     <string name="panel_serverId">IPアドレス</string>
     <string name="panel_port">ポート</string>
@@ -124,8 +124,11 @@
         <item>サバイバル</item>
         <item>クリエイティブ</item>
     </string-array>
+
+
     <!-- Environmental Variables -->
 
+    <!-- Versions -->
     <string name="version_code">Debug 0.0.2 / むらさきいろのくるま</string>
     <string name="version">Debug 0.0.2</string>
     <string name="developer">Itsu (MiRm Development Team)</string>

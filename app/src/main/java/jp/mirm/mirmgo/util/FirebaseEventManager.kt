@@ -7,8 +7,11 @@ import jp.mirm.mirmgo.R
 
 object FirebaseEventManager {
 
-    fun onLogin() {
-        MyApplication.getFirebaseAnalytics().logEvent(FirebaseAnalytics.Event.LOGIN, bundleOf("version" to MyApplication.getString(R.string.version)))
+    fun onLogin(method: String) {
+        MyApplication.getFirebaseAnalytics().logEvent(FirebaseAnalytics.Event.LOGIN, bundleOf(
+            "version" to MyApplication.getString(R.string.version),
+            FirebaseAnalytics.Param.METHOD to method)
+        )
     }
 
     fun onCreateServer() {

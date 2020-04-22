@@ -45,12 +45,12 @@ class LoginPresenter(private val fragment: LoginFragment) : AbstractPresenter() 
     private fun onLoginSucceeded() {
         GetServerDataManager()
             .onSuccess {
-                if (it.type != ServerDataResponse.TYPE_BDS) {
+                if (!Preferences.isOtherServersAllowed() && it.type != ServerDataResponse.TYPE_BDS) {
                     onNotBDSServer()
                 } else {
                     if (fragment.isSaveDataChecked()) saveLoginData(fragment.getServerId(), fragment.getPassword())
                     changeFragment(fragment.activity!!.supportFragmentManager, PanelFragment.getInstance())
-                    FirebaseEventManager.onLogin()
+                    FirebaseEventManager.onLogin("self")
                 }
             }
             .doGet()
