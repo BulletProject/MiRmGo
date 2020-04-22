@@ -18,6 +18,12 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_appid_test"/>
 
+        <meta-data android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/pic_notification" />
+
+        <meta-data android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/deepKoamaru" />
+
         <activity
             android:name="jp.mirm.mirmgo.ui.MainActivity"
             android:screenOrientation="portrait">
