@@ -11,7 +11,7 @@ import jp.mirm.mirmgo.ui.create.CreateServerFragment
 import jp.mirm.mirmgo.ui.login.LoginFragment
 import jp.mirm.mirmgo.ui.dialog.LoadingDialog
 import jp.mirm.mirmgo.ui.panel.PanelFragment
-import jp.mirm.mirmgo.util.FirebaseEventManager
+import jp.mirm.mirmgo.firebase.FirebaseEventManager
 import jp.mirm.mirmgo.util.Preferences
 
 class MainMenuPresenter(private val fragment: MainMenuFragment) : AbstractPresenter() {

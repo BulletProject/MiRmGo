@@ -15,6 +15,7 @@ object URLHolder {
     const val URL_SEND_COMMAND = "${PROTOCOL}${HOST}/api/command"
     const val URL_ACTION = "${PROTOCOL}${HOST}/api/action"
     const val URL_EXTEND = "${PROTOCOL}${HOST}/api/extend"
+    const val URL_ADD_FCM_TOKEN = "${PROTOCOL}${HOST}/api/add_fcm_token"
     const val URL_CREATE_SERVER = "${PROTOCOL}${HOST}/api/create_bds_server"
     const val URL_STATUS_PAGE = "${PROTOCOL}${HOST}/status_page.html?serverId="
     const val URL_SERVER_LIST = "${PROTOCOL}${HOST}/list"

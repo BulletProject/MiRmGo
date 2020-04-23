@@ -4,17 +4,12 @@ import jp.mirm.mirmgo.R
 import jp.mirm.mirmgo.common.manager.GetServerDataManager
 import jp.mirm.mirmgo.common.manager.LoginManager
 import jp.mirm.mirmgo.common.manager.LogoutManager
-import jp.mirm.mirmgo.common.network.MiRmAPI
 import jp.mirm.mirmgo.common.network.model.ServerDataResponse
 import jp.mirm.mirmgo.ui.AbstractPresenter
 import jp.mirm.mirmgo.ui.mainmenu.MainMenuFragment
 import jp.mirm.mirmgo.ui.panel.PanelFragment
-import jp.mirm.mirmgo.util.FirebaseEventManager
+import jp.mirm.mirmgo.firebase.FirebaseEventManager
 import jp.mirm.mirmgo.util.Preferences
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 
 class LoginPresenter(private val fragment: LoginFragment) : AbstractPresenter() {
 

@@ -129,6 +129,7 @@
     <!-- Environmental Variables -->
 
     <!-- Versions -->
+    <string name="debug_flag">mirm_go</string>
     <string name="version_code">Debug 0.0.2 / むらさきいろのくるま</string>
     <string name="version">Debug 0.0.2</string>
     <string name="developer">Itsu (MiRm Development Team)</string>

@@ -1,9 +1,10 @@
-package jp.mirm.mirmgo.util
+package jp.mirm.mirmgo.firebase
 
 import android.util.Log
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import jp.mirm.mirmgo.BuildConfig
+import jp.mirm.mirmgo.MyApplication
 import jp.mirm.mirmgo.R
 import java.util.concurrent.TimeUnit
 
@@ -19,7 +20,7 @@ object FirebaseRemoteConfigManager {
         remoteConfig.fetchAndActivate()
             .addOnCompleteListener {
                 if (!it.isSuccessful) {
-                    Log.e("mirm_go", "Failed to activate to Firebase Remote config.")
+                    Log.e(MyApplication.getString(R.string.debug_flag), "Failed to activate to Firebase Remote config.")
                 }
             }
     }

@@ -125,6 +125,23 @@ object MiRmAPI {
         return ActionResponse("", "", false, 0, AbstractResponse.STATUS_ERROR)
     }
 
+    fun addFCMToken(token: String): AddFCMTokenResponse {
+        try {
+            val json = Http.post(URLHolder.URL_ADD_FCM_TOKEN, mapOf("token" to token))
+                ?: return AddFCMTokenResponse("", 0, AbstractResponse.STATUS_ERROR)
+            return gson.fromJson(json, AddFCMTokenResponse::class.java).also { it.apiStatusCode = AbstractResponse.STATUS_SUCCEEDED }
+
+        } catch (e: MissingRequestException) {
+            if (e.errorCode == 503) {
+                return AddFCMTokenResponse("", 0, AbstractResponse.STATUS_OUT_OF_SERVICE)
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return AddFCMTokenResponse("", 0, AbstractResponse.STATUS_ERROR)
+    }
+
     fun extendNormally(): Boolean {
         val json = Http.post(URLHolder.URL_EXTEND) ?: throw MissingRequestException(MissingRequestException.CODE_UNKNOWN)
         val response = gson.fromJson(json, ExtendResponse::class.java)

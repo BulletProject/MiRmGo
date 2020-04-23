@@ -1,4 +1,4 @@
-package jp.mirm.mirmgo.util
+package jp.mirm.mirmgo.firebase
 
 import androidx.core.os.bundleOf
 import com.google.firebase.analytics.FirebaseAnalytics
