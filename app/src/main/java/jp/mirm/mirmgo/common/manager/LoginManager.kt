@@ -24,6 +24,7 @@ class LoginManager : BaseManager<LoginManager>() {
         }.await().let {
             if (it.apiStatusCode != AbstractResponse.STATUS_SUCCEEDED) {
                 onNotSucceeded(it.apiStatusCode!!)
+
             } else {
                 when (it.status) {
                     LoginResponse.LOGIN_STATUS_FAILED -> onLoginFailed.invoke()

@@ -46,16 +46,5 @@ class MyApplication : Application() {
 
         MobileAds.initialize(application, getString(R.string.admob_appid_test))
         FirebaseRemoteConfigManager.refresh()
-
-        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener {
-            if (it.isSuccessful) {
-                AddFCMTokenManager()
-                    .onInitialize { Log.d(getString(R.string.debug_flag), "Sending FCM Token...") }
-                    .onSuccess { Log.d(getString(R.string.debug_flag), "Send FCM Token: ${it.status}(${it.statusCode})") }
-                    .onError { Log.e(getString(R.string.debug_flag), "Send FCM Token: Error") }
-                    .onOutOfService { Log.e(getString(R.string.debug_flag), "Send FCM Token: Out of service") }
-                    .addFCMToken(it.result?.token ?: return@addOnCompleteListener)
-            }
-        }
     }
 }

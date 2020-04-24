@@ -72,7 +72,7 @@ object MiRmAPI {
         try {
             val json = Http.post(URLHolder.URL_CREATE_SERVER, mapOf(
                 "serverId" to serverId,
-                "passwordEncrypted" to passwordEncrypted,
+                "password" to passwordEncrypted,
                 "gameMode" to gameMode,
                 "difficulty" to difficulty,
                 "permission" to permission

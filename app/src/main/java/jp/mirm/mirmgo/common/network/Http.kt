@@ -1,25 +1,21 @@
 package jp.mirm.mirmgo.common.network
 
-import android.app.Application
-import android.content.Context
-import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
-import com.google.gson.Gson
 import jp.mirm.mirmgo.MyApplication
 import jp.mirm.mirmgo.common.exception.MissingRequestException
 import jp.mirm.mirmgo.common.network.cookie.PersistentCookieStore
 import okhttp3.*
 import okhttp3.internal.JavaNetCookieJar
 import org.riversun.okhttp3.OkHttp3CookieHelper
-import java.net.CookieHandler
 import java.net.CookieManager
 import java.net.CookiePolicy
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 object Http {
 
     private const val USER_AGENT = "MiRmGo/0.0.1"
     private val client: OkHttpClient
-    private val cookieHelper = OkHttp3CookieHelper()
     private val headers: Headers
 
     init {
@@ -45,7 +41,7 @@ object Http {
         val postData = data.let {
             var str = ""
             it.forEach {
-                str += "${it.key}=${it.value}&"
+                str += "${it.key}=${URLEncoder.encode(it.value, StandardCharsets.UTF_8.name())}&"
             }
             str.removeSuffix("&")
         }
@@ -64,16 +60,23 @@ object Http {
         return response.body()?.string()
     }
 
-    fun post(url: String, data: Map<String, String> = mapOf(), type: String = "application/json; charset=UTF-8"): String? {
-        val requestBody = RequestBody.create(
-            MediaType.parse(type),
-            Gson().toJson(data)
-        )
+    fun post(url: String, data: Map<String, String> = mapOf(), type: String = "application/x-www-form-urlencoded; charset=utf-8"): String? {
+        val postData = data.let {
+            var str = ""
+            it.forEach {
+                str += "${it.key}=${URLEncoder.encode(it.value, StandardCharsets.UTF_8.name())}&"
+            }
+            str.removeSuffix("&")
+        }
+
+        val requestBody = RequestBody.create(MediaType.parse(type), postData)
+
         val request = Request.Builder()
             .url(url)
             .post(requestBody)
             .headers(headers)
-            .header("Content-Type", "application/json")
+            .header("Content-Length", postData.length.toString())
+            .header("Content-Type", "application/x-www-form-urlencoded")
             .build()
         val response = client.newCall(request).execute()
 

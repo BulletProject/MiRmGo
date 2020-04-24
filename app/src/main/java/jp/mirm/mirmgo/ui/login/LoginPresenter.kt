@@ -1,6 +1,10 @@
 package jp.mirm.mirmgo.ui.login
 
+import android.util.Log
+import com.google.firebase.iid.FirebaseInstanceId
+import jp.mirm.mirmgo.MyApplication
 import jp.mirm.mirmgo.R
+import jp.mirm.mirmgo.common.manager.AddFCMTokenManager
 import jp.mirm.mirmgo.common.manager.GetServerDataManager
 import jp.mirm.mirmgo.common.manager.LoginManager
 import jp.mirm.mirmgo.common.manager.LogoutManager
@@ -43,12 +47,27 @@ class LoginPresenter(private val fragment: LoginFragment) : AbstractPresenter() 
                 if (!Preferences.isOtherServersAllowed() && it.type != ServerDataResponse.TYPE_BDS) {
                     onNotBDSServer()
                 } else {
-                    if (fragment.isSaveDataChecked()) saveLoginData(fragment.getServerId(), fragment.getPassword())
-                    changeFragment(fragment.activity!!.supportFragmentManager, PanelFragment.getInstance())
-                    FirebaseEventManager.onLogin("self")
+                    onFinalProcess()
                 }
             }
             .doGet()
+    }
+
+    private fun onFinalProcess() {
+        if (fragment.isSaveDataChecked()) saveLoginData(fragment.getServerId(), fragment.getPassword())
+        changeFragment(fragment.activity!!.supportFragmentManager, PanelFragment.getInstance())
+        FirebaseEventManager.onLogin("self")
+
+        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener {
+            if (it.isSuccessful) {
+                AddFCMTokenManager()
+                    .onInitialize { Log.d(MyApplication.getString(R.string.debug_flag), "Sending FCM Token...") }
+                    .onSuccess { Log.d(MyApplication.getString(R.string.debug_flag), "Send FCM Token: ${it.status}(${it.statusCode})") }
+                    .onError { Log.e(MyApplication.getString(R.string.debug_flag), "Send FCM Token: Error") }
+                    .onOutOfService { Log.e(MyApplication.getString(R.string.debug_flag), "Send FCM Token: Out of service") }
+                    .addFCMToken(it.result?.token ?: return@addOnCompleteListener)
+            }
+        }
     }
 
     private fun onNotBDSServer() {

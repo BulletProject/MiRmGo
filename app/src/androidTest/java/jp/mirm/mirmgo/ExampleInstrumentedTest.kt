@@ -32,14 +32,4 @@ class ExampleInstrumentedTest {
         assertEquals("OK: Login", MiRmAPI.login("mirmtest", "tsubaki394"), 0)
     }
 
-    @Test
-    fun createBDSServerTest() {
-        assertEquals(0, MiRmAPI.createBDSServer(
-            "MiRmOfficial",
-            String(Base64.decode(PasswordManager.encrypt("analsexer").toByteArray(), Base64.DEFAULT)),
-            "survival",
-            "peaceful",
-            "member"
-        )?.toString())
-    }
 }

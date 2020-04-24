@@ -36,4 +36,17 @@ class HttpTest {
         }
         assertEquals(PasswordManager.decrypt(PasswordManager.encrypt("Analsex1919@sex")), a(PasswordManager.encrypt("Analsex1919@sex")))
     }
+
+    @Test
+    fun createBDSServerTest() {
+        assertEquals(0, MiRmAPI.createBDSServer(
+            "MiRmOfficial",
+            PasswordManager.encrypt("analsexer").also {
+                println(it)
+            },
+            "survival",
+            "peaceful",
+            "member"
+        ).toString())
+    }
 }
