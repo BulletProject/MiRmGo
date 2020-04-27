@@ -137,7 +137,7 @@ public class PersistentCookieStore implements CookieStore {
 
     @Override
     public synchronized List<HttpCookie> getCookies() {
-        List<HttpCookie> allValidCookies = new ArrayList<HttpCookie>();
+        List<HttpCookie> allValidCookies = new ArrayList<>();
         for (URI storedUri : allCookies.keySet()) {
             allValidCookies.addAll(getValidCookies(storedUri));
         }
@@ -175,6 +175,7 @@ public class PersistentCookieStore implements CookieStore {
                 removeFromPersistence(uri, cookiesToRemoveFromPersistence);
             }
         }
+
         return targetCookies;
     }
 

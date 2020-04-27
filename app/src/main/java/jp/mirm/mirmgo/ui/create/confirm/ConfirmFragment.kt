@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import jp.mirm.mirmgo.MyApplication
 import jp.mirm.mirmgo.R
 import jp.mirm.mirmgo.model.NewServer
@@ -27,10 +28,6 @@ class ConfirmFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_create_confirm, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onResume() {
@@ -77,5 +74,7 @@ class ConfirmFragment : Fragment() {
     fun setCreateButtonEnabled(isEnabled: Boolean) {
         confirmCreateServerButton.isEnabled = isEnabled
     }
+
+    fun showSnackbar(id: Int) = Snackbar.make(confirmCreateServerButton, id, Snackbar.LENGTH_LONG).show()
 
 }

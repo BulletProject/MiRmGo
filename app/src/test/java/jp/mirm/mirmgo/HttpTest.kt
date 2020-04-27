@@ -2,6 +2,7 @@ package jp.mirm.mirmgo
 
 import jp.mirm.mirmgo.common.network.MiRmAPI
 import jp.mirm.mirmgo.util.PasswordManager
+import jp.mirm.mirmgo.util.ServerCreationTools
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -38,15 +39,9 @@ class HttpTest {
     }
 
     @Test
-    fun createBDSServerTest() {
-        assertEquals(0, MiRmAPI.createBDSServer(
-            "MiRmOfficial",
-            PasswordManager.encrypt("analsexer").also {
-                println(it)
-            },
-            "survival",
-            "peaceful",
-            "member"
-        ).toString())
+    fun buildServerData() {
+        assertEquals("", ServerCreationTools.buildPassword())
+        assertEquals("", ServerCreationTools.buildServerId())
     }
+
 }

@@ -60,9 +60,7 @@ class PanelPresenter(private val fragment: PanelFragment) : AbstractPresenter() 
         LogoutManager()
             .onSuccess {
                 if (it.couldLogout) {
-                    Preferences.setPassword(null)
-                    Preferences.setServerId(null)
-
+                    Preferences.removeCurrentServer()
                     changeFragment(
                         fragment.activity?.supportFragmentManager ?: fragment.fragmentManager
                         ?: fragment.requireFragmentManager(), LoginFragment.newInstance()

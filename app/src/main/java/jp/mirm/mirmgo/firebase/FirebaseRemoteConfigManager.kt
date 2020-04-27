@@ -25,4 +25,6 @@ object FirebaseRemoteConfigManager {
             }
     }
 
+    fun isAllowedOtherServers(): Boolean = FirebaseRemoteConfig.getInstance().getBoolean("allow_other_servers")
+
 }

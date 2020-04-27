@@ -1,40 +1,25 @@
 package jp.mirm.mirmgo.common.network
 
-import com.facebook.stetho.okhttp3.StethoInterceptor
+import android.text.TextUtils
 import jp.mirm.mirmgo.MyApplication
 import jp.mirm.mirmgo.common.exception.MissingRequestException
 import jp.mirm.mirmgo.common.network.cookie.PersistentCookieStore
 import okhttp3.*
-import okhttp3.internal.JavaNetCookieJar
-import org.riversun.okhttp3.OkHttp3CookieHelper
-import java.net.CookieManager
-import java.net.CookiePolicy
-import java.net.URLEncoder
+import java.net.*
 import java.nio.charset.StandardCharsets
 
 object Http {
 
     private const val USER_AGENT = "MiRmGo/0.0.1"
-    private val client: OkHttpClient
-    private val headers: Headers
+    private val cookieManager: CookieManager
+    private val cookies = mutableMapOf<String, String>()
 
     init {
-        val cookieHandler = CookieManager(PersistentCookieStore(MyApplication.getApplication()), CookiePolicy.ACCEPT_ALL)
-
-        client = OkHttpClient.Builder()
-            .cookieJar(JavaNetCookieJar(cookieHandler))
-            .addNetworkInterceptor(StethoInterceptor())
-            .build()
-
-        headers = Headers.Builder()
-            .set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")
-            .set("User-agent", USER_AGENT)
-            .set("Accept-Language", "ja,en-US;q=0.9,en;q=0.8")
-            .set("Connection", "keep-alive")
-            .set("Referer", URLHolder.URL_LOGIN)
-            //.set("Host", URLHolder.HOST)
-            .set("Origin", "${URLHolder.PROTOCOL}${URLHolder.HOST}")
-            .build()
+        cookieManager = CookieManager(
+            PersistentCookieStore(MyApplication.getApplication()),
+            CookiePolicy.ACCEPT_ALL
+        )
+        CookieHandler.setDefault(cookieManager)
     }
 
     fun postXWwwFormUrlEncoded(url: String, data: Map<String, String>): String? {
@@ -46,21 +31,43 @@ object Http {
             str.removeSuffix("&")
         }
 
-        val requestBody = RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"), postData)
-        val request = Request.Builder()
-            .url(url)
-            .headers(headers)
-            .header("Content-Length", postData.length.toString())
-            .header("Content-Type", "application/x-www-form-urlencoded")
-            .post(requestBody)
-            .build()
-        val response = client.newCall(request).execute()
+        var connection = URL(url).openConnection() as HttpURLConnection
+        connection.doOutput = true
+        connection.requestMethod = "POST"
+        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
+        connection.setRequestProperty("Content-Length", postData.length.toString())
+        setConnectionData(connection)
 
-        if (!response.isSuccessful) throw MissingRequestException(response.code())
-        return response.body()?.string()
+        connection.connect()
+
+        writeContents(connection, postData)
+        processCookies(connection)
+
+        while (connection.responseCode == HttpURLConnection.HTTP_MOVED_TEMP
+            || connection.responseCode == HttpURLConnection.HTTP_MOVED_PERM
+            || connection.responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
+            val newURL = connection.getHeaderField("Location")
+            val cookies = connection.getHeaderField("Set-Cookie")
+            connection = URL(newURL).openConnection() as HttpURLConnection
+            if (cookies != null) connection.setRequestProperty("Cookie", cookies)
+            setConnectionData(connection)
+            connection.connect()
+        }
+        /*
+        if (connection.url.toString() == URLHolder.URL_AUTHENTICATE && connection.headerFields.get("Location")?.get(0) != null) {
+            return get(connection.headerFields.get("Location")?.get(0)!!)
+        }
+
+         */
+
+        return getResponseBody(connection)
     }
 
-    fun post(url: String, data: Map<String, String> = mapOf(), type: String = "application/x-www-form-urlencoded; charset=utf-8"): String? {
+    fun post(
+        url: String,
+        data: Map<String, String> = mapOf(),
+        type: String = "application/x-www-form-urlencoded; charset=utf-8"
+    ): String? {
         val postData = data.let {
             var str = ""
             it.forEach {
@@ -69,40 +76,119 @@ object Http {
             str.removeSuffix("&")
         }
 
-        val requestBody = RequestBody.create(MediaType.parse(type), postData)
+        val connection = URL(url).openConnection() as HttpURLConnection
+        connection.doOutput = true
+        connection.requestMethod = "POST"
+        connection.setRequestProperty("Content-Type", type)
+        connection.setRequestProperty("Content-Length", postData.length.toString())
+        setConnectionData(connection)
 
-        val request = Request.Builder()
-            .url(url)
-            .post(requestBody)
-            .headers(headers)
-            .header("Content-Length", postData.length.toString())
-            .header("Content-Type", "application/x-www-form-urlencoded")
-            .build()
-        val response = client.newCall(request).execute()
+        connection.connect()
 
-        if (!response.isSuccessful) throw MissingRequestException(response.code())
-        return response.body()?.string()
+        writeContents(connection, postData)
+        processCookies(connection)
+
+        println(connection.url.toString() + "::" + connection.responseCode)
+
+        return getResponseBody(connection)
     }
 
     fun get(url: String, data: Map<String, String> = mapOf()): String? {
-        var postUrl = url
+        var getUrl = url
 
         if (data.isNotEmpty()) {
-            postUrl += "?"
+            getUrl += "?"
             data.forEach {
-                postUrl += "${it.key}=${it.value}&"
+                getUrl += "${it.key}=${it.value}&"
             }
-            postUrl = postUrl.removeSuffix("&")
+            getUrl = getUrl.removeSuffix("&")
         }
 
-        val request = Request.Builder()
-            .url(postUrl)
-            .headers(headers)
-            .build()
-        val response = client.newCall(request).execute()
+        var connection = URL(getUrl).openConnection() as HttpURLConnection
+        connection.doOutput = false
+        connection.requestMethod = "GET"
+        setConnectionData(connection)
 
-        if (!response.isSuccessful) throw MissingRequestException(response.code())
-        return response.body()?.string()
+        connection.connect()
+
+        processCookies(connection)
+
+        while (connection.responseCode == HttpURLConnection.HTTP_MOVED_TEMP
+            || connection.responseCode == HttpURLConnection.HTTP_MOVED_PERM
+            || connection.responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
+            val newURL = connection.getHeaderField("Location")
+            val cookies = connection.getHeaderField("Set-Cookie")
+            connection = URL(newURL).openConnection() as HttpURLConnection
+            if (cookies != null) connection.setRequestProperty("Cookie", cookies)
+            setConnectionData(connection)
+            connection.connect()
+        }
+
+        return getResponseBody(connection)
+    }
+
+    private fun setConnectionData(connection: HttpURLConnection) {
+        connection.instanceFollowRedirects = false
+        connection.setRequestProperty(
+            "Accept",
+            "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8"
+        )
+        connection.setRequestProperty("User-agent", USER_AGENT)
+        connection.setRequestProperty("Accept-Language", "ja,en-US;q=0.9,en;q=0.8")
+        connection.setRequestProperty("Connection", "keep-alive")
+        connection.setRequestProperty("Referer", URLHolder.URL_LOGIN)
+        connection.setRequestProperty("Origin", "${URLHolder.PROTOCOL}${URLHolder.HOST}")
+
+        var cookieData = ""
+        cookies.forEach {
+            cookieData += "${it.key}=${it.value};"
+        }
+        if (cookieData.isNotEmpty()) connection.setRequestProperty("Cookie", cookieData)
+        /*
+        if (cookieManager.cookieStore.cookies.size > 0) {
+            connection.setRequestProperty(
+                "Cookie",
+                TextUtils.join(";", cookieManager.cookieStore.cookies)
+            )
+        }
+         */
+    }
+
+    private fun processCookies(connection: HttpURLConnection) {
+        println(connection.url.toString() + "::" + connection.responseCode)
+        val fields = connection.headerFields
+        val headers = fields["Set-Cookie"]
+        headers?.forEach {
+            HttpCookie.parse(it).forEach {
+                cookies[it.name] = it.value
+            }
+        }
+    }
+
+    private fun writeContents(connection: HttpURLConnection, data: String) {
+        connection.outputStream.bufferedWriter(StandardCharsets.UTF_8).use {
+            it.write(data)
+            it.flush()
+        }
+    }
+
+    private fun getResponseBody(connection: HttpURLConnection): String {
+        val buffer = StringBuffer()
+        connection.inputStream.bufferedReader(StandardCharsets.UTF_8).useLines {
+            it.forEach {
+                buffer.append(it)
+            }
+        }
+        return buffer.toString()
+    }
+
+    private fun isRedirect(connection: HttpURLConnection): Boolean {
+        return connection.responseCode.toString().startsWith("3")
+    }
+
+    private fun doRedirect(connection: HttpURLConnection): String? {
+        val location = (connection.headerFields.get("Location") ?: return null).get(0)
+        return get(location)
     }
 
 }

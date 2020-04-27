@@ -13,6 +13,7 @@ import jp.mirm.mirmgo.ui.AbstractPresenter
 import jp.mirm.mirmgo.ui.mainmenu.MainMenuFragment
 import jp.mirm.mirmgo.ui.panel.PanelFragment
 import jp.mirm.mirmgo.firebase.FirebaseEventManager
+import jp.mirm.mirmgo.firebase.FirebaseRemoteConfigManager
 import jp.mirm.mirmgo.util.Preferences
 
 class LoginPresenter(private val fragment: LoginFragment) : AbstractPresenter() {
@@ -44,7 +45,7 @@ class LoginPresenter(private val fragment: LoginFragment) : AbstractPresenter() 
     private fun onLoginSucceeded() {
         GetServerDataManager()
             .onSuccess {
-                if (!Preferences.isOtherServersAllowed() && it.type != ServerDataResponse.TYPE_BDS) {
+                if (!FirebaseRemoteConfigManager.isAllowedOtherServers() && it.type != ServerDataResponse.TYPE_BDS) {
                     onNotBDSServer()
                 } else {
                     onFinalProcess()
@@ -54,7 +55,12 @@ class LoginPresenter(private val fragment: LoginFragment) : AbstractPresenter() 
     }
 
     private fun onFinalProcess() {
-        if (fragment.isSaveDataChecked()) saveLoginData(fragment.getServerId(), fragment.getPassword())
+        if (fragment.isSaveDataChecked()) {
+            saveLoginData(fragment.getServerId(), fragment.getPassword())
+        } else {
+            Preferences.removeCurrentServer()
+        }
+
         changeFragment(fragment.activity!!.supportFragmentManager, PanelFragment.getInstance())
         FirebaseEventManager.onLogin("self")
 
@@ -82,7 +88,7 @@ class LoginPresenter(private val fragment: LoginFragment) : AbstractPresenter() 
     }
 
     private fun saveLoginData(serverId: String, password: String) {
-        Preferences.setServerId(serverId)
-        Preferences.setPassword(password)
+        Preferences.addServer(serverId, password)
+        Preferences.setCurrentServer(serverId)
     }
 }

@@ -19,11 +19,10 @@ class MainMenuPresenter(private val fragment: MainMenuFragment) : AbstractPresen
     private val fragmentManager: FragmentManager = fragment.activity?.supportFragmentManager ?: fragment.fragmentManager ?:fragment.requireFragmentManager()
 
     fun init() {
-        val serverId = Preferences.getServerId()
-        val password = Preferences.getPassword()
-
-        if (serverId != null && password != null) {
-            tryLogin(serverId, password)
+        val currentServerId = Preferences.getCurrentServerId()
+        if (currentServerId != null) {
+            val password = Preferences.getDecryptedPassword(currentServerId) ?: return
+            tryLogin(currentServerId, password)
         }
     }
 
@@ -44,7 +43,7 @@ class MainMenuPresenter(private val fragment: MainMenuFragment) : AbstractPresen
         val dialog = LoadingDialog.newInstance()
         LoginManager()
             .onLoginSuccess {
-                FirebaseEventManager.onLogin("auto")
+                FirebaseEventManager.onLogin("auto_login")
                 changeFragment(fragmentManager, PanelFragment.getInstance())
             }
             .onDeleted { fragment.showSnackbar(R.string.main_login_deleted) }

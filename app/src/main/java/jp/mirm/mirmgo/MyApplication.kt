@@ -1,12 +1,8 @@
 package jp.mirm.mirmgo
 
 import android.app.Application
-import android.util.Log
-import com.facebook.stetho.Stetho
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.iid.FirebaseInstanceId
-import jp.mirm.mirmgo.common.manager.AddFCMTokenManager
 import jp.mirm.mirmgo.firebase.FirebaseRemoteConfigManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -38,12 +34,6 @@ class MyApplication : Application() {
     }
 
     private fun initialize() = GlobalScope.launch(Dispatchers.Default) {
-        Stetho.initialize(
-            Stetho.newInitializerBuilder(application)
-                .enableDumpapp(Stetho.defaultDumperPluginsProvider(application))
-                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(application))
-                .build())
-
         MobileAds.initialize(application, getString(R.string.admob_appid_test))
         FirebaseRemoteConfigManager.refresh()
     }
