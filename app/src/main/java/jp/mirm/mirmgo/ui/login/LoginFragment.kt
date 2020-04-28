@@ -3,6 +3,7 @@ package jp.mirm.mirmgo.ui.login
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import jp.mirm.mirmgo.MyApplication
 import jp.mirm.mirmgo.R
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_main_menu.*
@@ -62,7 +63,7 @@ class LoginFragment : Fragment() {
     }
 
     fun setErrorTextViewText(id: Int) {
-        loginErrorTextView.text = activity?.getText(id)
+        loginErrorTextView.text = MyApplication.getString(id)
     }
 
     fun getServerId(): String {

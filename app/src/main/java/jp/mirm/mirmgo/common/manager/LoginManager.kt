@@ -22,11 +22,11 @@ class LoginManager : BaseManager<LoginManager>() {
             MiRmAPI.login(serverId, password)
 
         }.await().let {
-            if (it.apiStatusCode != AbstractResponse.STATUS_SUCCEEDED) {
+            if (it.status != AbstractResponse.STATUS_SUCCEEDED) {
                 onNotSucceeded(it.apiStatusCode!!)
 
             } else {
-                when (it.status) {
+                when (it.apiStatusCode) {
                     LoginResponse.LOGIN_STATUS_FAILED -> onLoginFailed.invoke()
                     LoginResponse.LOGIN_STATUS_SUCCEEDED -> onLoginSuccess.invoke()
                     LoginResponse.LOGIN_STATUS_USER_DELETED -> onUserDeleted.invoke()

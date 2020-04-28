@@ -25,16 +25,37 @@ class LoginPresenter(private val fragment: LoginFragment) : AbstractPresenter() 
                 fragment.setProgressBarVisibility(true)
                 fragment.setErrorTextViewVisibility(false)
             }
-            .onFinish {
+            .onLoginSuccess { onLoginSucceeded() }
+            .onLoginFailed {
+                fragment.setErrorTextViewText(R.string.login_e_failed)
                 fragment.setErrorTextViewVisibility(true)
                 fragment.setProgressBarVisibility(false)
                 fragment.setTryLoginButtonVisibility(true)
             }
-            .onLoginSuccess { onLoginSucceeded() }
-            .onUserDeleted { fragment.setErrorTextViewText(R.string.main_login_user_deleted) }
-            .onDeleted { fragment.setErrorTextViewText(R.string.main_login_deleted) }
-            .onNetworkError { fragment.setErrorTextViewText(R.string.network_error) }
-            .onError { fragment.setErrorTextViewText(R.string.error) }
+            .onUserDeleted {
+                fragment.setErrorTextViewText(R.string.main_login_user_deleted)
+                fragment.setErrorTextViewVisibility(true)
+                fragment.setProgressBarVisibility(false)
+                fragment.setTryLoginButtonVisibility(true)
+            }
+            .onDeleted {
+                fragment.setErrorTextViewText(R.string.main_login_deleted)
+                fragment.setErrorTextViewVisibility(true)
+                fragment.setProgressBarVisibility(false)
+                fragment.setTryLoginButtonVisibility(true)
+            }
+            .onNetworkError {
+                fragment.setErrorTextViewText(R.string.network_error)
+                fragment.setErrorTextViewVisibility(true)
+                fragment.setProgressBarVisibility(false)
+                fragment.setTryLoginButtonVisibility(true)
+            }
+            .onError {
+                fragment.setErrorTextViewText(R.string.error)
+                fragment.setErrorTextViewVisibility(true)
+                fragment.setProgressBarVisibility(false)
+                fragment.setTryLoginButtonVisibility(true)
+            }
             .doLogin(fragment.getServerId(), fragment.getPassword())
     }
 

@@ -29,16 +29,15 @@ object MiRmAPI {
 
             if (response.contains("期限切れでサーバーが削除されました。")) return LoginResponse(AbstractResponse.STATUS_SUCCEEDED, LoginResponse.LOGIN_STATUS_DELETED_SERVER)
             if (response.contains("サーバー削除ボタンによって削除されています。")) return LoginResponse(AbstractResponse.STATUS_SUCCEEDED, LoginResponse.LOGIN_STATUS_USER_DELETED)
+            if (response.contains("サーバー名またはパスワードが違います。")) return LoginResponse(AbstractResponse.STATUS_SUCCEEDED, LoginResponse.LOGIN_STATUS_FAILED)
 
-            return response.contains("MiRm | コントロールパネル").let {
-                if (it) {
+            return when (response.contains("MiRm | コントロールパネル")) {
+                true -> {
                     this.loggedIn = true
                     this.serverId = serverId
-                    return LoginResponse(AbstractResponse.STATUS_SUCCEEDED, LoginResponse.LOGIN_STATUS_SUCCEEDED)
-
-                } else {
-                    return LoginResponse(AbstractResponse.STATUS_SUCCEEDED, LoginResponse.LOGIN_STATUS_FAILED)
+                    LoginResponse(AbstractResponse.STATUS_SUCCEEDED, LoginResponse.LOGIN_STATUS_SUCCEEDED)
                 }
+                false -> LoginResponse(AbstractResponse.STATUS_SUCCEEDED, LoginResponse.LOGIN_STATUS_FAILED)
             }
 
         } catch (e: MissingRequestException) {
@@ -49,6 +48,7 @@ object MiRmAPI {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
         return LoginResponse(AbstractResponse.STATUS_ERROR, LoginResponse.LOGIN_STATUS_FAILED)
     }
 

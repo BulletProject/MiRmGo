@@ -53,12 +53,6 @@ object Http {
             setConnectionData(connection)
             connection.connect()
         }
-        /*
-        if (connection.url.toString() == URLHolder.URL_AUTHENTICATE && connection.headerFields.get("Location")?.get(0) != null) {
-            return get(connection.headerFields.get("Location")?.get(0)!!)
-        }
-
-         */
 
         return getResponseBody(connection)
     }
