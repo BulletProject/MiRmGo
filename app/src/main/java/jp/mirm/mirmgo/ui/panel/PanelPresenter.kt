@@ -47,6 +47,7 @@ class PanelPresenter(private val fragment: PanelFragment) : AbstractPresenter() 
         when (id) {
             R.id.popupOfficialSite -> {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URLHolder.URL_SITE))
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 MyApplication.getApplication().startActivity(intent)
             }
 

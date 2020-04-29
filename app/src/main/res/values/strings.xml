@@ -137,8 +137,8 @@
 
     <!-- Versions -->
     <string name="debug_flag">mirm_go</string>
-    <string name="version_code">Debug 0.0.3 / むらさきいろのくるま</string>
-    <string name="version">Debug 0.0.3</string>
+    <string name="version_code">Debug 0.0.4 / むらさきいろのくるま</string>
+    <string name="version">Debug 0.0.4</string>
     <string name="developer">Itsu (MiRm Development Team)</string>
 
     <!-- App Id: ca-app-pub-1788933592781069~5529258460 -->

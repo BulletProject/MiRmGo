@@ -10,16 +10,19 @@ class PanelAboutPresenter(private val fragment: PanelAboutFragment) {
 
     fun onTermsClick() {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URLHolder.URL_TERMS))
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         MyApplication.getApplication().startActivity(intent)
     }
 
     fun onOSSClick() {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URLHolder.URL_OSS))
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         MyApplication.getApplication().startActivity(intent)
     }
 
     fun onHPClick() {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URLHolder.URL_SITE))
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         MyApplication.getApplication().startActivity(intent)
     }
 

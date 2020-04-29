@@ -135,16 +135,19 @@ class PanelMainPresenter(private val fragment: PanelMainFragment) : AbstractPres
 
     fun onGotoListButtonClick() {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URLHolder.URL_SERVER_LIST))
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         MyApplication.getApplication().startActivity(intent)
     }
 
     fun onRSSContentClick(text: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(rssFeeds[text]))
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         MyApplication.getApplication().startActivity(intent)
     }
 
     fun onOpenStatusPageButtonClick() {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URLHolder.URL_STATUS_PAGE + MiRmAPI.serverId))
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         MyApplication.getApplication().startActivity(intent)
     }
 
@@ -154,6 +157,7 @@ class PanelMainPresenter(private val fragment: PanelMainFragment) : AbstractPres
                 Intent.ACTION_VIEW,
                 Uri.parse("minecraft:?addExternalServer=${MiRmAPI.serverId}|${URLHolder.HOST}:${MiRmAPI.port}")
             )
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             MyApplication.getApplication().startActivity(intent)
         } catch (e: Exception) {
             fragment.showSnackbar(R.string.panel_install_minecraft)
