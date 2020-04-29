@@ -36,6 +36,7 @@ class MainMenuPresenter(private val fragment: MainMenuFragment) : AbstractPresen
 
     fun onAboutButtonClick() {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URLHolder.URL_ABOUT))
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         fragment.activity!!.startActivity(intent)
     }
 
