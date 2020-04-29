@@ -23,6 +23,8 @@ class ExtendDialog : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        super.onCreateDialog(savedInstanceState)
+
         presenter = ExtendDialogPresenter(this)
 
         val dialog = Dialog(activity!!)

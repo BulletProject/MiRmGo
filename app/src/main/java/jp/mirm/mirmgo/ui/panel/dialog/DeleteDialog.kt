@@ -24,6 +24,8 @@ class DeleteDialog : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        super.onCreateDialog(savedInstanceState)
+
         presenter = DeleteDialogPresenter(this)
 
         val dialog = Dialog(activity!!)
@@ -33,6 +35,7 @@ class DeleteDialog : DialogFragment() {
 
         val view = activity!!.layoutInflater.inflate(R.layout.dialog_extend, null)
         view.dialogExtendButton.setOnClickListener {
+            this.dismiss()
             presenter.onDeleteClick()
         }
         view.dialogBackButton.setOnClickListener {

@@ -19,6 +19,8 @@ class LoadingDialog : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        super.onCreateDialog(savedInstanceState)
+
         val dialog = Dialog(activity!!)
         dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog.window?.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN)
