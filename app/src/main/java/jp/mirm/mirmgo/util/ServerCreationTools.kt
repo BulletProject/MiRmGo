@@ -8,13 +8,13 @@ object ServerCreationTools {
     private const val ALPHABETS_LENGTH = 4
 
     fun buildServerId(): String {
-        return "MiRm_" +
-                RandomStringUtils.randomNumeric(NUMBERS_LENGTH) + "_" +
+        return "MiRm" +
+                RandomStringUtils.randomNumeric(NUMBERS_LENGTH) +
                 RandomStringUtils.randomAlphanumeric(ALPHABETS_LENGTH)
     }
 
     fun buildPassword(): String {
-        return RandomStringUtils.random(12, (('A'..'Z') + ('a'..'z') + ('0'..'9')).joinToString("") + "!%&#@_$")
+        return PasswordManager.encrypt(RandomStringUtils.random(12, (('A'..'Z') + ('a'..'z') + ('0'..'9')).joinToString("") + "!%&#@_$"))
     }
 
 }

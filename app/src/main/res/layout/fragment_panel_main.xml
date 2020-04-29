@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:checked="false"
                 android:paddingTop="8dp"
-                android:text="-" />
+                android:text="@string/panel_need_reload" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -78,7 +78,7 @@
                     android:id="@+id/panelIPAddressView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="x.mirm.jp"
+                    android:text="-"
                     android:textAlignment="textEnd"
                     android:textColor="@color/deepKoamaru"
                     android:textSize="18sp" />
@@ -110,7 +110,7 @@
                     android:id="@+id/panelPortView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="19132"
+                    android:text="-"
                     android:textAlignment="textEnd"
                     android:textColor="@color/deepKoamaru"
                     android:textSize="18sp" />

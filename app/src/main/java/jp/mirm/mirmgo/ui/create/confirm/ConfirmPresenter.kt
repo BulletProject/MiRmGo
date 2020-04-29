@@ -15,8 +15,11 @@ import jp.mirm.mirmgo.ui.create.terms.TermsFragment
 import jp.mirm.mirmgo.firebase.FirebaseEventManager
 import jp.mirm.mirmgo.ui.dialog.LoadingDialog
 import jp.mirm.mirmgo.ui.panel.PanelFragment
+import jp.mirm.mirmgo.util.PasswordManager
 import jp.mirm.mirmgo.util.Preferences
 import jp.mirm.mirmgo.util.ServerCreationTools
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 
 class ConfirmPresenter(private val fragment: ConfirmFragment) : AbstractPresenter() {
 
@@ -30,8 +33,7 @@ class ConfirmPresenter(private val fragment: ConfirmFragment) : AbstractPresente
 
     fun onCreateButtonClick() {
         if (NewServer.canCreateServer()) {
-            createServer(NewServer)
-            FirebaseEventManager.onCreateServer()
+            createServer(buildLoginData(NewServer))
         }
     }
 
@@ -46,8 +48,9 @@ class ConfirmPresenter(private val fragment: ConfirmFragment) : AbstractPresente
 
         CreateBDSServerManager()
             .onSuccess {
-                Preferences.addServer(server.serverId!!, server.password!!)
-                tryLogin(server.serverId!!, server.password!!)
+                FirebaseEventManager.onCreateServer()
+                Preferences.addServer(server.serverId!!, PasswordManager.decrypt(server.password!!))
+                tryLogin(server.serverId!!, PasswordManager.decrypt(server.password!!))
             }
             .onInitialize { dialog.show(fragment.activity!!.supportFragmentManager, "creating_server") }
             .onFinish { dialog.dismiss() }
@@ -75,7 +78,9 @@ class ConfirmPresenter(private val fragment: ConfirmFragment) : AbstractPresente
             .onLoginSuccess {
                 FirebaseEventManager.onLogin("create_login")
                 saveLoginData(serverId, password)
-                changeFragment(fragmentManager, PanelFragment.getInstance())
+                changeFragment(fragmentManager, PanelFragment.getInstance().also {
+                    it.arguments = bundleOf("show_info" to true)
+                })
             }
             .onDeleted { fragment.showSnackbar(R.string.main_login_deleted) }
             .onUserDeleted { fragment.showSnackbar(R.string.main_login_user_deleted) }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.gms.ads.AdListener
@@ -12,7 +13,10 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.material.snackbar.Snackbar
 import jp.mirm.mirmgo.MyApplication
 import jp.mirm.mirmgo.R
+import jp.mirm.mirmgo.common.network.MiRmAPI
+import jp.mirm.mirmgo.ui.panel.dialog.ServerInfoDialog
 import jp.mirm.mirmgo.ui.panel.main.PanelMainFragment
+import jp.mirm.mirmgo.util.Preferences
 import kotlinx.android.synthetic.main.fragment_main_menu.*
 import kotlinx.android.synthetic.main.fragment_panel.*
 import kotlinx.android.synthetic.main.fragment_panel_main.*
@@ -80,6 +84,16 @@ class PanelFragment : Fragment() {
         panelViewPager.adapter = adapter
         panelViewPager.currentItem = 0
 
+        if (arguments?.getBoolean("show_info") == true) {
+            val dialog = ServerInfoDialog.newInstance()
+            dialog.arguments = bundleOf(
+                "server_id" to MiRmAPI.serverId,
+                "password" to Preferences.getDecryptedPassword(MiRmAPI.serverId)
+            )
+            dialog.show(activity!!.supportFragmentManager, "server_info")
+            arguments?.putBoolean("shoe_info", false)
+        }
+
         val adRequest = AdRequest.Builder().build()
         adView1.loadAd(adRequest)
     }
@@ -95,7 +109,7 @@ class PanelFragment : Fragment() {
     }
 
     fun showSnackbar(id: Int): Snackbar {
-        val snackbar = Snackbar.make(panelExtendButton, id, Snackbar.LENGTH_SHORT)
+        val snackbar = Snackbar.make(panelExtendButton, id, Snackbar.LENGTH_LONG)
         snackbar.show()
         return snackbar
     }

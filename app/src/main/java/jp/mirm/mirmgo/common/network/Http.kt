@@ -1,10 +1,7 @@
 package jp.mirm.mirmgo.common.network
 
-import android.text.TextUtils
 import jp.mirm.mirmgo.MyApplication
-import jp.mirm.mirmgo.common.exception.MissingRequestException
 import jp.mirm.mirmgo.common.network.cookie.PersistentCookieStore
-import okhttp3.*
 import java.net.*
 import java.nio.charset.StandardCharsets
 
@@ -13,6 +10,7 @@ object Http {
     private const val USER_AGENT = "MiRmGo/0.0.1"
     private val cookieManager: CookieManager
     private val cookies = mutableMapOf<String, String>()
+
 
     init {
         cookieManager = CookieManager(
@@ -149,7 +147,6 @@ object Http {
     }
 
     private fun processCookies(connection: HttpURLConnection) {
-        println(connection.url.toString() + "::" + connection.responseCode)
         val fields = connection.headerFields
         val headers = fields["Set-Cookie"]
         headers?.forEach {
@@ -176,13 +173,8 @@ object Http {
         return buffer.toString()
     }
 
-    private fun isRedirect(connection: HttpURLConnection): Boolean {
-        return connection.responseCode.toString().startsWith("3")
-    }
-
-    private fun doRedirect(connection: HttpURLConnection): String? {
-        val location = (connection.headerFields.get("Location") ?: return null).get(0)
-        return get(location)
+    fun reset() {
+        this.cookies.clear()
     }
 
 }

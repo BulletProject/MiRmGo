@@ -35,7 +35,7 @@ class ExampleInstrumentedTest {
     @Test
     fun createBDSServerTest() {
         assertEquals(0, MiRmAPI.createBDSServer(
-            "MyServer",
+            "MyTestServer",
             PasswordManager.encrypt("analsexer").also {
                 println(it)
             },

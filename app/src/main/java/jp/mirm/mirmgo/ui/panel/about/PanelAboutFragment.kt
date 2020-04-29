@@ -29,10 +29,11 @@ class PanelAboutFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        presenter = PanelAboutPresenter()
+        presenter = PanelAboutPresenter(this)
 
         aboutTermsButton.setOnClickListener { presenter.onTermsClick() }
         aboutOSSButton.setOnClickListener { presenter.onOSSClick() }
         aboutHPButton.setOnClickListener { presenter.onHPClick() }
+        aboutDeleteButton.setOnClickListener { presenter.onDeleteClick() }
     }
 }

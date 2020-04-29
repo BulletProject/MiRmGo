@@ -60,6 +60,7 @@
     <string name="panel_logout_error">ログアウトに失敗しました。</string>
     <string name="panel_rss_title">運営からのお知らせ</string>
     <string name="panel_min_unit">分</string>
+    <string name="panel_need_reload">再読み込みしてください</string>
 
     <string name="panel_main_title">トップ</string>
     <string name="panel_list_text">MiRmにはほかにも面白いサーバーがいっぱい！いますぐチェックしてみよう。</string>
@@ -77,6 +78,7 @@
     <string name="panel_setting_success">完了</string>
     <string name="panel_setting_error">エラー</string>
     <string name="panel_setting_error_server">サーバーを起動してください。</string>
+    <string name="panel_install_minecraft">Minecraft:Bedrock Editionをインストールしてください。</string>
 
     <string name="panel_info_ways">アプリについて</string>
     <string name="panel_about_build_title">ビルドバージョン</string>
@@ -84,6 +86,8 @@
     <string name="panel_about_button_terms">利用規約</string>
     <string name="panel_about_button_oss">オープンソースライセンス</string>
     <string name="panel_about_button_hp">公式サイト</string>
+    <string name="panel_about_delete">サーバーを削除</string>
+    <string name="panel_about_delete_text">サーバーを削除すると、MiRm上から完全にデータが削除され二度と復旧することはできません。</string>
 
     <string name="loading">読み込み中&#8230;</string>
     <string name="back">戻る</string>
@@ -99,14 +103,17 @@
 
     <string name="popup_official_site">公式サイト</string>
     <string name="popup_logout">ログアウト</string>
+    <string name="popup_info">サーバー情報</string>
 
     <string name="dialog_extend_title">使用可能時間延長</string>
-    <string name="dialog_extend_text">動画広告を最後まで視聴することで、サーバーの使用可能時間を延長することができます。</string>
+    <string name="dialog_extend_text">数十秒の動画広告を最後まで視聴することで、サーバーの使用可能時間を延長することができます。延長に料金は発生しません。</string>
     <string name="dialog_extend_button_do">動画を見て延長する</string>
     <string name="dialog_extend_success">使用可能時間を延長しました。</string>
     <string name="dialog_extend_failed">広告をロードできませんでした。</string>
     <string name="dialog_extend_error">エラーが発生しました。</string>
     <string name="dialog_extend_error_time">残り使用可能時間が6時間を切ると延長が可能になります。</string>
+
+    <string name="dialog_info_text">これらの情報はWeb版からアクセスするときに必要となります。右上のボタンの[サーバー情報]からこれらの情報は確認できます。\nサーバーID: %1$s\nパスワード: %2$s</string>
 
     <string-array name="op_list">
         <item>OPに設定</item>

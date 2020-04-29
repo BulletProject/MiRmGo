@@ -7,7 +7,7 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/textView22"
+        android:id="@+id/extendDialogTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/dialog_extend_title"
@@ -15,7 +15,7 @@
         android:textColor="@android:color/white" />
 
     <TextView
-        android:id="@+id/textView23"
+        android:id="@+id/extendDialogText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"

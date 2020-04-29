@@ -7,11 +7,13 @@ import jp.mirm.mirmgo.MyApplication
 import jp.mirm.mirmgo.R
 import jp.mirm.mirmgo.common.manager.GetServerDataManager
 import jp.mirm.mirmgo.common.manager.LogoutManager
+import jp.mirm.mirmgo.common.network.MiRmAPI
 import jp.mirm.mirmgo.common.network.URLHolder
 import jp.mirm.mirmgo.ui.AbstractPresenter
 import jp.mirm.mirmgo.ui.dialog.LoadingDialog
 import jp.mirm.mirmgo.ui.login.LoginFragment
 import jp.mirm.mirmgo.ui.panel.dialog.ExtendDialog
+import jp.mirm.mirmgo.ui.panel.dialog.ServerInfoDialog
 import jp.mirm.mirmgo.util.Preferences
 import kotlinx.coroutines.*
 
@@ -50,6 +52,15 @@ class PanelPresenter(private val fragment: PanelFragment) : AbstractPresenter() 
 
             R.id.popupLogout -> {
                 logout()
+            }
+
+            R.id.popupServerInfo -> {
+                val dialog = ServerInfoDialog.newInstance()
+                dialog.arguments = bundleOf(
+                    "server_id" to MiRmAPI.serverId,
+                    "password" to Preferences.getDecryptedPassword(MiRmAPI.serverId)
+                )
+                dialog.show(fragment.activity!!.supportFragmentManager, "server_info")
             }
         }
     }

@@ -10,19 +10,21 @@ import org.xml.sax.InputSource
 import java.io.StringReader
 import java.lang.Exception
 import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 object MiRmAPI {
 
     private val gson = Gson()
     var loggedIn = false
     var serverId = ""
+    var port = 0
 
     fun login(serverId: String, password: String): LoginResponse {
         try {
             val response = Http.postXWwwFormUrlEncoded(
                 URLHolder.URL_AUTHENTICATE, mapOf(
-                    "serverId" to URLEncoder.encode(serverId),
-                    "password" to URLEncoder.encode(password),
+                    "serverId" to serverId,
+                    "password" to password,
                     "_csrf" to getCsrf()
                 )
             ) ?: return LoginResponse(AbstractResponse.STATUS_ERROR, LoginResponse.LOGIN_STATUS_FAILED)
@@ -38,6 +40,7 @@ object MiRmAPI {
                     LoginResponse(AbstractResponse.STATUS_SUCCEEDED, LoginResponse.LOGIN_STATUS_SUCCEEDED)
                 }
                 false -> LoginResponse(AbstractResponse.STATUS_SUCCEEDED, LoginResponse.LOGIN_STATUS_FAILED)
+
             }
 
         } catch (e: MissingRequestException) {
@@ -55,7 +58,10 @@ object MiRmAPI {
     fun getServerData(): ServerDataResponse {
         try {
             val json = Http.get(URLHolder.URL_SERVER_DATA) ?: throw MissingRequestException(MissingRequestException.CODE_UNKNOWN)
-            return gson.fromJson(json, ServerDataResponse::class.java).also { it.apiStatusCode = AbstractResponse.STATUS_SUCCEEDED }
+            return gson.fromJson(json, ServerDataResponse::class.java).also {
+                it.apiStatusCode = AbstractResponse.STATUS_SUCCEEDED
+                this.port = it.port
+            }
 
         } catch (e: MissingRequestException) {
             if (e.errorCode == 503) {
@@ -164,6 +170,8 @@ object MiRmAPI {
                 if (it) {
                     this.loggedIn = false
                     this.serverId = ""
+                    this.port = 0
+                    Http.reset()
                 }
             }
 

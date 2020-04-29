@@ -86,9 +86,18 @@
                 android:id="@+id/aboutHPButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/dr_button_outline"
                 android:text="@string/panel_about_button_hp"
                 android:textColor="@color/wizardGrey" />
+
+            <Button
+                android:id="@+id/aboutDeleteButton"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/panel_about_delete"
+                android:textColor="@color/carminePink" />
         </LinearLayout>
 
         <Space

@@ -14,6 +14,7 @@ import jp.mirm.mirmgo.ui.AbstractPresenter
 import jp.mirm.mirmgo.ui.mainmenu.MainMenuFragment
 import jp.mirm.mirmgo.ui.panel.PanelFragment
 import kotlinx.coroutines.*
+import java.lang.Exception
 
 class PanelMainPresenter(private val fragment: PanelMainFragment) : AbstractPresenter() {
 
@@ -148,6 +149,14 @@ class PanelMainPresenter(private val fragment: PanelMainFragment) : AbstractPres
     }
 
     fun onJoinButtonClick() {
-        // TODO
+        try {
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("minecraft:?addExternalServer=${MiRmAPI.serverId}|${URLHolder.HOST}:${MiRmAPI.port}")
+            )
+            MyApplication.getApplication().startActivity(intent)
+        } catch (e: Exception) {
+            fragment.showSnackbar(R.string.panel_install_minecraft)
+        }
     }
 }
