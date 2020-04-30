@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/popupOfficialSite" android:title="@string/popup_official_site" />
-    <item android:id="@+id/popupLogout" android:title="@string/popup_logout" />
     <item android:id="@+id/popupServerInfo" android:title="@string/popup_info" />
+    <item android:id="@+id/popupLogout" android:title="@string/popup_logout" />
 </menu>

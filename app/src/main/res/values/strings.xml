@@ -101,7 +101,7 @@
     <string name="status_running_processing">起動処理中&#8230;</string>
     <string name="status_stopped_processing">停止処理中&#8230;</string>
 
-    <string name="popup_official_site">公式サイト</string>
+    <string name="popup_official_site">Web版で開く</string>
     <string name="popup_logout">ログアウト</string>
     <string name="popup_info">サーバー情報</string>
 
@@ -137,8 +137,8 @@
 
     <!-- Versions -->
     <string name="debug_flag">mirm_go</string>
-    <string name="version_code">Debug 0.0.4 / むらさきいろのくるま</string>
-    <string name="version">Debug 0.0.4</string>
+    <string name="version_code">0.0.5 / むらさきいろのくるま</string>
+    <string name="version">Debug 0.0.5</string>
     <string name="developer">Itsu (MiRm Development Team)</string>
 
     <!-- App Id: ca-app-pub-1788933592781069~5529258460 -->
@@ -147,7 +147,7 @@
     <string name="admob_appid_test">ca-app-pub-3940256099942544~3347511713</string>
     <string name="admob_appid">ca-app-pub-1788933592781069~5529258460</string>
     <string name="admob_movie_test">ca-app-pub-3940256099942544/5224354917</string>
-    <string name="admob_movie_extend">ca-app-pub-3940256099942544/5224354917</string>
+    <string name="admob_movie_extend">ca-app-pub-1788933592781069/1015298382</string>
     <string name="admob_banner_test">ca-app-pub-3940256099942544/6300978111</string>
     <string name="admob_banner_1">ca-app-pub-1788933592781069/5501338307</string>
 </resources>

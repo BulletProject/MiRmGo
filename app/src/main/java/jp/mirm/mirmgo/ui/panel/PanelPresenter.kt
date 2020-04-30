@@ -46,7 +46,7 @@ class PanelPresenter(private val fragment: PanelFragment) : AbstractPresenter() 
     fun onPopupMenuClick(id: Int) {
         when (id) {
             R.id.popupOfficialSite -> {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URLHolder.URL_SITE))
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URLHolder.URL_LOGIN))
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 MyApplication.getApplication().startActivity(intent)
             }

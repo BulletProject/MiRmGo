@@ -34,7 +34,7 @@ class MyApplication : Application() {
     }
 
     private fun initialize() = GlobalScope.launch(Dispatchers.Default) {
-        MobileAds.initialize(application, getString(R.string.admob_appid_test))
+        MobileAds.initialize(application, getString(R.string.admob_appid))
         FirebaseRemoteConfigManager.refresh()
     }
 }
