@@ -13,7 +13,7 @@
     <string name="create_survival">サバイバルモード</string>
     <string name="create_survival_text">・ブロックを1から集める\n・死ぬことがある\n・ゾンビなどの敵と戦う</string>
     <string name="create_creative">クリエイティブモード</string>
-    <string name="create_creative_text">・初めから全てのブロックを使える\n・死ぬことがない\n・空を自由に飛部ことができる</string>
+    <string name="create_creative_text">・初めから全てのブロックを使える\n・死ぬことがない\n・空を自由に飛ぶことができる</string>
     <string name="create_button">これで遊ぶ！</string>
     <string name="create_button_selected">選択済み</string>
 
@@ -113,7 +113,7 @@
     <string name="dialog_extend_error">エラーが発生しました。</string>
     <string name="dialog_extend_error_time">残り使用可能時間が6時間を切ると延長が可能になります。</string>
 
-    <string name="dialog_info_text">これらの情報はWeb版からアクセスするときに必要となります。右上のボタンの[サーバー情報]からこれらの情報は確認できます。\nサーバーID: %1$s\nパスワード: %2$s</string>
+    <string name="dialog_info_text">これらの情報はWeb版からアクセスするときに必要となります。右上のボタンの[サーバー情報]からこれらの情報は確認できます。\n\nサーバーID: %1$s\nパスワード: %2$s</string>
 
     <string-array name="op_list">
         <item>OPに設定</item>
@@ -145,9 +145,9 @@
     <!-- Extend Movie Id: ca-app-pub-1788933592781069/1015298382 -->
     <!-- Banner 1 Id: ca-app-pub-1788933592781069/5501338307 -->
     <string name="admob_appid_test">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="admob_appid">ca-app-pub-1788933592781069~5529258460</string>
+    <string name="admob_appid">ca-app-pub-3940256099942544~3347511713</string>
     <string name="admob_movie_test">ca-app-pub-3940256099942544/5224354917</string>
-    <string name="admob_movie_extend">ca-app-pub-1788933592781069/1015298382</string>
+    <string name="admob_movie_extend">ca-app-pub-3940256099942544/5224354917</string>
     <string name="admob_banner_test">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="admob_banner_1">ca-app-pub-1788933592781069/5501338307</string>
+    <string name="admob_banner_1">ca-app-pub-3940256099942544/6300978111</string>
 </resources>

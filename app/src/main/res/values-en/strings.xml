@@ -1,0 +1,135 @@
+<resources>
+    <string name="app_name">MiRm Go</string>
+    <string name="main_button_create">Create Server</string>
+    <string name="main_button_add">Login</string>
+    <string name="main_button_mirm">About MiRm Go</string>
+    <string name="main_text_description">MiRm Go is not Minecraft Official Service. Mojang has not approved this service and this has nothing to do with Mojang.</string>
+    <string name="main_logging_in">Logging in&#8230;</string>
+    <string name="main_login_failed">Failed to Login.</string>
+    <string name="main_login_deleted">Your server had been deleted due to out of date.</string>
+    <string name="main_login_user_deleted">Your server had been deleted by user.</string>
+
+    <string name="create_1_title">1.Gamemode</string>
+    <string name="create_survival">Survival</string>
+    <string name="create_survival_text">・Get blocks from scratch\n・You may die\n・Kill Mobs such as Zonbies</string>
+    <string name="create_creative">Creative</string>
+    <string name="create_creative_text">・Be able to use all blocks\n・You will not die\n・Be able to fly freely</string>
+    <string name="create_button">Play with this!</string>
+    <string name="create_button_selected">Selected</string>
+
+    <string name="create_difficulty_title">2.Difficulty</string>
+    <string name="create_difficulty_peaceful">Peaceful</string>
+    <string name="create_difficulty_peaceful_text">・Hostile mobs (such as Zombies or Creepers) will not appear naturally.\n・Automatic recovering</string>
+    <string name="create_difficulty_easy">Easy</string>
+    <string name="create_difficulty_easy_text">・Hostile mobs appear and attack you with less damage\n・Hunger level may decrease</string>
+    <string name="create_difficulty_normal">Normal</string>
+    <string name="create_difficulty_normal_text">・Hostile mobs appear and attack you\n・Hunger level decrease</string>
+    <string name="create_difficulty_hard">Hard</string>
+    <string name="create_difficulty_hard_text">・Hostile mobs appear and attack you with much damage\n・You may die due to hunger</string>
+
+    <string name="create_terms_title">3.Terms</string>
+    <string name="create_terms_text">You HAVE TO read the terms to the end and check the checkbox at bottom if you agree.</string>
+    <string name="create_terms_accept">I agree.</string>
+    <string name="create_terms_not_accept">I disagree.</string>
+
+    <string name="create_confirm_title">4.Confirm</string>
+    <string name="create_confirm_gamemode">Gamemode</string>
+    <string name="create_confirm_difficulty">Difficulty</string>
+    <string name="create_confirm_type">Server-Type</string>
+    <string name="create_confirm_terms">Terms</string>
+    <string name="create_confirm_button_create">Create Server!</string>
+
+    <string name="login_title">Login to MiRm Go</string>
+    <string name="login_server_id">Server ID</string>
+    <string name="login_password">Password</string>
+    <string name="login_save">Auto Login</string>
+    <string name="login_e_failed">Incorrect Server ID or Password.</string>
+    <string name="login_e_error">Error occurred.</string>
+    <string name="login_e_not_supported">You can manager PMMP or Cuberite servers on only Web version.。</string>
+
+    <string name="panel_serverId">IP Address</string>
+    <string name="panel_port">Port</string>
+    <string name="panel_join">Add to Minecraft App</string>
+    <string name="panel_time">Remaining Time</string>
+    <string name="panel_button_extend">Extend</string>
+    <string name="panel_server_title">Server Status</string>
+    <string name="panel_button_status_page">Open status page</string>
+    <string name="panel_button_force_stop">Force stop</string>
+    <string name="panel_manage">Manage server</string>
+    <string name="panel_logout">Logging out&#8230;</string>
+    <string name="panel_logout_error">Failed to logout.</string>
+    <string name="panel_rss_title">Information (Only Japanese)</string>
+    <string name="panel_min_unit">min</string>
+    <string name="panel_need_reload">Please reload&#8230;</string>
+
+    <string name="panel_main_title">Top</string>
+    <string name="panel_list_text">There are a lot of interesting servers in MiRm. Check Now!!</string>
+    <string name="panel_list_button">Check Server List</string>
+
+    <string name="panel_button">Settings</string>
+    <string name="panel_setting_title">Server Settings</string>
+    <string name="panel_op_title">OP Setting</string>
+    <string name="panel_name_hint">Player name</string>
+    <string name="panel_time_title">Time Setting</string>
+    <string name="panel_gamemode_title">Gamemode Setting</string>
+    <string name="panel_wl_title">White-list Setting</string>
+    <string name="panel_wl_checkbox">Enable / Disable White-list</string>
+    <string name="panel_setting_start">Running </string>
+    <string name="panel_setting_success">Completed</string>
+    <string name="panel_setting_error">Error</string>
+    <string name="panel_setting_error_server">Run your server first.</string>
+    <string name="panel_install_minecraft">You have to install Minecraft:Bedrock Edition</string>
+
+    <string name="panel_info_ways">About app</string>
+    <string name="panel_about_build_title">Build Version</string>
+    <string name="panel_about_developer">Developer</string>
+    <string name="panel_about_button_terms">Terms</string>
+    <string name="panel_about_button_oss">Open-Source License</string>
+    <string name="panel_about_button_hp">Official Site (Japanese)</string>
+    <string name="panel_about_delete">Delete Server</string>
+    <string name="panel_about_delete_text">If you delete your server, the server data will be deleted completely from the system and you will NOT be able to reconstruct your server with the data.</string>
+
+    <string name="loading">Loading&#8230;</string>
+    <string name="back">Back</string>
+    <string name="bds">Bedrock Dedicated Server</string>
+    <string name="out_of_service">Could not connect to the server due to system maintenance.</string>
+    <string name="network_error">Network error</string>
+    <string name="error">Error</string>
+
+    <string name="status_running">Running</string>
+    <string name="status_stopped">Stopped</string>
+    <string name="status_running_processing">Preparing to run&#8230;</string>
+    <string name="status_stopped_processing">Preparing to stop&#8230;</string>
+
+    <string name="popup_official_site">Open in Web</string>
+    <string name="popup_logout">Logout</string>
+    <string name="popup_info">Server Info</string>
+
+    <string name="dialog_extend_title">Extend Remaining Time</string>
+    <string name="dialog_extend_text">You can extend the remaining time after you watch short ad-video. There is no charge for extension.</string>
+    <string name="dialog_extend_button_do">Watch ad-video</string>
+    <string name="dialog_extend_success">Extended Remaining Time</string>
+    <string name="dialog_extend_failed">Could not load ad-video.</string>
+    <string name="dialog_extend_error">Error</string>
+    <string name="dialog_extend_error_time">You can extend Remaining Time when it is less than 6 hours.</string>
+
+    <string name="dialog_info_text">These Information will be needed when you access your server on Web version. \nServer ID: %1$s\nPassword: %2$s</string>
+
+    <string-array name="op_list">
+        <item>Make OP</item>
+        <item>Unmake OP</item>
+    </string-array>
+
+    <string-array name="time_list">
+        <item>Morning</item>
+        <item>Noon</item>
+        <item>Evening</item>
+        <item>Midnight</item>
+    </string-array>
+
+    <string-array name="gamemode_list">
+        <item>Survival</item>
+        <item>Creative</item>
+    </string-array>
+
+</resources>
