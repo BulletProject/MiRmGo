@@ -62,6 +62,10 @@ class LoginFragment : Fragment() {
         }
     }
 
+    fun setBackButtonEnabled(isEnabled: Boolean) {
+        loginBackButton.isEnabled = isEnabled
+    }
+
     fun setErrorTextViewText(id: Int) {
         loginErrorTextView.text = MyApplication.getString(id)
     }

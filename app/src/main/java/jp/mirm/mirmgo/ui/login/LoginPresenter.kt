@@ -24,6 +24,7 @@ class LoginPresenter(private val fragment: LoginFragment) : AbstractPresenter() 
                 fragment.setTryLoginButtonVisibility(false)
                 fragment.setProgressBarVisibility(true)
                 fragment.setErrorTextViewVisibility(false)
+                fragment.setBackButtonEnabled(false)
             }
             .onLoginSuccess { onLoginSucceeded() }
             .onLoginFailed {
@@ -44,6 +45,7 @@ class LoginPresenter(private val fragment: LoginFragment) : AbstractPresenter() 
                 fragment.setProgressBarVisibility(false)
                 fragment.setTryLoginButtonVisibility(true)
             }
+            .onFinish { fragment.setBackButtonEnabled(true) }
             .onNetworkError {
                 fragment.setErrorTextViewText(R.string.network_error)
                 fragment.setErrorTextViewVisibility(true)
