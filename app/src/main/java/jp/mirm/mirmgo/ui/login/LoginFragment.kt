@@ -1,6 +1,7 @@
 package jp.mirm.mirmgo.ui.login
 
 import android.os.Bundle
+import android.text.Editable
 import android.view.*
 import androidx.fragment.app.Fragment
 import jp.mirm.mirmgo.MyApplication
@@ -38,6 +39,13 @@ class LoginFragment : Fragment() {
         loginBackButton.setOnClickListener {
             presenter.onBackButtonClick()
         }
+
+        loginToCreatedButton.setOnClickListener {
+            presenter.onLoginToCreatedServerButtonClick()
+        }
+
+        setServerId(arguments?.getString("server_id") ?: "")
+        setPassword(arguments?.getString("password") ?: "")
 
     }
 
@@ -80,6 +88,14 @@ class LoginFragment : Fragment() {
 
     fun isSaveDataChecked(): Boolean {
         return loginSavingCheckBox.isChecked
+    }
+
+    fun setServerId(serverId: String) {
+        loginServerId.text = Editable.Factory.getInstance().newEditable(serverId)
+    }
+
+    fun setPassword(password: String) {
+        loginPassword.text = Editable.Factory.getInstance().newEditable(password)
     }
 
 }

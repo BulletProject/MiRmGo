@@ -161,4 +161,5 @@ class PanelMainPresenter(private val fragment: PanelMainFragment) : AbstractPres
             fragment.showSnackbar(R.string.panel_install_minecraft)
         }
     }
+
 }

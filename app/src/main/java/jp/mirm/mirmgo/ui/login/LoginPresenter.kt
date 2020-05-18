@@ -14,6 +14,8 @@ import jp.mirm.mirmgo.ui.mainmenu.MainMenuFragment
 import jp.mirm.mirmgo.ui.panel.PanelFragment
 import jp.mirm.mirmgo.firebase.FirebaseEventManager
 import jp.mirm.mirmgo.firebase.FirebaseRemoteConfigManager
+import jp.mirm.mirmgo.ui.panel.dialog.ExtendDialog
+import jp.mirm.mirmgo.ui.panel.dialog.ServerListDialog
 import jp.mirm.mirmgo.util.Preferences
 
 class LoginPresenter(private val fragment: LoginFragment) : AbstractPresenter() {
@@ -113,5 +115,16 @@ class LoginPresenter(private val fragment: LoginFragment) : AbstractPresenter() 
     private fun saveLoginData(serverId: String, password: String) {
         Preferences.addServer(serverId, password)
         Preferences.setCurrentServer(serverId)
+    }
+
+    fun onLoginToCreatedServerButtonClick() {
+        val dialog = ServerListDialog.newInstance(this)
+        dialog.show(fragment.activity!!.supportFragmentManager, "server_list")
+    }
+
+    fun onServerListItemClick(serverId: String) {
+        val password = Preferences.getDecryptedPassword(serverId)
+        fragment.setPassword(password!!)
+        fragment.setServerId(serverId)
     }
 }

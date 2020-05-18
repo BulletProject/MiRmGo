@@ -98,8 +98,16 @@
         android:id="@+id/loginBackButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/dr_button_outline"
         android:text="@string/back"
         android:textColor="@color/wizardGrey" />
+
+    <Button
+        android:id="@+id/loginToCreatedButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login_to_created" />
 
 </LinearLayout>
