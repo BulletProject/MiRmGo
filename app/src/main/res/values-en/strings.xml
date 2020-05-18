@@ -11,7 +11,7 @@
 
     <string name="create_1_title">1.Gamemode</string>
     <string name="create_survival">Survival</string>
-    <string name="create_survival_text">・Get blocks from scratch\n・You may die\n・Kill Mobs such as Zonbies</string>
+    <string name="create_survival_text">・Get blocks from scratch\n・You may die\n・Kill Mobs such as Zombies</string>
     <string name="create_creative">Creative</string>
     <string name="create_creative_text">・Be able to use all blocks\n・You will not die\n・Be able to fly freely</string>
     <string name="create_button">Play with this!</string>
@@ -46,7 +46,7 @@
     <string name="login_save">Auto Login</string>
     <string name="login_e_failed">Incorrect Server ID or Password.</string>
     <string name="login_e_error">Error occurred.</string>
-    <string name="login_e_not_supported">You can manager PMMP or Cuberite servers on only Web version.。</string>
+    <string name="login_e_not_supported">You can manager PMMP or Cuberite servers on only Web version.</string>
 
     <string name="panel_serverId">IP Address</string>
     <string name="panel_port">Port</string>
@@ -72,7 +72,7 @@
     <string name="panel_op_title">OP Setting</string>
     <string name="panel_name_hint">Player name</string>
     <string name="panel_time_title">Time Setting</string>
-    <string name="panel_gamemode_title">Gamemode Setting</string>
+    <string name="panel_gamemode_title">GameMode Setting</string>
     <string name="panel_wl_title">White-list Setting</string>
     <string name="panel_wl_checkbox">Enable / Disable White-list</string>
     <string name="panel_setting_start">Running </string>
