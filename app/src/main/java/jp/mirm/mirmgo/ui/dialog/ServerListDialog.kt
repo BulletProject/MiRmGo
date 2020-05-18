@@ -35,7 +35,7 @@ class ServerListDialog(val loginPresenter: LoginPresenter) : DialogFragment() {
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         val view = activity!!.layoutInflater.inflate(R.layout.dialog_server_list, null)
-        view.loginServerList.setOnItemClickListener { parent, view, position, id ->
+        view.loginServerList.setOnItemClickListener { _, _, position, _ ->
             this.dismiss()
             loginPresenter.onServerListItemClick(content.keys.toList()[position])
         }
