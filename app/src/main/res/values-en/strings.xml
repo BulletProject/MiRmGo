@@ -29,8 +29,8 @@
 
     <string name="create_terms_title">3.Terms</string>
     <string name="create_terms_text">You HAVE TO read the terms to the end and check the checkbox at bottom if you agree.</string>
-    <string name="create_terms_accept">I agree.</string>
-    <string name="create_terms_not_accept">I disagree.</string>
+    <string name="create_terms_accept">Agree</string>
+    <string name="create_terms_not_accept">Disagree</string>
 
     <string name="create_confirm_title">4.Confirm</string>
     <string name="create_confirm_gamemode">Gamemode</string>
@@ -78,7 +78,7 @@
     <string name="panel_setting_success">Completed</string>
     <string name="panel_setting_error">Error</string>
     <string name="panel_setting_error_server">Run your server first.</string>
-    <string name="panel_install_minecraft">You have to install Minecraft:Bedrock Edition</string>
+    <string name="panel_install_minecraft">You have to install Minecraft:Bedrock Edition first.</string>
 
     <string name="panel_info_ways">About app</string>
     <string name="panel_about_build_title">Build Version</string>

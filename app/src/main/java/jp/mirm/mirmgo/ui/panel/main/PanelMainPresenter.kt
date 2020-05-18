@@ -88,7 +88,14 @@ class PanelMainPresenter(private val fragment: PanelMainFragment) : AbstractPres
             .doAction(if (isChecked) ActionResponse.ACTION_START else ActionResponse.ACTION_STOP)
     }
 
-    private fun onUpdateStatus(isOn: Boolean) {
+    private fun onUpdateStatus(isOn: Boolean) = GlobalScope.launch(Dispatchers.Main) {
+        fragment.setStatus(
+            if (isOn) R.string.status_running_processing else R.string.status_stopped_processing,
+            if (isOn) R.color.pureApple else R.color.carminePink
+        )
+
+        if (!isOn) delay(15000)
+
         GetServerDataManager()
             .onSuccess {
                 when (it.serverStatus) {
@@ -102,15 +109,6 @@ class PanelMainPresenter(private val fragment: PanelMainFragment) : AbstractPres
                         fragment.setStatusChecked(false)
                         fragment.setStatus(R.string.status_stopped, R.color.carminePink)
                     }
-                }
-            }
-            .onInitialize {
-                fragment.setStatus(
-                    if (isOn) R.string.status_running_processing else R.string.status_stopped_processing,
-                    if (isOn) R.color.pureApple else R.color.carminePink
-                )
-                runBlocking {
-                    if (!isOn) delay(15000)
                 }
             }
             .onOutOfService { fragment.showSnackbar(R.string.out_of_service) }
