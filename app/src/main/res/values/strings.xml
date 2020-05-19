@@ -42,6 +42,7 @@
     <string name="login_title">MiRmにログイン</string>
     <string name="login_server_id">サーバーID</string>
     <string name="login_password">パスワード</string>
+    <string name="login_to_created">作成済みのサーバー</string>
     <string name="login_save">ログイン情報を保存する</string>
     <string name="login_e_failed">サーバーIDまたはパスワードが違います。</string>
     <string name="login_e_error">エラーが発生しました。</string>
@@ -137,17 +138,17 @@
 
     <!-- Versions -->
     <string name="debug_flag">mirm_go</string>
-    <string name="version_code">0.0.5 / むらさきいろのくるま</string>
-    <string name="version">Debug 0.0.5</string>
+    <string name="version_code">1.0.1</string>
+    <string name="version">1.0.1 Alpha</string>
     <string name="developer">Itsu (MiRm Development Team)</string>
 
     <!-- App Id: ca-app-pub-1788933592781069~5529258460 -->
     <!-- Extend Movie Id: ca-app-pub-1788933592781069/1015298382 -->
     <!-- Banner 1 Id: ca-app-pub-1788933592781069/5501338307 -->
     <string name="admob_appid_test">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="admob_appid">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="admob_appid">ca-app-pub-1788933592781069~5529258460</string>
     <string name="admob_movie_test">ca-app-pub-3940256099942544/5224354917</string>
-    <string name="admob_movie_extend">ca-app-pub-3940256099942544/5224354917</string>
+    <string name="admob_movie_extend">ca-app-pub-1788933592781069/1015298382</string>
     <string name="admob_banner_test">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="admob_banner_1">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="admob_banner_1">ca-app-pub-1788933592781069/5501338307</string>
 </resources>

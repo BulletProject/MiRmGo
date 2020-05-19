@@ -11,7 +11,6 @@ object Http {
     private val cookieManager: CookieManager
     private val cookies = mutableMapOf<String, String>()
 
-
     init {
         cookieManager = CookieManager(
             PersistentCookieStore(MyApplication.getApplication()),
@@ -147,11 +146,13 @@ object Http {
     }
 
     private fun processCookies(connection: HttpURLConnection) {
-        val fields = connection.headerFields
-        val headers = fields["Set-Cookie"]
-        headers?.forEach {
-            HttpCookie.parse(it).forEach {
-                cookies[it.name] = it.value
+        if (connection.url.toString().contains(URLHolder.HOST)) {
+            val fields = connection.headerFields
+            val headers = fields["Set-Cookie"]
+            headers?.forEach {
+                HttpCookie.parse(it).forEach {
+                    cookies[it.name] = it.value
+                }
             }
         }
     }

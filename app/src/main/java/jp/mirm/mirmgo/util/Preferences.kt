@@ -64,7 +64,7 @@ object Preferences {
         return preferences.getBoolean(key, false)
     }
 
-    private fun getServersMap(): MutableMap<String, String> {
+    fun getServersMap(): MutableMap<String, String> {
         val servers = gson.fromJson<MutableMap<String, String>>(
             getString(
                 "servers", gson.toJson(mutableMapOf<String, String>())

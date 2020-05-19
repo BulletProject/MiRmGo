@@ -11,7 +11,7 @@
 
     <string name="create_1_title">1.Gamemode</string>
     <string name="create_survival">Survival</string>
-    <string name="create_survival_text">・Get blocks from scratch\n・You may die\n・Kill Mobs such as Zonbies</string>
+    <string name="create_survival_text">・Get blocks from scratch\n・You may die\n・Kill Mobs such as Zombies</string>
     <string name="create_creative">Creative</string>
     <string name="create_creative_text">・Be able to use all blocks\n・You will not die\n・Be able to fly freely</string>
     <string name="create_button">Play with this!</string>
@@ -29,8 +29,8 @@
 
     <string name="create_terms_title">3.Terms</string>
     <string name="create_terms_text">You HAVE TO read the terms to the end and check the checkbox at bottom if you agree.</string>
-    <string name="create_terms_accept">I agree.</string>
-    <string name="create_terms_not_accept">I disagree.</string>
+    <string name="create_terms_accept">Agree</string>
+    <string name="create_terms_not_accept">Disagree</string>
 
     <string name="create_confirm_title">4.Confirm</string>
     <string name="create_confirm_gamemode">Gamemode</string>
@@ -42,10 +42,11 @@
     <string name="login_title">Login to MiRm Go</string>
     <string name="login_server_id">Server ID</string>
     <string name="login_password">Password</string>
+    <string name="login_to_created">Other servers</string>
     <string name="login_save">Auto Login</string>
     <string name="login_e_failed">Incorrect Server ID or Password.</string>
     <string name="login_e_error">Error occurred.</string>
-    <string name="login_e_not_supported">You can manager PMMP or Cuberite servers on only Web version.。</string>
+    <string name="login_e_not_supported">You can manager PMMP or Cuberite servers on only Web version.</string>
 
     <string name="panel_serverId">IP Address</string>
     <string name="panel_port">Port</string>
@@ -71,14 +72,14 @@
     <string name="panel_op_title">OP Setting</string>
     <string name="panel_name_hint">Player name</string>
     <string name="panel_time_title">Time Setting</string>
-    <string name="panel_gamemode_title">Gamemode Setting</string>
+    <string name="panel_gamemode_title">GameMode Setting</string>
     <string name="panel_wl_title">White-list Setting</string>
     <string name="panel_wl_checkbox">Enable / Disable White-list</string>
     <string name="panel_setting_start">Running </string>
     <string name="panel_setting_success">Completed</string>
     <string name="panel_setting_error">Error</string>
     <string name="panel_setting_error_server">Run your server first.</string>
-    <string name="panel_install_minecraft">You have to install Minecraft:Bedrock Edition</string>
+    <string name="panel_install_minecraft">You have to install Minecraft:Bedrock Edition first.</string>
 
     <string name="panel_info_ways">About app</string>
     <string name="panel_about_build_title">Build Version</string>
