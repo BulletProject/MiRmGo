@@ -3,10 +3,7 @@ package jp.mirm.mirmgo.common.manager
 import jp.mirm.mirmgo.common.network.MiRmAPI
 import jp.mirm.mirmgo.common.network.model.AbstractResponse
 import jp.mirm.mirmgo.common.network.model.LoginResponse
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class LoginManager : BaseManager<LoginManager>() {
 
@@ -18,10 +15,10 @@ class LoginManager : BaseManager<LoginManager>() {
     fun doLogin(serverId: String, password: String) = GlobalScope.launch(Dispatchers.Main) {
         onInitialize.invoke()
 
-        GlobalScope.async(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             MiRmAPI.login(serverId, password)
 
-        }.await().let {
+        }.let {
             if (it.status != AbstractResponse.STATUS_SUCCEEDED) {
                 onNotSucceeded(it.apiStatusCode!!)
 

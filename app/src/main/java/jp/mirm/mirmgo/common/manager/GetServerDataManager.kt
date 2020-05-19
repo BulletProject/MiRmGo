@@ -3,10 +3,7 @@ package jp.mirm.mirmgo.common.manager
 import jp.mirm.mirmgo.common.network.MiRmAPI
 import jp.mirm.mirmgo.common.network.model.AbstractResponse
 import jp.mirm.mirmgo.common.network.model.ServerDataResponse
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class GetServerDataManager : BaseManager<GetServerDataManager>() {
 
@@ -15,10 +12,10 @@ class GetServerDataManager : BaseManager<GetServerDataManager>() {
     fun doGet() = GlobalScope.launch(Dispatchers.Main) {
         onInitialize.invoke()
 
-        GlobalScope.async(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             MiRmAPI.getServerData()
 
-        }.await().let {
+        }.let {
             if (it.apiStatusCode != AbstractResponse.STATUS_SUCCEEDED) {
                 onNotSucceeded(it.apiStatusCode!!)
             } else {

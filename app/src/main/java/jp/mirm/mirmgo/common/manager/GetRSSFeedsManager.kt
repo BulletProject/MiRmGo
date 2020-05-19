@@ -2,10 +2,7 @@ package jp.mirm.mirmgo.common.manager
 
 import jp.mirm.mirmgo.common.network.MiRmAPI
 import jp.mirm.mirmgo.common.network.model.AbstractResponse
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class GetRSSFeedsManager : BaseManager<GetRSSFeedsManager>() {
 
@@ -14,10 +11,10 @@ class GetRSSFeedsManager : BaseManager<GetRSSFeedsManager>() {
     fun doGet() = GlobalScope.launch(Dispatchers.Main) {
         onInitialize.invoke()
 
-        GlobalScope.async(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             MiRmAPI.getLatestRSSFeeds()
 
-        }.await().let {
+        }.let {
             if (it.apiStatusCode != AbstractResponse.STATUS_SUCCEEDED) {
                 onNotSucceeded(it.apiStatusCode!!)
             } else {

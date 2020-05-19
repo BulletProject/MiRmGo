@@ -4,10 +4,7 @@ import jp.mirm.mirmgo.common.network.MiRmAPI
 import jp.mirm.mirmgo.common.network.model.AbstractResponse
 import jp.mirm.mirmgo.common.network.model.CreateBDSServerResponse
 import jp.mirm.mirmgo.model.NewServer
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class CreateBDSServerManager : BaseManager<CreateBDSServerManager>() {
 
@@ -20,10 +17,10 @@ class CreateBDSServerManager : BaseManager<CreateBDSServerManager>() {
     fun create(server: NewServer) = GlobalScope.launch(Dispatchers.Main) {
         onInitialize.invoke()
 
-        GlobalScope.async(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             MiRmAPI.createBDSServer(server.serverId!!, server.password!!, server.getGameModeAsString(), server.getDifficultyAsString(), "operator")
 
-        }.await().let {
+        }.let {
             if (it.apiStatusCode != AbstractResponse.STATUS_SUCCEEDED) {
                 onNotSucceeded(it.apiStatusCode!!)
             } else {

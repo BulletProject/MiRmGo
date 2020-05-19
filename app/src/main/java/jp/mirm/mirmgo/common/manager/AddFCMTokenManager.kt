@@ -3,10 +3,7 @@ package jp.mirm.mirmgo.common.manager
 import jp.mirm.mirmgo.common.network.MiRmAPI
 import jp.mirm.mirmgo.common.network.model.AbstractResponse
 import jp.mirm.mirmgo.common.network.model.AddFCMTokenResponse
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class AddFCMTokenManager : BaseManager<AddFCMTokenManager>() {
 
@@ -15,10 +12,10 @@ class AddFCMTokenManager : BaseManager<AddFCMTokenManager>() {
     fun addFCMToken(token: String) = GlobalScope.launch(Dispatchers.Main) {
         onInitialize.invoke()
 
-        GlobalScope.async(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             MiRmAPI.addFCMToken(token)
 
-        }.await().let {
+        }.let {
             if (it.apiStatusCode != AbstractResponse.STATUS_SUCCEEDED) {
                 onNotSucceeded(it.apiStatusCode!!)
             } else {
